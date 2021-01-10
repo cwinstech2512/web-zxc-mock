@@ -334,6 +334,11 @@ const router = new Router({
       name: 'kgjuejin',
       component: (resolve) => require(['@/components/Activity/Kgjuejin/Kgjuejin.vue'], resolve)
     },
+    { // LB周周返现，最高返现11888元!
+      path: '/lBweekstake',
+      name: 'lBweekstake',
+      component: (resolve) => require(['@/components/Activity/LBweekstake/LBweekstake.vue'], resolve)
+    },
     // { // 华为
     //   path: '/charmTree',
     //   name: 'charmTree',

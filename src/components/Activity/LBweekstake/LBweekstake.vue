@@ -213,5 +213,6 @@ export default {
 .c_area_4 > ul > li{
     list-style-type: decimal;
     font-size: 1.8rem;
+    width: 100%;
 }
 </style>

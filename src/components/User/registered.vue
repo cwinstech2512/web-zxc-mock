@@ -21,6 +21,14 @@
             <ul class="bd-content"
                 v-if="active == 0">
               <li>
+                <label>用户名：</label>
+                <input type="text"
+                       placeholder="用户名由6-10个字符组成"
+                       id="Name"
+                       v-model.trim="phonereg.UserName" />
+                <em>*用户名由6-10个字符组成</em>
+              </li>
+              <li>
                 <label>手机号码：</label>
                 <input type="text"
                        placeholder="请输入手机号"
@@ -253,6 +261,7 @@ export default {
         }
       ],
       phonereg: {
+        UserName: '',
         Phone: '',
         SMSCode: '',
         Fullname: '',
@@ -429,6 +438,16 @@ export default {
         return
       }
       let _this = this
+      if (_this.phonereg.UserName.length < 1) {
+        _this.$swal({
+          text: '请输入用户名',
+          type: 'warning',
+          confirmButtonText: '确定'
+        }).then(x => {
+          // this.$refs.pphone.focus()
+        })
+        return
+      }
       if (_this.phonereg.Phone.length < 1) {
         _this.$swal({
           text: '请输入手机号码',

@@ -518,7 +518,7 @@ export default {
       }
       _this.isreging = true
       this.$bus.$emit('loadingShow')
-      let url = '/api/reg/phone'
+      let url = '/api/reg/username'
       _this.$https
         .fetchPost(url, this.Secret(_this.phonereg))
         .then(res => {

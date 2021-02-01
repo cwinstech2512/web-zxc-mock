@@ -5,6 +5,9 @@
         <li class="on">
           <span @click="jumpback">银行卡</span>
         </li>
+        <li>
+          <span @click="jumpback">虚拟钱包</span>
+        </li>
       </ul>
     </div>
     <div class="bankCardMain">
@@ -281,6 +284,7 @@ export default {
 }
 .bankCard .bankCardMenu ul {
   width: 100%;
+  display: flex;
 }
 .bankCard .bankCardMenu ul li {
   width: 135px;

@@ -18,11 +18,11 @@
   </div>
   <div class="copyright">
     <span>
-      <i class="pg">
+      <!-- <i class="pg">
         <a :title="pagcor"></a>
       </i>
-      <i class="afab"></i>
-      <i/>
+      <i class="afab"></i> -->
+      <!-- <i/> -->
       {{copyright}}
     </span>
   </div>
@@ -34,7 +34,7 @@ export default {
   name: 'Footer',
   data () {
     return {
-      copyright: '众鑫娱乐由菲律宾AFAB（GICC）颁发合法执照并受其监督 © 2013-2022 众鑫娱乐版权所有',
+      copyright: 'Copyright © 2013 - 2022 ZX Gaming Company, LLC. All Rights Reserved.',
       pagcor: 'PT游戏是由PT TransPacific在PAGCOR的授权下部署',
       usingHelp: [
         {
@@ -209,7 +209,7 @@ export default {
   height: 50px;
   margin: 0 auto;
   font-size: 12px;
-  text-align: right;
+  text-align: center;
   color: #686868;
 }
 @keyframes slideInLeft {

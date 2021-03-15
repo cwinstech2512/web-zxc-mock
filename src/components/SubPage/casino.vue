@@ -100,7 +100,7 @@ export default {
           document.location.href = 'https://app.zxapp.net/zxcbet_ag.rar'
           break
         case 'ea':
-          document.location.href = 'http://download.ea3-mission.com/zxccasino.exe'
+          document.location.href = 'http://download.ea-mission.com/zxccasino.exe'
           break
       }
     },

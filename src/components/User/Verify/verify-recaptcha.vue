@@ -1,0 +1,288 @@
+<template>
+<div class='RecaptchaPopup'>
+  <div
+    class="recaptcha_bg"
+  >
+    <img
+      class="recaptcha_icon"
+      src="static/images/popup/recaptcha_icon.png"/>
+    <p><font color="red">*</font>请输入我们发送到您注册绑定手机号的一次性密码[OTP]</p>
+
+    <div class="Rd_bd">
+      <div class="Rd_bd-item">
+        <ul>
+          <li>
+            <input type="text"
+                    v-model.trim="vCode"
+                    placeholder="输入OTP" />
+          </li>
+          <li>
+            <button class="RtdFirstBtn"
+                    type="button"
+                    @click="vaildCode()">安全验证</button>
+          </li>
+          <li>
+            <button class="RtdFirstBtn"
+                    type="button">重新发送代码</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</template>
+
+<script>
+export default {
+  name: 'VerifyPopup',
+  props: ['account'],
+  //  import引入的组件需要注入到对象中才能使用
+  components: {},
+  data () {
+  //  这里存放数据
+    return {
+      accountData: {
+        Username: '',
+        Token: '',
+        Balance: '',
+        isShowIpDiffCheckCode: '',
+        LastLoginTime: ''
+      },
+      invalid: '',
+      vCode: ''
+    }
+  },
+  //  监听属性 类似于data概念
+  computed: {},
+  //  监控data中的数据变化
+  watch: {
+    account: {
+      handler (value) {
+        this.accountData.Username = value.Username
+        this.accountData.Token = value.Token
+        this.accountData.Balance = value.Balance
+        this.accountData.isShowIpDiffCheckCode = value.isShowIpDiffCheckCode
+        this.accountData.LastLoginTime = value.LastLoginTime
+        if (this.accountData.isShowIpDiffCheckCode) {
+          this.timeout()
+        }
+      },
+      deep: true,
+      immediate: true
+    }
+  },
+  //  方法集合
+  methods: {
+    vaildCode () {
+      let url = '/api/Login/IpDiffLoginCheckCode'
+      let _this = this
+      let params = {
+        UserName: _this.accountData.Username,
+        VCode: _this.vCode
+      }
+      _this.$https
+        .fetchPost(url, _this.Secret(params))
+        .then(res => {
+          if (res.data.Success === true) {
+            _this.saveinfo(
+              _this.accountData.Username,
+              _this.accountData.Token,
+              _this.accountData.Balance,
+              _this.accountData.LastLoginTime
+            )
+            clearTimeout(_this.invalid)
+            _this.$emit('closePopupRec')
+            _this.$router.push('/')
+            _this.$router.go(0)
+          } else {
+            _this.$swal({
+              text: res.data.Message,
+              type: 'error',
+              confirmButtonText: '确定'
+            })
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    timeout () {
+      this.invalid = setTimeout(() => {
+        this.$swal({
+          text: '验证码失效',
+          type: 'warning',
+          confirmButtonText: '确定'
+        }).then(x => {
+          this.$router.push('/')
+          this.$router.go(0)
+        })
+      }, 300000)
+    }
+  },
+  //  生命周期 - 创建完成（可以访问当前this实例）
+  created () {
+
+  },
+  //  生命周期 - 挂载完成（可以访问DOM元素）
+  mounted () {
+  }
+}
+</script>
+<style scoped>
+.RecaptchaPopup{
+  width:100%;
+  height:100%;
+  position: fixed;
+  top:0;
+  left: 0;
+  z-index:999;
+  display:block;
+  background-color:rgba(0,0,0,.6);
+}
+.RecaptchaPopup p{
+  margin: 0 auto;
+  position: relative;
+  width: 60%;
+  margin-top: 8%;
+  text-align: center;
+}
+.RecaptchaPopup .recaptcha_bg{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: bounceInDown .8s linear;
+  /* margin: 70px auto; */
+  padding: 20px;
+  background: #fff;
+  position: relative;
+}
+.RecaptchaPopup .recaptcha_icon{
+  margin: 0 auto;
+  width: 80%;
+  margin-top: 20px;
+}
+.RecaptchaPopup .AP_close{
+  width: 40px;
+  height: 54px;
+  position: absolute;
+  top: 0;
+  cursor: pointer;
+  right: 3%;
+}
+.RecaptchaPopup .AP_Btn{
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  width: 256px;
+  height: 60px;
+  margin-left: -128px;
+  color: #fff;
+  text-align: center;
+  line-height: 50px;
+  font-size: 18px;
+  cursor: pointer;
+}
+.RecaptchaPopup .Rd_bd {
+  width: 100%;
+  margin-top: 40px;
+  overflow: hidden;
+}
+.RecaptchaPopup .Rd_bd .Rd_bd-item {
+  width: 100%;
+  overflow: hidden;
+}
+.RecaptchaPopup .Rd_bd .Rd_bd-item ul {
+  width: 372px;
+  margin: 0 auto;
+}
+.RecaptchaPopup .Rd_bd .Rd_bd-item:nth-child(2) ul {
+  float: left;
+}
+.RecaptchaPopup .Rd_bd .Rd_bd-item li {
+  width: 100%;
+  height: 46px;
+  position: relative;
+  line-height: 46px;
+  margin-top: 20px;
+  text-align: center;
+}
+.RecaptchaPopup .Rd_bd .Rd_bd-item li label {
+  width: 70px;
+  display: block;
+  float: left;
+  text-align: right;
+  color: #717171;
+}
+.RecaptchaPopup .Rd_bd .Rd_bd-item li input {
+  width: 270px;
+  height: 46px;
+  padding: 5px 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid #eaeaea;
+  border-radius: 2px;
+  -moz-box-shadow: 0px 2px 2px #f2f2f2 inset;
+  -webkit-box-shadow: 0px 2px 2px #f2f2f2 inset;
+  box-shadow: 0px 2px 2px #f2f2f2 inset;
+}
+.RecaptchaPopup .Rd_bd .Rd_bd-item li .unlock {
+  width: 270px;
+  height: 46px;
+  margin-left: 70px;
+}
+.RecaptchaPopup .Rd_bd .Rd_bd-item li em {
+  padding: 0 8px;
+  background: #0088ff;
+  position: absolute;
+  right: 30px;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+}
+.RecaptchaPopup .Rd_bd .Rd_bd-item li em.dis {
+  background: #cecece;
+}
+.RecaptchaPopup .Rd_bd .Rd_bd-item li em:hover {
+  background: #fca42c;
+}
+.RecaptchaPopup .Rd_bd .Rd_bd-item li button {
+  width: 270px;
+  height: 46px;
+  background-color: #0088fe;
+  border-radius: 2px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+.RecaptchaPopup .Rd_bd .Rd_bd-item li button:hover {
+  background-color: #2a9cff;
+}
+.RecaptchaPopup .Rd_bd .Rd_bd-item li button.hid {
+  background-color: #ddd;
+  cursor: default;
+}
+.RecaptchaPopup .Rd_bd .Rd_bd-item .tit {
+  width: 220px;
+  height: 40px;
+  line-height: 40px;
+  margin: 0 auto 20px auto;
+}
+.RecaptchaPopup .Rd_bd .Rd_bd-item .tit i {
+  width: 26px;
+  height: 26px;
+  display: block;
+  float: left;
+  margin-right: 10px;
+  margin-top: 8px;
+  background: url(../../../assets/images/user/handle.png);
+}
+.RecaptchaPopup .Rd_bd .Rd_bd-item .tit h1 {
+  font-size: 26px;
+  color: #4b4b4b;
+  font-weight: inherit;
+}
+</style>

@@ -1,5 +1,6 @@
 <template>
   <div class="Head">
+    <Verify :showRecPopup="showRecPopup" :account="account"/>
     <div class="top">
       <div class="topmin">
         <div class="left">
@@ -132,13 +133,15 @@
 </template>
 
 <script>
+import Verify from '@/components/User/Verify/verify.vue'
 import menubar from '@/components/header/menubar'
 var isLoginSubmit = false
 export default {
   name: 'Head',
   //  import引入的组件需要注入到对象中才能使用
   components: {
-    menubar
+    menubar,
+    Verify
   },
   data () {
     //  这里存放数据
@@ -201,7 +204,15 @@ export default {
           url: 'iphone12'
         }
       ],
-      MsgResult: []
+      MsgResult: [],
+      showRecPopup: false,
+      account: {
+        Username: '',
+        Token: '',
+        Balance: '',
+        isShowIpDiffCheckCode: '',
+        LastLoginTime: ''
+      }
     }
   },
   //  监听属性 类似于data概念
@@ -372,13 +383,22 @@ export default {
           this.$bus.$emit('loadingHide')
           if (res.data.Success === true) {
             _this.Balance = res.data.Result.Balance
-            _this.saveinfo(
-              _this.loginForm.username,
-              res.data.Result.Token,
-              res.data.Result.Balance,
-              res.data.Result.LastLoginTime
-            )
-            _this.returnHome()
+            if (res.data.isShowIpDiffCheckCode === true) {
+              _this.account.Username = _this.loginForm.username
+              _this.account.Token = res.data.Result.Token
+              _this.account.Balance = res.data.Result.Balance
+              _this.account.LastLoginTime = res.data.Result.LastLoginTime
+              _this.account.isShowIpDiffCheckCode = true
+              _this.showRecPopup = true
+            } else {
+              _this.saveinfo(
+                _this.loginForm.username,
+                res.data.Result.Token,
+                res.data.Result.Balance,
+                res.data.Result.LastLoginTime
+              )
+              _this.returnHome()
+            }
           } else if (res.data.Status === 'VCodeError') {
             // 验证码错误
             _this.loginbtn = '登录'

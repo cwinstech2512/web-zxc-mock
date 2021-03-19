@@ -95,6 +95,10 @@ export default {
               text: res.data.Message,
               type: 'error',
               confirmButtonText: '确定'
+            }).then(x => {
+              _this.$router.push('/')
+              _this.$router.go(0)
+              _this.$emit('closePopupRec')
             })
           }
         })

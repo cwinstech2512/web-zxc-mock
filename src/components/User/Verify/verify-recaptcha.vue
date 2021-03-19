@@ -3,12 +3,12 @@
   <div
     class="recaptcha_bg"
   >
-    <img
-      class="recaptcha_icon"
-      src="static/images/popup/recaptcha_icon.png"/>
-    <p><font color="red">*</font>请输入我们发送到您注册绑定手机号的一次性密码[OTP]</p>
-
+    <div class="logo">
+        <div class="logoA"/>
+        <div class="logoB"/>
+    </div>
     <div class="Rd_bd">
+      <p><font color="red">*</font>请输入我们发送到您注册绑定手机号的一次性密码[OTP]</p>
       <div class="Rd_bd-item">
         <ul>
           <li>
@@ -20,10 +20,6 @@
             <button class="RtdFirstBtn"
                     type="button"
                     @click="vaildCode()">安全验证</button>
-          </li>
-          <li>
-            <button class="RtdFirstBtn"
-                    type="button">重新发送代码</button>
           </li>
         </ul>
       </div>
@@ -137,7 +133,8 @@ export default {
   left: 0;
   z-index:999;
   display:block;
-  background-color:rgba(0,0,0,.6);
+  background: url(../../../assets/images/SubPage/bg.jpg);
+  background-size:contain;
 }
 .RecaptchaPopup p{
   margin: 0 auto;
@@ -156,8 +153,23 @@ export default {
   animation: bounceInDown .8s linear;
   /* margin: 70px auto; */
   padding: 20px;
-  background: #fff;
   position: relative;
+}
+.RecaptchaPopup .logo{
+  width: 195px;
+  margin: 0 auto;
+}
+.RecaptchaPopup .logo .logoA {
+  width: 58px;
+  height: 58px;
+  float: left;
+  background: url(../../../assets/images/header/logoA.png);
+}
+.RecaptchaPopup .logo .logoB {
+  width: 136px;
+  height: 58px;
+  float: right;
+  background: url(../../../assets/images/header/logoB.png);
 }
 .RecaptchaPopup .recaptcha_icon{
   margin: 0 auto;
@@ -186,9 +198,12 @@ export default {
   cursor: pointer;
 }
 .RecaptchaPopup .Rd_bd {
-  width: 100%;
-  margin-top: 40px;
+  margin: 100px auto 0 auto;
   overflow: hidden;
+  background-color: white;
+  width: 350px;
+  height: 250px;
+  border: 1px solid rgb(224, 215, 215);
 }
 .RecaptchaPopup .Rd_bd .Rd_bd-item {
   width: 100%;

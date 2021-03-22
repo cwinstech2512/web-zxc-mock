@@ -79,7 +79,7 @@ export default {
       _this.$https
         .fetchPost(url, _this.Secret(params))
         .then(res => {
-          if (res.data.Success === true) {
+          if (res.data.Message === '') {
             _this.saveinfo(
               _this.accountData.Username,
               _this.accountData.Token,

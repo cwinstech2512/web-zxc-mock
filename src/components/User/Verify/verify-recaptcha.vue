@@ -88,15 +88,16 @@ export default {
       _this.$https
         .fetchPost(url, _this.Secret(params))
         .then(res => {
-          if (res.data.Message == null || res.data.Message === '') {
+          console.log(res)
+          if ((res.data.Message == null || res.data.Message === '') && res.data.Success === true) {
             _this.account.Token = res.data.Result.Token
             _this.account.Balance = res.data.Result.Balance
             _this.account.LastLoginTime = res.data.Result.LastLoginTime
             _this.saveinfo(
               _this.accountData.Username,
-              _this.accountData.Token,
-              _this.accountData.Balance,
-              _this.accountData.LastLoginTime
+              _this.account.Token,
+              _this.account.Balance,
+              _this.account.LastLoginTime
             )
             clearTimeout(_this.invalid)
             _this.$emit('closePopupRec')

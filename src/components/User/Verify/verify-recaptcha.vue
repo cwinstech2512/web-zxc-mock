@@ -39,6 +39,8 @@ export default {
     return {
       accountData: {
         Username: '',
+        Password: '',
+        VCodeKey: '',
         Token: '',
         Balance: '',
         isShowIpDiffCheckCode: '',
@@ -55,8 +57,10 @@ export default {
     account: {
       handler (value) {
         this.accountData.Username = value.Username
+        this.accountData.Password = value.Password
         this.accountData.Token = value.Token
         this.accountData.Balance = value.Balance
+        this.accountData.VCodeKey = value.VCodeKey
         this.accountData.isShowIpDiffCheckCode = value.isShowIpDiffCheckCode
         this.accountData.LastLoginTime = value.LastLoginTime
         if (this.accountData.isShowIpDiffCheckCode) {
@@ -74,12 +78,20 @@ export default {
       let _this = this
       let params = {
         UserName: _this.accountData.Username,
-        VCode: _this.vCode
+        Pwd: _this.accountData.Password,
+        DeviceId: localStorage.getItem('mac'),
+        VCodeKey: _this.accountData.VCodeKey,
+        VCode: _this.vCode,
+        ScreenWidth: window.screen.width,
+        ScreenHeight: window.screen.height
       }
       _this.$https
         .fetchPost(url, _this.Secret(params))
         .then(res => {
-          if (res.data.Message === '') {
+          if (res.data.Message == null || res.data.Message === '') {
+            _this.account.Token = res.data.Result.Token
+            _this.account.Balance = res.data.Result.Balance
+            _this.account.LastLoginTime = res.data.Result.LastLoginTime
             _this.saveinfo(
               _this.accountData.Username,
               _this.accountData.Token,

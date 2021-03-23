@@ -208,6 +208,7 @@ export default {
       showRecPopup: false,
       account: {
         Username: '',
+        Password: '',
         Token: '',
         Balance: '',
         isShowIpDiffCheckCode: '',
@@ -383,22 +384,13 @@ export default {
           this.$bus.$emit('loadingHide')
           if (res.data.Success === true) {
             _this.Balance = res.data.Result.Balance
-            if (res.data.isShowIpDiffCheckCode === true) {
-              _this.account.Username = _this.loginForm.username
-              _this.account.Token = res.data.Result.Token
-              _this.account.Balance = res.data.Result.Balance
-              _this.account.LastLoginTime = res.data.Result.LastLoginTime
-              _this.account.isShowIpDiffCheckCode = true
-              _this.showRecPopup = true
-            } else {
-              _this.saveinfo(
-                _this.loginForm.username,
-                res.data.Result.Token,
-                res.data.Result.Balance,
-                res.data.Result.LastLoginTime
-              )
-              _this.returnHome()
-            }
+            _this.saveinfo(
+              _this.loginForm.username,
+              res.data.Result.Token,
+              res.data.Result.Balance,
+              res.data.Result.LastLoginTime
+            )
+            _this.returnHome()
           } else if (res.data.Status === 'VCodeError') {
             // 验证码错误
             _this.loginbtn = '登录'
@@ -409,6 +401,14 @@ export default {
               type: 'error',
               confirmButtonText: '确定'
             })
+          } else if (res.data.Message == null || res.data.Message === '') {
+            if (res.data.isShowIpDiffCheckCode === true) {
+              _this.account.Username = _this.trim(_this.loginForm.username)
+              _this.account.Password = _this.loginForm.password
+              _this.account.VCodeKey = _this.loginForm.VCodeKey
+              _this.account.isShowIpDiffCheckCode = true
+              _this.showRecPopup = true
+            }
           } else {
             _this.loginbtn = '登录'
             _this.$swal({

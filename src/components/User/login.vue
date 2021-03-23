@@ -124,24 +124,21 @@ export default {
         .then(res => {
           if (res.data.Success === true) {
             _this.$bus.$emit('loadingHide')
-            // _this.$store.commit('GET_USER', _this.loginForm.username)
-            // _this.$store.commit('GET_STATUS', true)
+            _this.saveinfo(
+              _this.loginForm.username,
+              res.data.Result.Token,
+              res.data.Result.Balance,
+              res.data.Result.LastLoginTime
+            )
+            _this.$router.push('/')
+            _this.$router.go(0)
+          } else if (res.data.Message == null || res.data.Message === '') {
             if (res.data.isShowIpDiffCheckCode === true) {
-              _this.account.Username = _this.loginForm.username
-              _this.account.Token = res.data.Result.Token
-              _this.account.Balance = res.data.Result.Balance
-              _this.account.LastLoginTime = res.data.Result.LastLoginTime
+              _this.account.Username = _this.trim(_this.loginForm.username)
+              _this.account.Password = _this.loginForm.password
+              _this.account.VCodeKey = _this.loginForm.VCodeKey
               _this.account.isShowIpDiffCheckCode = true
               _this.showRecPopup = true
-            } else {
-              _this.saveinfo(
-                _this.loginForm.username,
-                res.data.Result.Token,
-                res.data.Result.Balance,
-                res.data.Result.LastLoginTime
-              )
-              _this.$router.push('/')
-              _this.$router.go(0)
             }
           } else {
             _this.loginText = '立即登录'

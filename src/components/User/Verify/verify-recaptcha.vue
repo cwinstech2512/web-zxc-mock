@@ -97,6 +97,9 @@ export default {
             this.showOTPBlock = false
             this.showphoneBlock = false
           } else {
+            this.showphoneBlock = true
+            this.showWarring = false
+            this.showOTPBlock = false
             this.timeout()
           }
         }
@@ -109,19 +112,44 @@ export default {
   methods: {
     vaildPhone () {
       let _this = this
+      if (_this.vPhone === '') {
+        _this.$swal({
+          text: '请输入绑定手机号的最后4个数字！',
+          type: 'warning',
+          confirmButtonText: '确定'
+        })
+        return false
+      }
       if (this.accountData.cellPhone.substring(this.accountData.cellPhone.length - 4) === _this.vPhone) {
         this.showphoneBlock = false
         this.showWarring = false
         this.showOTPBlock = true
       } else {
-        this.showphoneBlock = false
-        this.showWarring = true
-        this.showOTPBlock = false
+        _this.$swal({
+          text: '验证错误，请联系在线客服',
+          type: 'error',
+          confirmButtonText: '确定'
+        }).then(x => {
+          this.showphoneBlock = false
+          this.showWarring = false
+          this.showOTPBlock = false
+          _this.$router.push('/')
+          _this.$router.go(0)
+          _this.$emit('closePopupRec')
+        })
       }
     },
     vaildCode () {
-      let url = '/api/Login/IpDiffLoginCheckCode'
       let _this = this
+      if (_this.vCode === '') {
+        _this.$swal({
+          text: '请输入OTP！',
+          type: 'warning',
+          confirmButtonText: '确定'
+        })
+        return false
+      }
+      let url = '/api/Login/IpDiffLoginCheckCode'
       let params = {
         UserName: _this.accountData.Username,
         Pwd: _this.accountData.Password,

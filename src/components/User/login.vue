@@ -69,7 +69,8 @@ export default {
         Token: '',
         Balance: '',
         isShowIpDiffCheckCode: '',
-        LastLoginTime: ''
+        LastLoginTime: '',
+        cellPhone: ''
       }
     }
   },
@@ -138,6 +139,7 @@ export default {
               _this.account.Password = _this.loginForm.password
               _this.account.VCodeKey = _this.loginForm.VCodeKey
               _this.account.isShowIpDiffCheckCode = true
+              _this.account.cellPhone = res.data.cellPhone
               _this.showRecPopup = true
             }
           } else {

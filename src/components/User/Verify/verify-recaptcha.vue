@@ -4,11 +4,11 @@
     class="recaptcha_bg"
   >
     <div class="logo">
-        <div class="logoA"/>
-        <div class="logoB"/>
+        <div class="logoA"></div>
+        <div class="logoB"></div>
     </div>
-    <div class="Rd_bd">
-      <p><font color="red">*</font>请输入我们发送到您注册绑定手机号的一次性密码[OTP]</p>
+    <div class="Rd_bd" v-show="showOTPBlock">
+      <p><font color="red">*</font>请输入我们发送到您注册绑定<br/>手机号的一次性密码[OTP]</p>
       <div class="Rd_bd-item">
         <ul>
           <li>
@@ -23,6 +23,28 @@
           </li>
         </ul>
       </div>
+    </div>
+    <div class="Rd_bd" v-show="showphoneBlock">
+      <p>为了安全起见，我们希望确定是您本人登录。</p>
+      <div style="text-align: center;margin-top: 3%;">请输入绑定手机号码 ********{{accountData.cellPhone != ''? accountData.cellPhone.substring(accountData.cellPhone.length - 2) : ''}} 的末4码<br/>然后单击“下一步”接收验证码</div>
+      <div class="Rd_bd-item">
+        <ul>
+          <li>
+            <input type="text"
+                    v-model.trim="vPhone"
+                    placeholder="输入绑定手机号的最后4个数字" />
+          </li>
+          <li>
+            <button class="RtdFirstBtn"
+                    type="button"
+                    @click="vaildPhone()">下一步</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="Rd_bd" v-show="showWarring">
+      <div style="text-align: center;margin-top: 13%;"><img style="width: 85px; margin: auto;" width="85px" src="../../../assets/images/user/icon_warring.png"></div>
+      <div style="text-align: center;margin-top: 3%;">发生一个意外错误，请联系在线客服。错误：102</div>
     </div>
   </div>
 </div>
@@ -44,10 +66,15 @@ export default {
         Token: '',
         Balance: '',
         isShowIpDiffCheckCode: '',
-        LastLoginTime: ''
+        LastLoginTime: '',
+        cellPhone: ''
       },
       invalid: '',
-      vCode: ''
+      vCode: '',
+      vPhone: '',
+      showOTPBlock: false,
+      showphoneBlock: true,
+      showWarring: false
     }
   },
   //  监听属性 类似于data概念
@@ -61,10 +88,17 @@ export default {
         this.accountData.Token = value.Token
         this.accountData.Balance = value.Balance
         this.accountData.VCodeKey = value.VCodeKey
+        this.accountData.cellPhone = value.cellPhone
         this.accountData.isShowIpDiffCheckCode = value.isShowIpDiffCheckCode
         this.accountData.LastLoginTime = value.LastLoginTime
         if (this.accountData.isShowIpDiffCheckCode) {
-          this.timeout()
+          if (this.accountData.cellPhone === '') {
+            this.showWarring = true
+            this.showOTPBlock = false
+            this.showphoneBlock = false
+          } else {
+            this.timeout()
+          }
         }
       },
       deep: true,
@@ -73,6 +107,18 @@ export default {
   },
   //  方法集合
   methods: {
+    vaildPhone () {
+      let _this = this
+      if (this.accountData.cellPhone.substring(this.accountData.cellPhone.length - 4) === _this.vPhone) {
+        this.showphoneBlock = false
+        this.showWarring = false
+        this.showOTPBlock = true
+      } else {
+        this.showphoneBlock = false
+        this.showWarring = true
+        this.showOTPBlock = false
+      }
+    },
     vaildCode () {
       let url = '/api/Login/IpDiffLoginCheckCode'
       let _this = this
@@ -134,7 +180,6 @@ export default {
   },
   //  生命周期 - 创建完成（可以访问当前this实例）
   created () {
-
   },
   //  生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {
@@ -156,7 +201,7 @@ export default {
 .RecaptchaPopup p{
   margin: 0 auto;
   position: relative;
-  width: 60%;
+  width: 90%;
   margin-top: 8%;
   text-align: center;
 }

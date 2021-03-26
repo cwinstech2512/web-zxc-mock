@@ -157,7 +157,8 @@ export default {
         VCodeKey: _this.accountData.VCodeKey,
         VCode: _this.vCode,
         ScreenWidth: window.screen.width,
-        ScreenHeight: window.screen.height
+        ScreenHeight: window.screen.height,
+        Phone: _this.vPhone
       }
       _this.$https
         .fetchPost(url, _this.Secret(params))

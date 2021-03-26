@@ -120,24 +120,33 @@ export default {
         })
         return false
       }
-      if (this.accountData.cellPhone.substring(this.accountData.cellPhone.length - 4) === _this.vPhone) {
-        this.showphoneBlock = false
-        this.showWarring = false
-        this.showOTPBlock = true
-      } else {
-        _this.$swal({
-          text: '验证错误，请联系在线客服',
-          type: 'error',
-          confirmButtonText: '确定'
-        }).then(x => {
-          this.showphoneBlock = false
-          this.showWarring = false
-          this.showOTPBlock = false
-          _this.$router.push('/')
-          _this.$router.go(0)
-          _this.$emit('closePopupRec')
-        })
+      let url = '/api/Login/IpDiffLoginCheckCode1Step'
+      let params = {
+        UserName: _this.accountData.Username,
+        Phone: _this.vPhone
       }
+      _this.$https
+        .fetchPost(url, params)
+        .then(res => {
+          if (res.data.Message === '') {
+            this.showphoneBlock = false
+            this.showWarring = false
+            this.showOTPBlock = true
+          } else {
+            _this.$swal({
+              text: res.data.Message,
+              type: 'error',
+              confirmButtonText: '确定'
+            }).then(x => {
+              this.showphoneBlock = false
+              this.showWarring = false
+              this.showOTPBlock = false
+              _this.$router.push('/')
+              _this.$router.go(0)
+              _this.$emit('closePopupRec')
+            })
+          }
+        })
     },
     vaildCode () {
       let _this = this

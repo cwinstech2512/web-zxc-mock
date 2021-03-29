@@ -407,7 +407,7 @@ export default {
             _this.account.Password = _this.loginForm.password
             _this.account.VCodeKey = _this.loginForm.VCodeKey
             _this.account.isShowIpDiffCheckCode = true
-            _this.account.cellPhone = ''
+            _this.account.cellPhone = res.data.cellPhone
             _this.showRecPopup = true
           } else {
             _this.loginbtn = '登录'

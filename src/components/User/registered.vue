@@ -357,10 +357,8 @@ export default {
       if (_this.accountreg.Fullname.length < 1) {
         return
       }
-      var reg = /[^\u4E00-\u9FFF|\u00B7]{1,}/g
       if (
-        _this.accountreg.Fullname.length < 1 ||
-        reg.test(_this.accountreg.Fullname)
+        !_this.vaifyUserName(_this.accountreg.Fullname)
       ) {
         _this.name2Error = true
         _this.verification = false
@@ -374,10 +372,8 @@ export default {
       if (_this.phonereg.Fullname.length < 1) {
         return
       }
-      var reg = /[^\u4E00-\u9FFF|\u00B7]{1,}/g
       if (
-        _this.phonereg.Fullname.length < 1 ||
-        reg.test(_this.phonereg.Fullname)
+        !_this.vaifyUserName(_this.phonereg.Fullname)
       ) {
         _this.name1Error = true
         _this.verification = false
@@ -411,6 +407,17 @@ export default {
     },
     getHost () {
       return window.location.host
+    },
+    vaifyUserName (str) {
+      var reg = /[^\u4E00-\u9FFF|\u00B7]{1,}/g
+      if (
+        str.length < 1 ||
+        reg.test(str)
+      ) {
+        return false
+      } else {
+        return true
+      }
     },
     // 发送验证码
     sendcode () {
@@ -475,6 +482,17 @@ export default {
       if (reg.test(_this.phonereg.UserName)) {
         _this.$swal({
           text: '请确认用户名格式',
+          type: 'warning',
+          confirmButtonText: '确定'
+        }).then(x => {
+          // this.$refs.pphone.focus()
+        })
+        return
+      }
+
+      if (!_this.vaifyUserName(_this.phonereg.UserName)) {
+        _this.$swal({
+          text: '请确认真实姓名格式',
           type: 'warning',
           confirmButtonText: '确定'
         }).then(x => {
@@ -594,6 +612,17 @@ export default {
       if (reg1.test(_this.accountreg.UserName)) {
         _this.$swal({
           text: '请确认用户名格式',
+          type: 'warning',
+          confirmButtonText: '确定'
+        }).then(x => {
+          // this.$refs.pphone.focus()
+        })
+        return
+      }
+
+      if (!_this.vaifyUserName(_this.accountreg.UserName)) {
+        _this.$swal({
+          text: '请确认真实姓名格式',
           type: 'warning',
           confirmButtonText: '确定'
         }).then(x => {

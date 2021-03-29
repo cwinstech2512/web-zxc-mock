@@ -2,7 +2,7 @@
 <!-- H5内部Popup -->
 <div class='popup' v-show="showRecPopup">
   <!-- 常规弹窗 -->
-  <recaptchaPopup v-show="showRecPopup" @closePopupRec='closePopupRec' :account="account"/>
+  <recaptchaPopup v-show="showRecPopup" @closePopupRec='closePopupRec' :account="account" :showRecPopup="showRecPopup"/>
 </div>
 </template>
 

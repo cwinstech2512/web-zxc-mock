@@ -74,7 +74,8 @@ export default {
       vPhone: '',
       showOTPBlock: false,
       showphoneBlock: true,
-      showWarring: false
+      showWarring: false,
+      showPropPopup: true
     }
   },
   //  监听属性 类似于data概念
@@ -93,21 +94,10 @@ export default {
         this.accountData.LastLoginTime = value.LastLoginTime
         if (this.accountData.isShowIpDiffCheckCode) {
           if (this.accountData.cellPhone === '') {
-            // this.showWarring = true
-            // this.showOTPBlock = false
-            // this.showphoneBlock = false
-            this.$swal({
-              text: '发生一个意外错误，请联系在线客服。错误：102',
-              type: 'warning',
-              confirmButtonText: '确定'
-            }).then(x => {
-              this.showphoneBlock = false
-              this.showWarring = false
-              this.showOTPBlock = false
-              this.$router.push('/')
-              this.$router.go(0)
-              this.$emit('closePopupRec')
-            })
+            this.showWarring = true
+            this.showOTPBlock = false
+            this.showphoneBlock = false
+            // this.showPropPopup = false
           } else {
             this.showphoneBlock = true
             this.showWarring = false
@@ -118,6 +108,20 @@ export default {
       },
       deep: true,
       immediate: true
+    },
+    'showPropPopup': function () {
+      this.$swal({
+        text: '发生一个意外错误，请联系在线客服。错误：102',
+        type: 'warning',
+        confirmButtonText: '确定'
+      }).then(x => {
+        this.showphoneBlock = false
+        this.showWarring = false
+        this.showOTPBlock = false
+        this.$router.push('/')
+        this.$router.go(0)
+        this.$emit('closePopupRec')
+      })
     }
   },
   //  方法集合

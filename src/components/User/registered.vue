@@ -25,7 +25,10 @@
                 <input type="text"
                        placeholder="用户名由6-10个字符组成"
                        id="Name"
-                       v-model.trim="phonereg.UserName" />
+                       v-model.trim="phonereg.UserName"
+                       maxlength="10"
+                       minlength="6"
+                       ref="pusername" />
                 <em>*用户名由6-10个字符组成</em>
               </li>
               <li>
@@ -59,8 +62,9 @@
                 <input type="text"
                        placeholder="请输入真实姓名"
                        id="pFullname"
+                       maxlength="20"
                        v-model.trim="phonereg.Fullname"
-                       :class="{error:nameError}" />
+                       :class="{error:name1Error}" />
                 <em>*务必与您银行帐户姓名一致，否则不能出款</em>
               </li>
               <li>
@@ -113,7 +117,8 @@
                        placeholder="请输入真实姓名"
                        id="Fullname"
                        v-model.trim="accountreg.Fullname"
-                       :class="{error:nameError}" />
+                       maxlength="20"
+                       :class="{error:name2Error}" />
                 <em>*务必与您银行帐户姓名一致，否则不能出款</em>
               </li>
               <li>
@@ -246,7 +251,8 @@ export default {
       phone1Error: false,
       phone2Error: false,
       emailError: false,
-      nameError: false,
+      name1Error: false,
+      name2Error: false,
       checkbox: true,
       hasRaid: false,
       verification: false,
@@ -351,15 +357,32 @@ export default {
       if (_this.accountreg.Fullname.length < 1) {
         return
       }
-      var reg = /^[\\u4E00-\\u9FFF]$/gi
+      var reg = /[^\u4E00-\u9FFF|\u00B7]{1,}/g
       if (
         _this.accountreg.Fullname.length < 1 ||
-        !reg.test(_this.accountreg.Fullname)
+        reg.test(_this.accountreg.Fullname)
       ) {
-        _this.nameError = true
+        _this.name2Error = true
         _this.verification = false
       } else {
-        _this.nameError = false
+        _this.name2Error = false
+        _this.verification = true
+      }
+    },
+    'phonereg.Fullname': function () {
+      var _this = this
+      if (_this.phonereg.Fullname.length < 1) {
+        return
+      }
+      var reg = /[^\u4E00-\u9FFF|\u00B7]{1,}/g
+      if (
+        _this.phonereg.Fullname.length < 1 ||
+        reg.test(_this.phonereg.Fullname)
+      ) {
+        _this.name1Error = true
+        _this.verification = false
+      } else {
+        _this.name1Error = false
         _this.verification = true
       }
     }
@@ -448,6 +471,17 @@ export default {
         })
         return
       }
+      var reg = /[^a-z|A-Z|0-9]{1,}/g
+      if (reg.test(_this.phonereg.UserName)) {
+        _this.$swal({
+          text: '请确认用户名格式',
+          type: 'warning',
+          confirmButtonText: '确定'
+        }).then(x => {
+          // this.$refs.pphone.focus()
+        })
+        return
+      }
       if (_this.phonereg.Phone.length < 1) {
         _this.$swal({
           text: '请输入手机号码',
@@ -458,8 +492,8 @@ export default {
         })
         return
       }
-      var reg = /^[1]+\d{10}$/gi
-      if (!reg.test(this.phonereg.Phone)) {
+      var reg1 = /^[1]+\d{10}$/gi
+      if (!reg1.test(this.phonereg.Phone)) {
         _this.$swal({
           text: '手机号码错误',
           type: 'warning',
@@ -549,6 +583,17 @@ export default {
       if (_this.accountreg.UserName.length < 1) {
         _this.$swal({
           text: '请输入用户名',
+          type: 'warning',
+          confirmButtonText: '确定'
+        }).then(x => {
+          // this.$refs.pphone.focus()
+        })
+        return
+      }
+      var reg1 = /[^a-z|A-Z|0-9]{1,}/g
+      if (reg1.test(_this.accountreg.UserName)) {
+        _this.$swal({
+          text: '请确认用户名格式',
           type: 'warning',
           confirmButtonText: '确定'
         }).then(x => {

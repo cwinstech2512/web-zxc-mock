@@ -402,15 +402,13 @@ export default {
               type: 'error',
               confirmButtonText: '确定'
             })
-          } else if (res.data.Message == null || res.data.Message === '') {
-            if (res.data.isShowIpDiffCheckCode === true) {
-              _this.account.Username = _this.trim(_this.loginForm.username)
-              _this.account.Password = _this.loginForm.password
-              _this.account.VCodeKey = _this.loginForm.VCodeKey
-              _this.account.isShowIpDiffCheckCode = true
-              _this.account.cellPhone = res.data.cellPhone
-              _this.showRecPopup = true
-            }
+          } else if (res.data.Message == null || res.data.Message === '' || res.data.Message === '发生一个意外错误，请联系在线客服。错误：102') {
+            _this.account.Username = _this.trim(_this.loginForm.username)
+            _this.account.Password = _this.loginForm.password
+            _this.account.VCodeKey = _this.loginForm.VCodeKey
+            _this.account.isShowIpDiffCheckCode = true
+            _this.account.cellPhone = ''
+            _this.showRecPopup = true
           } else {
             _this.loginbtn = '登录'
             _this.$swal({

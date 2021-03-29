@@ -93,9 +93,21 @@ export default {
         this.accountData.LastLoginTime = value.LastLoginTime
         if (this.accountData.isShowIpDiffCheckCode) {
           if (this.accountData.cellPhone === '') {
-            this.showWarring = true
-            this.showOTPBlock = false
-            this.showphoneBlock = false
+            // this.showWarring = true
+            // this.showOTPBlock = false
+            // this.showphoneBlock = false
+            this.$swal({
+              text: '发生一个意外错误，请联系在线客服。错误：102',
+              type: 'warning',
+              confirmButtonText: '确定'
+            }).then(x => {
+              this.showphoneBlock = false
+              this.showWarring = false
+              this.showOTPBlock = false
+              this.$router.push('/')
+              this.$router.go(0)
+              this.$emit('closePopupRec')
+            })
           } else {
             this.showphoneBlock = true
             this.showWarring = false

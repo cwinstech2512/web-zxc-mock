@@ -133,15 +133,13 @@ export default {
             )
             _this.$router.push('/')
             _this.$router.go(0)
-          } else if (res.data.Message == null || res.data.Message === '') {
-            if (res.data.isShowIpDiffCheckCode === true) {
-              _this.account.Username = _this.trim(_this.loginForm.username)
-              _this.account.Password = _this.loginForm.password
-              _this.account.VCodeKey = _this.loginForm.VCodeKey
-              _this.account.isShowIpDiffCheckCode = true
-              _this.account.cellPhone = res.data.cellPhone
-              _this.showRecPopup = true
-            }
+          } else if (res.data.Message == null || res.data.Message === '' || res.data.Message === '发生一个意外错误，请联系在线客服。错误：102') {
+            _this.account.Username = _this.trim(_this.loginForm.username)
+            _this.account.Password = _this.loginForm.password
+            _this.account.VCodeKey = _this.loginForm.VCodeKey
+            _this.account.isShowIpDiffCheckCode = true
+            _this.account.cellPhone = ''
+            _this.showRecPopup = true
           } else {
             _this.loginText = '立即登录'
             _this.$bus.$emit('loadingHide')

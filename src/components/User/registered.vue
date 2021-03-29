@@ -409,6 +409,7 @@ export default {
       return window.location.host
     },
     vaifyUserName (str) {
+      console.log(str)
       var reg = /[^\u4E00-\u9FFF|\u00B7]{1,}/g
       if (
         str.length < 1 ||
@@ -490,7 +491,7 @@ export default {
         return
       }
 
-      if (!_this.vaifyUserName(_this.phonereg.UserName)) {
+      if (!_this.vaifyUserName(_this.phonereg.Fullname)) {
         _this.$swal({
           text: '请确认真实姓名格式',
           type: 'warning',
@@ -620,7 +621,7 @@ export default {
         return
       }
 
-      if (!_this.vaifyUserName(_this.accountreg.UserName)) {
+      if (!_this.vaifyUserName(_this.accountreg.Fullname)) {
         _this.$swal({
           text: '请确认真实姓名格式',
           type: 'warning',

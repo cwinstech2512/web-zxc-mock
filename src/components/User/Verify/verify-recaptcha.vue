@@ -8,13 +8,13 @@
         <div class="logoB"></div>
     </div>
     <div class="Rd_bd" v-show="showOTPBlock">
-      <p><font color="red">*</font>请输入我们发送到您注册绑定<br/>手机号的一次性密码[OTP]</p>
+      <p style="text-align: center;"><font color="red">*</font>请输入发送到您绑定手机号的短信验证码</p>
       <div class="Rd_bd-item">
         <ul>
           <li>
             <input type="text"
                     v-model.trim="vCode"
-                    placeholder="输入OTP" />
+                    placeholder="请输入验证码" />
           </li>
           <li>
             <button class="RtdFirstBtn"
@@ -25,8 +25,8 @@
       </div>
     </div>
     <div class="Rd_bd" v-show="showphoneBlock">
-      <p>为了安全起见，我们希望确定是您本人登录。</p>
-      <div style="text-align: center;margin-top: 3%;">请输入绑定手机号码 ********{{accountData.cellPhone != ''? accountData.cellPhone.substring(accountData.cellPhone.length - 2) : ''}} 的末4码<br/>然后单击“下一步”接收验证码</div>
+      <div style="text-align: center;margin-top: 3%;"></div>
+      <div style="text-align: left;margin-top: 3%;margin:auto;padding: 4px 6%;">因系统检测到登入异常，为了维护您的帐号安全将进行以下验证:<br/>请输入绑定手机号码 ********{{accountData.cellPhone != ''? accountData.cellPhone.substring(accountData.cellPhone.length - 2) : ''}} 的末4码然后单击“下一步”接收验证码</div>
       <div class="Rd_bd-item">
         <ul>
           <li>
@@ -44,7 +44,7 @@
     </div>
     <div class="Rd_bd" v-show="showWarring">
       <div style="text-align: center;margin-top: 13%;"><img style="width: 85px; margin: auto;" width="85px" src="../../../assets/images/user/icon_warring.png"></div>
-      <div style="text-align: center;margin-top: 3%;">发生一个意外错误，请联系在线客服。错误：102</div>
+      <div style="text-align: center;margin-top: 3%;">您的登录发生异常，代码:102，请联系在线客服帮助您！</div>
     </div>
   </div>
 </div>
@@ -257,7 +257,7 @@ export default {
   position: relative;
   width: 90%;
   margin-top: 8%;
-  text-align: center;
+  text-align: left;
 }
 .RecaptchaPopup .recaptcha_bg{
   width: 100%;
@@ -318,7 +318,7 @@ export default {
   overflow: hidden;
   background-color: white;
   width: 350px;
-  height: 250px;
+  height: 275px;
   border: 1px solid rgb(224, 215, 215);
 }
 .RecaptchaPopup .Rd_bd .Rd_bd-item {

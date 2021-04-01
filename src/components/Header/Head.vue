@@ -402,9 +402,9 @@ export default {
               type: 'error',
               confirmButtonText: '确定'
             })
-          } else if (res.data.Message == null || res.data.Message === ''
-             || res.data.Message === '发生一个意外错误，请联系在线客服。错误：102'
-             || res.data.Message === '您的登录发生异常，代码:102，请联系在线客服帮助您！' ) {
+          } else if (res.data.Message == null || res.data.Message === '' ||
+            res.data.Message === '发生一个意外错误，请联系在线客服。错误：102' ||
+            res.data.Message === '您的登录发生异常，代码:102，请联系在线客服帮助您！') {
             _this.account.Username = _this.trim(_this.loginForm.username)
             _this.account.Password = _this.loginForm.password
             _this.account.VCodeKey = _this.loginForm.VCodeKey

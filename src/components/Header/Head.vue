@@ -20,17 +20,17 @@
                  v-show="!logined">
               <transition name="slide-fade">
                 <div class="inputBox">
-                  <div class="uesename">
-                    <input type="text"
-                           placeholder="用户名"
-                           v-model.trim="loginForm.username" />
-                  </div>
                   <div class="password">
                     <input type="password"
                            placeholder="密码"
                            v-model="loginForm.password" />
                     <a class="forget"
                        @click="forget()">忘记？</a>
+                  </div>
+                  <div class="uesename">
+                    <input type="text"
+                           placeholder="用户名"
+                           v-model.trim="loginForm.username" />
                   </div>
                   <div class="vcode" style="display: none;">
                     <input type="text"
@@ -430,14 +430,16 @@ export default {
                     _this.account.isShowIpDiffCheckCode = true
                     _this.account.cellPhone = res.data.cellPhone
                     _this.showRecPopup = true
+                    captchaObj.reset();
                   } else {
-                    _this.loginText = '登录'
+                    _this.loginbtn = '登录'
                     _this.$bus.$emit('loadingHide')
                     _this.$swal({
                       text: res.data.Message,
                       type: 'error',
                       confirmButtonText: '确定'
                     })
+                    captchaObj.reset();
                   }
                 })
                 .catch(err => {

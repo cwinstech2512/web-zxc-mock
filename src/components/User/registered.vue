@@ -606,11 +606,13 @@ export default {
                       type: 'error',
                       confirmButtonText: '确定'
                     })
+                    captchaObj.reset();
                   }
                 })
                 .catch(err => {
                   _this.isreging = false
                   _this.$bus.$emit('loadingHide')
+                  captchaObj.reset();
                   console.log(err)
                 })
             }).onError(function () {

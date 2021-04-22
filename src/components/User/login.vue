@@ -170,11 +170,13 @@ export default {
                       type: 'error',
                       confirmButtonText: '确定'
                     })
+                    captchaObj.reset();
                   }
                 })
                 .catch(err => {
                   _this.$bus.$emit('loadingHide')
                   console.log(err)
+                  captchaObj.reset();
                 })
             }).onError(function () {
               _this.$bus.$emit('loadingHide')

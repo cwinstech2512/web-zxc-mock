@@ -29,12 +29,12 @@
                        placeholder="请输入您的用户名"
                        v-model.trim="userName" />
               </li>
-              <li>
+              <!-- <li>
                 <label>滑块验证：</label>
                 <div class="unlock">
                   <drag @confirmSuccess="dragConfirm"></drag>
                 </div>
-              </li>
+              </li> -->
               <li>
                 <button class="RtdFirstBtn"
                         type="button"
@@ -211,32 +211,100 @@ export default {
         })
         return
       }
-      if (!_this.dragSuccess) {
-        _this.$swal({
-          text: '请先完成滑块验证',
-          type: 'warning',
-          confirmButtonText: '确定'
-        })
-        return
-      }
-      let url = '/api/forgotpwd/step1'
-      _this.$https
-        .fetchPost(url, { UserName: _this.userName })
+      // if (!_this.dragSuccess) {
+      //   _this.$swal({
+      //     text: '请先完成滑块验证',
+      //     type: 'warning',
+      //     confirmButtonText: '确定'
+      //   })
+      //   return
+      // }
+      let initGeetestUrl = '/api/Geetest/initGeetest'
+      this.$https
+        .fetchGet(initGeetestUrl, {})
         .then(res => {
-          if (res.data.Success === true) {
-            _this.token = res.data.Result.Token
-            if (res.data.Result.QAData.length === 2) {
-              _this.sq1 = res.data.Result.QAData[0].Question
-              _this.sq2 = res.data.Result.QAData[1].Question
-            }
-            _this.nextStep(1)
-          } else {
-            _this.$swal({
-              text: res.data.Message,
-              type: 'error',
-              confirmButtonText: '确定'
+          var resMessage = JSON.parse(res.data)
+          // eslint-disable-next-line
+          initGeetest({
+            gt: resMessage.gt,
+            challenge: resMessage.challenge,
+            offline: !resMessage.success, // 表示用户后台检测极验服务器是否宕机
+            new_captcha: resMessage.new_captcha,
+            product: 'bind'
+          }, function (captchaObj) {
+            captchaObj.onReady(function () {
+              captchaObj.verify()
+            }).onSuccess(function () {
+              var result = captchaObj.getValidate()
+              let url = 'api/forgotpwd/step1ByGeetest'
+              let params = {
+                UserName: _this.userName,
+                seccodeGeetest: result.geetest_seccode,
+                validateGeetest: result.geetest_validate,
+                challengeGeetest: result.geetest_challenge
+              }
+              _this.$https
+                .fetchPost(url, params)
+                .then(res => {
+                  if (res.data.Success === true) {
+                    _this.token = res.data.Result.Token
+                    if (res.data.Result.QAData.length === 2) {
+                      _this.sq1 = res.data.Result.QAData[0].Question
+                      _this.sq2 = res.data.Result.QAData[1].Question
+                    }
+                    _this.nextStep(1)
+                  } else {
+                    _this.$swal({
+                      text: res.data.Message,
+                      type: 'error',
+                      confirmButtonText: '确定'
+                    })
+                  }
+                })
+                .catch(err => {
+                  console.log(err)
+                })
+              _this.$https
+                .fetchPost(url, _this.Secret(params))
+                .then(res => {
+                  _this.$bus.$emit('loadingHide')
+                  if (res.data.Success === true) {
+                    _this.saveinfo(
+                      _this.loginForm.username,
+                      res.data.Result.Token,
+                      res.data.Result.Balance,
+                      res.data.Result.LastLoginTime
+                    )
+                    _this.$router.push('/')
+                    _this.$router.go(0)
+                  } else if (res.data.Message == null || res.data.Message === '' ||
+                    res.data.Message === '发生一个意外错误，请联系在线客服。错误：102' ||
+                    res.data.Message === '您的登录发生异常，代码:102，请联系在线客服帮助您！') {
+                    _this.account.Username = _this.trim(_this.loginForm.username)
+                    _this.account.Password = _this.loginForm.password
+                    _this.account.VCodeKey = _this.loginForm.VCodeKey
+                    _this.account.isShowIpDiffCheckCode = true
+                    _this.account.cellPhone = res.data.cellPhone
+                    _this.showRecPopup = true
+                  } else {
+                    _this.loginText = '立即登录'
+                    _this.$bus.$emit('loadingHide')
+                    _this.$swal({
+                      text: res.data.Message,
+                      type: 'error',
+                      confirmButtonText: '确定'
+                    })
+                  }
+                })
+                .catch(err => {
+                  _this.$bus.$emit('loadingHide')
+                  console.log(err)
+                })
+            }).onError(function () {
+              _this.$bus.$emit('loadingHide')
+              // console.log(err)
             })
-          }
+          })
         })
         .catch(err => {
           console.log(err)

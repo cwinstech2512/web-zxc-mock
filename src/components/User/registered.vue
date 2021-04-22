@@ -295,7 +295,8 @@ export default {
       canClick: true, // 添加canClick  判断按钮能否点击
       undone: true,
       boxHd: true,
-      vcodesrc: ''
+      vcodesrc: '',
+      captchaObj: null
     }
   },
   //  监听属性 类似于data概念
@@ -570,26 +571,56 @@ export default {
         return
       }
       _this.isreging = true
-      this.$bus.$emit('loadingShow')
-      let url = '/api/reg/username'
-      _this.$https
-        .fetchPost(url, this.Secret(_this.phonereg))
+      let initGeetestUrl = '/api/Geetest/initGeetest'
+      this.$https
+        .fetchGet(initGeetestUrl, {})
         .then(res => {
-          _this.isreging = false
-          _this.$bus.$emit('loadingHide')
-          if (res.data.Success === true) {
-            _this.finishReg()
-          } else {
-            _this.$swal({
-              text: res.data.Message,
-              type: 'error',
-              confirmButtonText: '确定'
+          var resMessage = JSON.parse(res.data)
+          // eslint-disable-next-line
+          initGeetest({
+            gt: resMessage.gt,
+            challenge: resMessage.challenge,
+            offline: !resMessage.success, // 表示用户后台检测极验服务器是否宕机
+            new_captcha: resMessage.new_captcha,
+            product: 'bind'
+          }, function (captchaObj) {
+            captchaObj.onReady(function () {
+              captchaObj.verify()
+            }).onSuccess(function () {
+              var result = captchaObj.getValidate()
+              _this.phonereg.seccodeGeetest = result.geetest_seccode
+              _this.phonereg.validateGeetest = result.geetest_validate
+              _this.phonereg.challengeGeetest = result.geetest_challenge
+              let params = _this.Secret(_this.phonereg)
+              let url = '/api/reg/UserNameBySlidePicture'
+              _this.$https
+                .fetchPost(url, params)
+                .then(res => {
+                  _this.isreging = false
+                  _this.$bus.$emit('loadingHide')
+                  if (res.data.Success === true) {
+                    _this.finishReg()
+                  } else {
+                    _this.$swal({
+                      text: res.data.Message,
+                      type: 'error',
+                      confirmButtonText: '确定'
+                    })
+                  }
+                })
+                .catch(err => {
+                  _this.isreging = false
+                  _this.$bus.$emit('loadingHide')
+                  console.log(err)
+                })
+            }).onError(function () {
+              _this.isreging = false
+              _this.$bus.$emit('loadingHide')
+              // console.log(err)
             })
-          }
+          })
         })
         .catch(err => {
-          _this.isreging = false
-          _this.$bus.$emit('loadingHide')
           console.log(err)
         })
     },

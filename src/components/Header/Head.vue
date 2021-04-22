@@ -32,7 +32,7 @@
                     <a class="forget"
                        @click="forget()">忘记？</a>
                   </div>
-                  <div class="vcode">
+                  <div class="vcode" style="display: none;">
                     <input type="text"
                            ref="vcode"
                            maxlength="5"
@@ -135,6 +135,7 @@
 <script>
 import Verify from '@/components/User/Verify/verify.vue'
 import menubar from '@/components/header/menubar'
+import '../../../static/js/gt/gt.js'
 var isLoginSubmit = false
 export default {
   name: 'Head',
@@ -344,85 +345,112 @@ export default {
         })
         return
       }
-      if (this.loginForm.VCodeKey === '') {
-        _this.$swal({
-          text: '请刷新验证码！',
-          type: 'warning',
-          confirmButtonText: '确定'
-        })
-        return
-      }
-      if (this.loginForm.VCode === '') {
-        _this.$swal({
-          text: '请输入验证码！',
-          type: 'warning',
-          confirmButtonText: '确定'
-        }).then(x => {
-          this.$refs.vcode.focus()
-        })
-        return
-      }
+      // if (this.loginForm.VCodeKey === '') {
+      //   _this.$swal({
+      //     text: '请刷新验证码！',
+      //     type: 'warning',
+      //     confirmButtonText: '确定'
+      //   })
+      //   return
+      // }
+      // if (this.loginForm.VCode === '') {
+      //   _this.$swal({
+      //     text: '请输入验证码！',
+      //     type: 'warning',
+      //     confirmButtonText: '确定'
+      //   }).then(x => {
+      //     this.$refs.vcode.focus()
+      //   })
+      //   return
+      // }
       _this.loginbtn = '登录中...'
-      let url = '/api/Login/Login'
-      let params = {
-        UserName: _this.trim(_this.loginForm.username),
-        Pwd: _this.loginForm.password,
-        DeviceId: localStorage.getItem('mac'),
-        VCodeKey: _this.loginForm.VCodeKey,
-        VCode: _this.loginForm.VCode,
-        ScreenWidth: window.screen.width,
-        ScreenHeight: window.screen.height
-      }
+      // let url = '/api/Login/Login'
+      // let params = {
+      //   UserName: _this.trim(_this.loginForm.username),
+      //   Pwd: _this.loginForm.password,
+      //   DeviceId: localStorage.getItem('mac'),
+      //   VCodeKey: _this.loginForm.VCodeKey,
+      //   VCode: _this.loginForm.VCode,
+      //   ScreenWidth: window.screen.width,
+      //   ScreenHeight: window.screen.height
+      // }
       if (isLoginSubmit) {
         return false
       }
       isLoginSubmit = true
       this.$bus.$emit('loadingShow')
-      _this.$https
-        .fetchPost(url, this.Secret(params))
+      let initGeetestUrl = '/api/Geetest/initGeetest'
+      this.$https
+        .fetchGet(initGeetestUrl, {})
         .then(res => {
-          isLoginSubmit = false
-          this.$bus.$emit('loadingHide')
-          if (res.data.Success === true) {
-            _this.Balance = res.data.Result.Balance
-            _this.saveinfo(
-              _this.loginForm.username,
-              res.data.Result.Token,
-              res.data.Result.Balance,
-              res.data.Result.LastLoginTime
-            )
-            _this.returnHome()
-          } else if (res.data.Status === 'VCodeError') {
-            // 验证码错误
-            _this.loginbtn = '登录'
-            _this.loginForm.VCode = ''
-            _this.getVcode()
-            _this.$swal({
-              text: res.data.Message,
-              type: 'error',
-              confirmButtonText: '确定'
+          var resMessage = JSON.parse(res.data)
+          // eslint-disable-next-line
+          initGeetest({
+            gt: resMessage.gt,
+            challenge: resMessage.challenge,
+            offline: !resMessage.success, // 表示用户后台检测极验服务器是否宕机
+            new_captcha: resMessage.new_captcha,
+            product: 'bind'
+          }, function (captchaObj) {
+            captchaObj.onReady(function () {
+              captchaObj.verify()
+            }).onSuccess(function () {
+              var result = captchaObj.getValidate()
+              let url = '/api/Login/LoginBySlidePicture'
+              let params = {
+                UserName: _this.trim(_this.loginForm.username),
+                Pwd: _this.loginForm.password,
+                DeviceId: localStorage.getItem('mac'),
+                // VCodeKey: _this.loginForm.VCodeKey,
+                // VCode: _this.loginForm.VCode,
+                ScreenWidth: window.screen.width,
+                ScreenHeight: window.screen.height,
+                seccodeGeetest: result.geetest_seccode,
+                validateGeetest: result.geetest_validate,
+                challengeGeetest: result.geetest_challenge
+              }
+              _this.$https
+                .fetchPost(url, _this.Secret(params))
+                .then(res => {
+                  _this.$bus.$emit('loadingHide')
+                  if (res.data.Success === true) {
+                    _this.saveinfo(
+                      _this.loginForm.username,
+                      res.data.Result.Token,
+                      res.data.Result.Balance,
+                      res.data.Result.LastLoginTime
+                    )
+                    _this.returnHome()
+                  } else if (res.data.Message == null || res.data.Message === '' ||
+                    res.data.Message === '发生一个意外错误，请联系在线客服。错误：102' ||
+                    res.data.Message === '您的登录发生异常，代码:102，请联系在线客服帮助您！') {
+                    _this.account.Username = _this.trim(_this.loginForm.username)
+                    _this.account.Password = _this.loginForm.password
+                    _this.account.VCodeKey = _this.loginForm.VCodeKey
+                    _this.account.isShowIpDiffCheckCode = true
+                    _this.account.cellPhone = res.data.cellPhone
+                    _this.showRecPopup = true
+                  } else {
+                    _this.loginText = '登录'
+                    _this.$bus.$emit('loadingHide')
+                    _this.$swal({
+                      text: res.data.Message,
+                      type: 'error',
+                      confirmButtonText: '确定'
+                    })
+                  }
+                })
+                .catch(err => {
+                  _this.$bus.$emit('loadingHide')
+                  console.log(err)
+                })
+            }).onError(function () {
+              _this.$bus.$emit('loadingHide')
+              // console.log(err)
             })
-          } else if (res.data.Message == null || res.data.Message === '' ||
-            res.data.Message === '发生一个意外错误，请联系在线客服。错误：102' ||
-            res.data.Message === '您的登录发生异常，代码:102，请联系在线客服帮助您！') {
-            _this.account.Username = _this.trim(_this.loginForm.username)
-            _this.account.Password = _this.loginForm.password
-            _this.account.VCodeKey = _this.loginForm.VCodeKey
-            _this.account.isShowIpDiffCheckCode = true
-            _this.account.cellPhone = res.data.cellPhone
-            _this.showRecPopup = true
-          } else {
-            _this.loginbtn = '登录'
-            _this.$swal({
-              text: res.data.Message,
-              type: 'error',
-              confirmButtonText: '确定'
-            })
-          }
+          })
         })
         .catch(err => {
-          isLoginSubmit = false
-          this.$bus.$emit('loadingHide')
           console.log(err)
         })
     },
@@ -607,7 +635,7 @@ export default {
 .Head .top .right .login .password {
   width: 140px;
   height: 36px;
-  float: left;
+  float: right;
   position: relative;
   margin-right: 30px;
 }

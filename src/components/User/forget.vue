@@ -264,42 +264,6 @@ export default {
                 .catch(err => {
                   console.log(err)
                 })
-              _this.$https
-                .fetchPost(url, _this.Secret(params))
-                .then(res => {
-                  _this.$bus.$emit('loadingHide')
-                  if (res.data.Success === true) {
-                    _this.saveinfo(
-                      _this.loginForm.username,
-                      res.data.Result.Token,
-                      res.data.Result.Balance,
-                      res.data.Result.LastLoginTime
-                    )
-                    _this.$router.push('/')
-                    _this.$router.go(0)
-                  } else if (res.data.Message == null || res.data.Message === '' ||
-                    res.data.Message === '发生一个意外错误，请联系在线客服。错误：102' ||
-                    res.data.Message === '您的登录发生异常，代码:102，请联系在线客服帮助您！') {
-                    _this.account.Username = _this.trim(_this.loginForm.username)
-                    _this.account.Password = _this.loginForm.password
-                    _this.account.VCodeKey = _this.loginForm.VCodeKey
-                    _this.account.isShowIpDiffCheckCode = true
-                    _this.account.cellPhone = res.data.cellPhone
-                    _this.showRecPopup = true
-                  } else {
-                    _this.loginText = '立即登录'
-                    _this.$bus.$emit('loadingHide')
-                    _this.$swal({
-                      text: res.data.Message,
-                      type: 'error',
-                      confirmButtonText: '确定'
-                    })
-                  }
-                })
-                .catch(err => {
-                  _this.$bus.$emit('loadingHide')
-                  console.log(err)
-                })
             }).onError(function () {
               _this.$bus.$emit('loadingHide')
               // console.log(err)

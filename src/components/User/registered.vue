@@ -283,9 +283,9 @@ export default {
         Pwd: '',
         Fullname: '',
         Raid: '',
-        Mac: localStorage.getItem('mac'),
-        VCodeKey: '',
-        VCode: '' // 验证码
+        Mac: localStorage.getItem('mac')
+        // VCodeKey: '',
+        // VCode: '' // 验证码
         // RefUrl: ''
       },
       checkPWD: '',
@@ -571,6 +571,7 @@ export default {
         return
       }
       _this.isreging = true
+      _this.$bus.$emit('loadingShow')
       let initGeetestUrl = '/api/Geetest/initGeetest'
       this.$https
         .fetchGet(initGeetestUrl, {})
@@ -748,6 +749,7 @@ export default {
       // }
 
       _this.isreging = true
+      _this.$bus.$emit('loadingShow')
       let initGeetestUrl = '/api/Geetest/initGeetest'
       this.$https
         .fetchGet(initGeetestUrl, {})
@@ -765,10 +767,10 @@ export default {
               captchaObj.verify()
             }).onSuccess(function () {
               var result = captchaObj.getValidate()
-              _this.phonereg.seccodeGeetest = result.geetest_seccode
-              _this.phonereg.validateGeetest = result.geetest_validate
-              _this.phonereg.challengeGeetest = result.geetest_challenge
-              let params = _this.Secret(_this.phonereg)
+              _this.accountreg.seccodeGeetest = result.geetest_seccode
+              _this.accountreg.validateGeetest = result.geetest_validate
+              _this.accountreg.challengeGeetest = result.geetest_challenge
+              let params = _this.Secret(_this.accountreg)
               let url = '/api/Reg/AccountByGeetest'
               _this.$https
                 .fetchPost(url, params)

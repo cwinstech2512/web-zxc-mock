@@ -430,7 +430,7 @@ export default {
                     _this.account.isShowIpDiffCheckCode = true
                     _this.account.cellPhone = res.data.cellPhone
                     _this.showRecPopup = true
-                    captchaObj.reset();
+                    captchaObj.reset()
                   } else {
                     _this.loginbtn = '登录'
                     _this.$bus.$emit('loadingHide')
@@ -439,7 +439,7 @@ export default {
                       type: 'error',
                       confirmButtonText: '确定'
                     })
-                    captchaObj.reset();
+                    captchaObj.reset()
                   }
                 })
                 .catch(err => {

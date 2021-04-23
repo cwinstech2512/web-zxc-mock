@@ -98,6 +98,7 @@
                 <button class="RtdFirstBtn"
                         type="button"
                         :class="{hid:isreging}"
+                        :disabled="!checkbox"
                         @click="sendPhoneReg()">完成注册</button>
               </li>
             </ul>
@@ -200,6 +201,7 @@
                 <button class="RtdFirstBtn"
                         type="button"
                         :class="{hid:isreging}"
+                        :disabled="!checkbox"
                         @click="sendAccountReg()">完成注册</button>
               </li>
             </ul>
@@ -1103,5 +1105,11 @@ export default {
   width: 150px;
   height: 150px;
   float: left;
+}
+
+.registered .reg-main .reg-box .bd .bd-content li button:disabled,
+.registered .reg-main .reg-box .bd .bd-content li button[disabled]{
+  background-color: #cecece;
+  color: #fff;
 }
 </style>

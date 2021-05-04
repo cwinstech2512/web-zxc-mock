@@ -339,6 +339,11 @@ const router = new Router({
       name: 'lBweekstake',
       component: (resolve) => require(['@/components/Activity/LBweekstake/LBweekstake.vue'], resolve)
     },
+    { // 首存豪礼
+      path: '/firstDeposit',
+      name: 'firstDeposit',
+      component: (resolve) => require(['@/components/Activity/FirstDeposit/FirstDeposit.vue'], resolve)
+    },
     // { // 华为
     //   path: '/charmTree',
     //   name: 'charmTree',

@@ -558,6 +558,7 @@ export default {
   width: 100%;
   height: 100px;
   position: relative;
+  z-index: 3;
 }
 .Head .top {
   width: 100%;

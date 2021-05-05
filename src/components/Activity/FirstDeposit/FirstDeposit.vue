@@ -290,7 +290,7 @@ export default {
 }
 .contain {
   position: absolute;
-  width: 100vw;
+  width: 98vw;
   left: 0;
   top: 0;
 }
@@ -325,7 +325,7 @@ export default {
 }
 .firstDeposit {
   width: 100%;
-  position: absolute;
+  position: relative;
   font-size: 15px;
 }
 .main-banner .section {

@@ -1,151 +1,130 @@
 <template>
   <div class="firstDeposit">
-    <div class="bg"></div>
-    <div class="contain">
-      <div class="main-banner">
-        <img class="float_recircle" src="../../../assets/images/activity/FirstDeposit/recircle.png"/>
-        <div class="section">
-          <div class="view">
-            <div>
-              <div>
-                <img style="width: 48vw;" src="../../../assets/images/activity/FirstDeposit/a_title.png" />
-              </div>
-              <div>
-                <img style="width: 14vw;" src="../../../assets/images/activity/FirstDeposit/t_act_time.png" />
-              </div>
-              <div class="text-view">
-                <div><p> 2021年5月07日起 </p></div>
-              </div>
-              <div style="margin-top: 5%">
-                <img style="width: 14vw;" src="../../../assets/images/activity/FirstDeposit/t_act_content.png" />
-              </div>
+    <!-- <div class="bg"></div> -->
+    <section class="c_top">
+        <img src="../../../assets/images/activity/FirstDeposit/bg01.png">
+        <div class="c_content">
+            <img src="../../../assets/images/activity/FirstDeposit/n_ptitle.png">
+        </div>
+    </section>
+    <section class="c_bottom">
+        <img src="../../../assets/images/activity/FirstDeposit/bg02.png">
+        <div class="c_content">
+          <div class="c_area_1">
+            <img src="../../../assets/images/activity/FirstDeposit/n_pact_time.png">
+          </div>
+          <div class="c_area_2">
+            2021年5月13日起
+          </div>
+          <div class="c_area_1">
+            <img src="../../../assets/images/activity/FirstDeposit/n_pact_content.png">
+          </div>
+          <div class="c_area_2">
+            参加对象：全体无存款记录会员
+          </div>
+          <div class="c_area_3">
+            <table>
+              <thead>
+                <tr height="10%">
+                  <th width="30%"><strong>首存金额</strong></th>
+                  <th width="70%"><strong>实物奖品</strong></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><p>≥1000</p></td>
+                  <td><p>进口水果一箱(澳洲进口金手指提子)</p></td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>≥4999</p>
+                  </td>
+                  <td>
+                    <p>飞利浦剃须刀或飞利浦电动牙刷</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>≥19999</p>
+                  </td>
+                  <td>
+                    <p>香奈儿香水(男/女)或1000元中国石化加油卡</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>≥48888</p>
+                  </td>
+                  <td>
+                    <p>生鲜帝王蟹(6斤/只 )或黄金吊坠(周生生)</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>≥98888</p>
+                  </td>
+                  <td>
+                    <p>
+                      中国黄金金条(10g)或大疆无人机(mini 2)
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>≥188000</p>
+                  </td>
+                  <td>
+                    <p>
+                      iPhone 12 Pro Max(256G)或中国黄金金条(20g)+2000元现金
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="c_area_1">
+            <img src="../../../assets/images/activity/FirstDeposit/n_pact_self.png">
+          </div>
+          <div class="c_area_4">
+            <div class="account_block">
+              <div><p>游戏账号：</p></div>
+              <div><input type="text" v-model.trim="username"></div>
+              <div><input type="button" value="立即申请" @click="depositSubmit"/></div>
             </div>
           </div>
-        </div>
-        <img class="float_fashion" src="../../../assets/images/activity/FirstDeposit/fashion.png"/>
-        <img class="float_itree" src="../../../assets/images/activity/FirstDeposit/itree.png"/>
-      </div>
-      <div class="act-content">
-        <div class="section">
-
-          <div class="view">
-            <div class="table-group">
-              <div class="group-view">
-                <div class="group-title">
-                  <div class="title"><p>活动内容：全体无存款记录会员</p></div>
-                </div>
-                <div class="group-table">
-                  <img src="../../../assets/images/activity/FirstDeposit/table_bg.png">
-                  <div>
-                    <table>
-                      <thead>
-                        <tr height="10%">
-                          <th width="30%"><strong>首存金额</strong></th>
-                          <th width="70%"><strong>实物奖品</strong></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td><p>1000</p></td>
-                          <td><p>进口水果一箱</p></td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <p>4999</p>
-                          </td>
-                          <td>
-                            <p>飞利浦剃须刀或利浦电动牙刷</p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <p>19999</p>
-                          </td>
-                          <td>
-                            <p>香奈儿香水 男/女或1000元中国石化加油卡</p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <p>48888</p>
-                          </td>
-                          <td>
-                            <p>6斤/只 生鲜帝王蟹或周生生 黄金吊坠</p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <p>98888</p>
-                          </td>
-                          <td>
-                            <p>
-                              10g中国黄金金条或大疆无人机 mini 2
-                            </p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <p>188000</p>
-                          </td>
-                          <td>
-                            <p>
-                              iPhone 12 Pro Max 256G <br>或 <br>20g中国黄金金条+2000元现金
-                            </p>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <div class="group-desction">
-                  <div>注意：1：首存金额计算方式为：第一次投注前累计存款金额</div>
-                  <div>2：水果派发类型以季节及新鲜为主</div>
-                  <div class="account_block">
-                    <div><p>游戏账号：</p></div>
-                    <div><input type="text" v-model.trim="username"></div>
-                    <div><input type="button" value="立即申请" @click="depositSubmit"/></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="act-t">
-              <img style="width: 14vw;" src="../../../assets/images/activity/FirstDeposit/t_act_role.png" />
-            </div>
-            <div class="act-t">
-              <div>
-                <ul>
-                  <li><i></i>众鑫未充值会员可参与本活动；</li>
-                  <li>
-                    <i></i>首存金额计算方式为：第一次投注前累计存款金额；
-                  </li>
-                  <li>
-                    <i></i>该活动仅与返水共享；
-                  </li>
-                  <li>
-                    <i></i
-                    >本活动首次成功充值后，需于三日内领取礼品，如逾期未领取视为自动放弃；
-                  </li>
-                  <li>
-                    <i></i
-                    >本活动只针对娱乐性质的会员，同一手机号码、电子邮箱、相同银行卡、同一个IP地址、同一通信地址、同一台设备，只能由一位会员使用，若发现重复行为，众鑫将无限期保留审核、扣回礼品及所产生的利润之权利；
-                  </li>
-                  <li>
-                    <i></i
-                    >本活动中任何用户或团体以不正常的方式套取活动优惠，我司保留在不通知的情况下冻结或关闭账号使用的权力
-      且用户会被列入黑名单。若发现有套利客户，对冲，或不诚实获取盈利之行为，将取消其优惠资格；
-                  </li>
-                  <li>
-                    <i></i
-                    >为避免文字争议，此活动遵循众鑫活动规则与条款，并由众鑫保留最终解释权；
-                  </li>
-                </ul>
-              </div>
-            </div>
+          <div class="c_area_1">
+            <img src="../../../assets/images/activity/FirstDeposit/n_pact_role.png">
+          </div>
+          <div class="c_area_7">
+            <ul>
+              <li><i></i>众鑫未充值会员可参与本活动。</li>
+              <li>
+                <i></i>首存金额计算方式为：第一次投注前累计存款金额。
+              </li>
+              <li>
+                <i></i>该活动仅与返水共享。
+              </li>
+              <li>
+                <i></i
+                >本活动首次成功充值后，需于三日内领取礼品，如逾期未领取视为自动放弃。
+              </li>
+              <li>
+                <i></i
+                >本活动只针对娱乐性质的会员，同一手机号码、电子邮箱、相同银行卡、同一个IP地址、同一通信地址、同一台设备，只能由一位会员使用，若发现重复行为，众鑫将无限期保留审核、扣回礼品及所产生的利润之权利。
+              </li>
+              <li>
+                <i></i
+                >本活动中任何用户或团体以不正常的方式套取活动优惠，我司保留在不通知的情况下冻结或关闭账号使用的权力
+  且用户会被列入黑名单。若发现有套利客户，对冲，或不诚实获取盈利之行为，将取消其优惠资格。
+              </li>
+              <li>
+                <i></i
+                >为避免文字争议，此活动遵循众鑫活动规则与条款，并由众鑫保留最终解释权。
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
-    </div>
+    </section>
     <popupbox @tooglePopUp="tooglePopUp" v-if="showPopupBox" :UserName="username" ></popupbox>
   </div>
 </template>
@@ -251,191 +230,96 @@ export default {
 }
 </script>
 <style scoped>
-.main-banner {
-  position: relative;
-  z-index: 2;
+*{
+    box-sizing: border-box;
 }
-.act-content {
-  position: relative;
-  z-index: 1;
-  height: 1700px;
+.firstDeposit{
+    margin: 0;
+    padding: 0;
 }
-.section {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
+.firstDeposit section{
+    position: relative;
+    width: 100%;
 }
-.main-banner .bg {
-  z-index: -1;
-  min-width: 100%;
-  min-height: 496px;
-  max-width: 100%;
-  max-height: 100vh;
-  object-fit: cover;
-  background: url(../../../assets/images/activity/FirstDeposit/recircle.png)
-    no-repeat;
+.firstDeposit img{
+    width: 100%;
+    display: block;
 }
-.act-content > .bg {
-  min-width: 100%;
-  min-height: 2763px;
-  max-width: 100%;
-  max-height: 100vh;
-  margin-top: -25%;
-  object-fit: cover;
-  z-index: -1;
-  background: url(../../../assets/images/activity/Iphone12/content_bg.jpg)
-    no-repeat center;
+.firstDeposit section > .c_content{
+    position: absolute;
+    top: 0;
 }
-.contain {
-  position: absolute;
-  width: 98vw;
-  left: 0;
-  top: 0;
+.c_top > .c_content{
+    top: 19% !important;
+    right: 18.7%;
+    width: 27vw;
 }
-.contain > .main-banner > .float_recircle {
-  width: 66%;
-  margin: 0 auto;
-  margin-top: -5%;
+.c_top > .c_content > img:nth-child(2){
+    position: absolute;
+    width: 53%;
+    left: 50%;
+    bottom: -37%;
+    transform: translateX(-50%);
 }
-.contain > .main-banner > .float_fashion {
-  position: absolute;
-  right: 28%;
-  top: 9%;
-  width: 7vw;
+.c_bottom > .c_content{
+    left: 50%;
+    transform: translateX(-50%);
+    width: 62.7%;
 }
-.contain > .main-banner > .float_itree {
-  position: absolute;
-  left: 4%;
-  top: 2%;
-  width: 20vw;
+.c_bottom > .c_content > div{
+    width: 100%;
 }
-.firstDeposit img {
-  width: auto;
-  margin: 0 auto;
+.c_bottom > .c_content > div.c_area_1{
+    position: relative;
+    height: 10.5%;
+    top: 7.5%;
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    align-items: center;
+    padding: 0 4%;
+    line-height: 2.5rem;
+    margin-top: 5%;
 }
-.firstDeposit > .bg {
-  background: url(../../../assets/images/activity/FirstDeposit/all_bg.png)
-    no-repeat center;
-  min-width: 100%;
-  min-height: 2534px;
-  max-width: 100%;
-  max-height: 100vh;
+.c_bottom > .c_content > div.c_area_1 > img {
+    width: auto;
 }
-.firstDeposit {
-  width: 100%;
-  position: relative;
-  font-size: 15px;
+.c_bottom > .c_content > div.c_area_2{
+    position: relative;
+    width: 100%;
+    top: 13%;
+    height: 13%;
+    padding: 1.4%;
+    color: #454444;
+    font-size: 1.6rem;
+    display: flex;
+    justify-content: center;
 }
-.main-banner .section {
-  left: 0;
-  top: 0;
-  align-items: center;
+.c_bottom > .c_content > div.c_area_3{
+    position: relative;
+    top: 13%;
+    width: 100%;
+    left: 4%;
+    height: 3.8%;
+    color: white;
+    font-size: 1.1rem;
+    margin-top: 3%;
 }
-.main-banner .view {
-  height: 100%
+.c_bottom > .c_content > div.c_area_4{
+    position: relative;
+    height: 2.35%;
+    top: 18.8%;
+    color: #202020;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2.5%;
 }
-.main-banner .view > div {
-  display: flex;
-  flex-direction: column;
-  margin-top: 17%;
-  min-width: 35vw;
-}
-.main-banner .view .text-view{
-  border: 1px #5dcefa solid;
-  margin: 0 auto;
-  width: 18vw;
-  padding: 1% 3%;
-}
-.main-banner .view .text-view > div > p{
-  font-size: 24px;
-  color: #c99d14;
-  text-align: center;
-}
-.main-banner .view > div > div {
-  margin-top: 8%;
-}
-.main-banner .view > div > .section-content > .section-content-title {
-  flex: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.main-banner .view > div > .section-content > .section-content-detail {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  color: white;
-}
-.main-banner .view > div > .section-content > .section-content-detail > ul {
-  list-style-type: none;
-}
-.main-banner
-  .view
-  > div
-  > .section-content
-  > .section-content-detail
-  > ul
-  > li {
-  text-align: right;
-}
-.act-content .section {
-  left: 0;
-  top: 0;
-}
-.act-content .section .view {
-  width: 64vw;
-}
-.act-content .section .view > .act-t {
-  margin-top: 5%;
-  display: flex;
-  justify-content: center;
-}
-.act-content .section .view > .act-t .time{
-  border: 1px solid #282828;
-  padding: 10px;
-  border-radius: 25px;
-  width: 15vw;
-  margin: 1% auto;
-  text-align: center;
-}
-.act-content .section .view .table-group {
-  display: flex;
-  width: 64vw;
-  margin: 0 auto;
-}
-.act-content .section .view .group-view {
-  flex: 1;
-  padding: 0 2%;
-}
-.act-content .section .view .group-view > .group-table {
-  position: relative;
-}
-.act-content .section .view .group-view > .group-table >img {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-.act-content .section .view .group-view > .group-table > div {
-  padding: 1%
-}
-.act-content .section .view .group-view .group-memo,
-.act-content .section .view .group-view .group-title {
-  text-align: left;
-}
-.act-content .section .view .group-view .group-title > div > p{
-  font-size: 24px;
-  letter-spacing: 5px;
-}
-.act-content .section .view .group-view .group-desction {
-  text-align: center;
-  font-size: 14px;
-}
-.act-content .section .view .group-view .group-desction > .account_block {
-  display: flex;
-  justify-content: center;
-  margin-top: 3px;
+.c_bottom > .c_content > div.c_area_4 > .account_block{
+    width: 80%;
+    display: flex;
+    justify-content: center;
 }
 .account_block > div {
   margin-left: 1%;
@@ -465,69 +349,101 @@ export default {
   box-shadow: 0px 10px 5px -2px rgb(255,226,95,0.3), 0px 1px 2px 3px rgb(255,226,95,0.3);*/
 }
 .account_block > div:nth-child(3) > input {
-  box-shadow: 0px 1px 0px 0px #fff6af;
-  background:linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
-  background-color:#ffec64;
   border-radius:6px;
   display:inline-block;
   cursor:pointer;
-  color:#333333;
-  font-family:Arial;
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
   font-size:24px;
   padding:0px 24px;
-  text-decoration:none;
-  text-shadow:0px 1px 0px #ffee66;
 }
 .account_block > div:nth-child(3) > input:hover {
-  background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
-  background-color:#ffab23;
+  background-color: #0069d9;
+  border-color: #0062cc;
 }
 .account_block > div:nth-child(3) > input:active {
   position:relative;
   top:1px;
 }
-
-.act-content .section .view > .act-t > div {
-  width: 100%;
+.c_bottom > .c_content > div.c_area_5{
+    position: relative;
+    width: 100%;
+    top: 18.8%;
+    height: 13%;
+    padding: 1.4%;
+    color: white;
 }
-.act-content .section .view > .act-t ul {
-  list-style-type: decimal;
-  line-height: 250%;
-  padding: 0 3%;
+.c_bottom > .c_content > div.c_area_6{
+    position: relative;
+    color: white;
+    top: 19%;
+    width: 88%;
+    left: 4%;
 }
-.act-content .section .view > .act-t ul > li {
-  text-align: left;
-  font-size: 16px;
+.c_bottom > .c_content > div.c_area_7{
+    position: relative;
+    top: 26.4%;
+    height: 24.3%;
+    padding: 1.4%;
 }
 table {
   border-collapse: collapse;
+  background: #165c94;
   overflow: hidden;
   margin: 0 auto;
   position: relative;
   color: white;
   width: 100%;
-  min-height: 600px;
 }
 table thead tr {
+  background: #054070;
   color: white;
 }
 table,
-td,
-th {
-  border: 1px solid #fff;
-  color: #fff200;
+thead {
+  border: 1px solid #3dadff;
+}
+th:first-child,
+td:first-child {
+  border-right: 1px solid #3dadff;
 }
 td,
 th {
   padding: 1%;
   text-align: center;
-  font-size: 14px;
 }
 table thead tr {
-  height: 70px;
+  height: 45px;
 }
-table th strong,
-table td p {
-  font-size: 18px;
+td {
+  height: 60px;
+}
+td:nth-child(n+2) > p {
+  background-color: #51a9d3;
+  border: 1px solid #4178a1;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  padding-left: 3%;
+}
+table p {
+  font-size: 1.2rem;
+}
+.c_bottom > .c_content .c_area_7 > ul{
+    margin: 0;
+    list-style-type: decimal;
+    color: #666666;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 1% 1% 1% 4.5%;
+    line-height: 200%;
+}
+.c_bottom > .c_content .c_area_7 > ul > li{
+    width: 100%;
+    text-align: left;
+    font-size: 1.1rem;
 }
 </style>

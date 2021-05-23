@@ -156,7 +156,7 @@ export default {
         backShow: false,
         hidBtn: true,
         bankCard: [],
-        chain: ['ERC20'],
+        chain: ['ERC20', 'TRC20'],
         chainname: '',
         walletaddr: '',
         Name: 'test',
@@ -431,11 +431,36 @@ export default {
     // 獲取錢包
     getVirtuala () {
       let _this = this
-      let url = '/api/withdrawal/getvirtualacctinfo'
+      let url = '/api/withdrawal/getvirtualacc'
       _this.$https
         .fetchPost(url, this.Secret({ Token: this.getinfo().token }))
         .then(res => {
-          console.log(res)
+          _this.$bus.$emit('loadingHide')
+          if (res.data.Success === true) {
+            // _this.wallet.bankCard = res.data.Result.Data
+            // _this.wallet.Name = res.data.Result.Name
+            _this.wallet.Name = '高懿'
+            _this.wallet.bank = res.data.Result.BankList
+            // if (_this.wallet.bankCard.length < 1) {
+            //   _this.wallet.showAnswer = false
+            // }
+            if (res.data.Result.Name.length > 0) {
+              _this.wallet.editorName = false
+            }
+          } else {
+            _this
+              .$swal({
+                text: res.data.Message,
+                type: 'error',
+                confirmButtonText: '确定'
+              })
+              .then(r => {
+                if (res.data.Status === 'LoginExpire') {
+                  _this.logout()
+                  _this.$router.push('/login')
+                }
+              })
+          }
         })
         .catch(err => {
           console.log(err)

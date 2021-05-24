@@ -77,8 +77,8 @@
       <div class="Main-front" v-show="wallet.frontShow">
         <ul>
           <li v-for="(bankCards, index) in wallet.bankCard" :key="index" v-show="wallet.bankCard.length>0">
-            <em>{{bankCards.BankName}}</em>
-            <span>{{bankCards.CardNumber}}</span>
+            <em>{{bankCards.ChainName}}</em>
+            <span>{{bankCards.WalletAddr}}</span>
           </li>
           <li class="add" @click="jumpaddcard('wallet')">
             <i></i>
@@ -320,15 +320,7 @@ export default {
       let _this = this
       if (_this.wallet.chainname.length < 1) {
         _this.$swal({
-          text: '请输入钱包地址',
-          type: 'warning',
-          confirmButtonText: '确定'
-        })
-        return
-      }
-      if (_this.wallet.walletaddr.length < 30) {
-        _this.$swal({
-          text: '请输入正确的钱包地址',
+          text: '请选择链名称',
           type: 'warning',
           confirmButtonText: '确定'
         })
@@ -337,6 +329,24 @@ export default {
       if (_this.wallet.Exange.length < 1) {
         _this.$swal({
           text: '请输入所属交易所',
+          type: 'warning',
+          confirmButtonText: '确定'
+        })
+        return
+      }
+      let trcRules = new RegExp('^T[0-9a-zA-Z]{33}')
+      if (_this.wallet.chainname.replace(/\s*/g, '') === 'TRC20' && !(trcRules.test(_this.wallet.walletaddr))) {
+        _this.$swal({
+          text: '请输入正确的钱包地址',
+          type: 'warning',
+          confirmButtonText: '确定'
+        })
+        return
+      }
+      let ercRules = new RegExp('^0x[0-9a-zA-Z]{40}')
+      if (_this.wallet.chainname.replace(/\s*/g, '') === 'ERC20' && !(ercRules.test(_this.wallet.walletaddr))) {
+        _this.$swal({
+          text: '请输入正确的钱包地址',
           type: 'warning',
           confirmButtonText: '确定'
         })
@@ -367,8 +377,8 @@ export default {
           if (res.data.Success === true) {
             _this.wallet.showAnswer = true
             _this.wallet.bankCard.push({
-              BankName: _this.wallet.bankName,
-              CardNumber: _this.wallet.BankCardNo
+              ChainName: _this.wallet.chainname,
+              WalletAddr: _this.wallet.walletaddr
             })
             _this.jumpback('wallet')
           } else {
@@ -437,9 +447,8 @@ export default {
         .then(res => {
           _this.$bus.$emit('loadingHide')
           if (res.data.Success === true) {
-            // _this.wallet.bankCard = res.data.Result.Data
-            // _this.wallet.Name = res.data.Result.Name
-            _this.wallet.Name = '高懿'
+            _this.wallet.bankCard = res.data.Result.Data
+            _this.wallet.Name = res.data.Result.Name
             _this.wallet.bank = res.data.Result.BankList
             // if (_this.wallet.bankCard.length < 1) {
             //   _this.wallet.showAnswer = false

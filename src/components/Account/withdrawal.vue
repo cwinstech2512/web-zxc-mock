@@ -70,7 +70,7 @@
         <li>
           <label>选择钱包：</label>
           <select v-model="USDT_Withdraw.bankId" @input="changeAmount('USDT_Withdraw')">
-            <option value disabled="disabled">请选择提款钱包</option>
+            <option value disabled="disabled">请选择提币钱包</option>
             <option
               v-for="(bankCards, index) in USDT_Withdraw.bankCard"
               :key="index"
@@ -78,14 +78,14 @@
             >{{bankCards.ChainName}}--尾号{{strSlice(bankCards.WalletAddr,3)}}</option>
           </select>
           <span>
-            <em>*请选择提款钱包</em>
+            <em>*请选择提币钱包</em>
           </span>
         </li>
         <li>
           <label>提款金额：</label>
           <input type="number" placeholder="0元" v-model.trim="USDT_Withdraw.amount" @keypress="isNumber($event)" @input="changeAmount('USDT_Withdraw')"/>
           <span>
-            <em>*请输入提款金额，最低提款20USDT</em>
+            <em>*请输入提币金额，最低提币20USDT</em>
           </span>
         </li>
         <li>
@@ -99,23 +99,23 @@
           </ul>
         </li>
         <li>
-          <label>提款密码：</label>
+          <label>提币密码：</label>
           <input type="password" v-model="USDT_Withdraw.password" @input="changeAmount('USDT_Withdraw')"/>
           <span>
-            <em>*提款密码与登录密码一致</em>
+            <em>*提币密码与登录密码一致</em>
           </span>
         </li>
         <li>
           <p></p>
         </li>
         <li>
-          <button :class="USDT_Withdraw.hidBtn||USDT_Withdraw.sending? 'hid':''" @click="sendUsdtWithdrawal()">立即提款</button>
+          <button :class="USDT_Withdraw.hidBtn||USDT_Withdraw.sending? 'hid':''" @click="sendUsdtWithdrawal()">立即提币</button>
         </li>
       </ul>
       <div class="text">
         <p>
-          <span>为什么游戏账户里有钱，却提不了款？</span>
-          <br />答：您需要先将资金从游戏平台转至众鑫账户后才能进行提款操作。
+          <span>为什么游戏账户里有钱，却提不了币？</span>
+          <br />答：您需要先将资金从游戏平台转至众鑫账户后才能进行提币操作。
         </p>
       </div>
     </div>
@@ -413,7 +413,30 @@ export default {
           _this.$bus.$emit('loadingHide')
           if (res.data.Success === true) {
             this.USDT_Withdraw.bankCard = res.data.Result.Data
+            if (res.data.Result.Data.length < 1) {
+              _this
+                .$swal({
+                  text: '请先绑定钱包',
+                  type: 'warning',
+                  confirmButtonText: '确定'
+                })
+                .then(() => {
+                  _this.$router.push('/accounts/Withdrawal')
+                })
+            }
           } else {
+            _this
+              .$swal({
+                text: res.data.Message,
+                type: 'error',
+                confirmButtonText: '确定'
+              })
+              .then(r => {
+                if (res.data.Status === 'LoginExpire') {
+                  _this.logout()
+                  _this.$router.push('/login')
+                }
+              })
           }
         })
         .catch(err => {
@@ -542,7 +565,7 @@ export default {
       }
       if (_this.USDT_Withdraw.amount.toString().length < 1) {
         _this.$swal({
-          text: '请输入提款金额',
+          text: '请输入提币金额',
           type: 'warning',
           confirmButtonText: '确定'
         })
@@ -550,7 +573,7 @@ export default {
       }
       if (_this.USDT_Withdraw.amount < 20) {
         _this.$swal({
-          text: '最低提款 20USDT',
+          text: '最低提币 20USDT',
           type: 'warning',
           confirmButtonText: '确定'
         })
@@ -558,7 +581,7 @@ export default {
       }
       if (_this.USDT_Withdraw.password.length < 1) {
         _this.$swal({
-          text: '请输入提款密码',
+          text: '请输入提币密码',
           type: 'warning',
           confirmButtonText: '确定'
         })

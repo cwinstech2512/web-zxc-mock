@@ -20,7 +20,7 @@
               v-for="(bankCards, index) in withdraw.bankCard"
               :key="index"
               :value="bankCards.BankId.toString()"
-            >{{bankCards.BankName}}--开头{{bankCards.CardNumber}}</option>
+            >{{bankCards.BankName}}--尾号{{bankCards.CardNumber}}</option>
           </select>
           <span>
             <em>*请选择提款银行卡</em>
@@ -75,7 +75,7 @@
               v-for="(bankCards, index) in USDT_Withdraw.bankCard"
               :key="index"
               :value="bankCards.Id.toString()"
-            >{{bankCards.ChainName}}--尾号{{strSlice(bankCards.WalletAddr,3)}}</option>
+            >{{bankCards.ChainName}}--开头{{strSlice(bankCards.WalletAddr,3)}}</option>
           </select>
           <span>
             <em>*请选择提币钱包</em>

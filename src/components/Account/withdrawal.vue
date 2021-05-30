@@ -20,7 +20,7 @@
               v-for="(bankCards, index) in withdraw.bankCard"
               :key="index"
               :value="bankCards.BankId.toString()"
-            >{{bankCards.BankName}}--尾号{{bankCards.CardNumber}}</option>
+            >{{bankCards.BankName}}--开头{{bankCards.CardNumber}}</option>
           </select>
           <span>
             <em>*请选择提款银行卡</em>

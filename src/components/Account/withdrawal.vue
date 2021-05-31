@@ -82,7 +82,7 @@
           </span>
         </li>
         <li>
-          <label>提款金额：</label>
+          <label>提币金额：</label>
           <input type="number" placeholder="0元" v-model.trim="USDT_Withdraw.amount" @keypress="isNumber($event)" @input="changeAmount('USDT_Withdraw')"/>
           <span>
             <em>*请输入提币金额，最低提币20USDT</em>
@@ -106,7 +106,7 @@
           </span>
         </li>
         <li>
-          <p></p>
+          <p>今日提款次数剩余{{withdraw.RemainDrawCount}}次，单次最高{{withdraw.MaxLimit}}元，今日提款额度剩余{{withdraw.RemainDrawSum}}元</p>
         </li>
         <li>
           <button :class="USDT_Withdraw.hidBtn||USDT_Withdraw.sending? 'hid':''" @click="sendUsdtWithdrawal()">立即提币</button>
@@ -190,28 +190,28 @@ export default {
         sending: false,
         amountBtn: [
           {
-            code: 'sum100',
-            text: '100'
+            code: 'sum20',
+            text: '20'
           },
           // {
           //   code: 'sum500',
           //   text: '500'
           // },
           {
-            code: 'sum1000',
-            text: '1000'
+            code: 'sum100',
+            text: '100'
+          },
+          {
+            code: 'sum500',
+            text: '500'
           },
           {
             code: 'sum5000',
             text: '5000'
           },
           {
-            code: 'sum10000',
-            text: '10000'
-          },
-          {
-            code: 'sum49999',
-            text: '49999'
+            code: 'sum8000',
+            text: '8000'
           },
           {
             code: 'clear',
@@ -316,23 +316,20 @@ export default {
         this.USDT_Withdraw.amount = parseFloat(this.USDT_Withdraw.amount)
       }
       switch (code) {
+        case 'sum20':
+          this.USDT_Withdraw.amount += 20
+          break
         case 'sum100':
           this.USDT_Withdraw.amount += 100
           break
         case 'sum500':
           this.USDT_Withdraw.amount += 500
           break
-        case 'sum1000':
-          this.USDT_Withdraw.amount += 1000
-          break
         case 'sum5000':
           this.USDT_Withdraw.amount += 5000
           break
-        case 'sum10000':
-          this.USDT_Withdraw.amount += 10000
-          break
-        case 'sum49999':
-          this.USDT_Withdraw.amount += 49999
+        case 'sum8000':
+          this.USDT_Withdraw.amount += 8000
           break
         case 'clear':
           this.USDT_Withdraw.amount = ''
@@ -606,6 +603,7 @@ export default {
             // _this.withdraw.RemainDrawCount -= 1
             // _this.withdraw.RemainDrawSum -= _this.withdraw.amount
             _this.USDT_Withdraw.amount = 0
+            _this.getinfo()
             _this.$swal({
               text: '提交成功',
               type: 'success',

@@ -75,7 +75,7 @@
               v-for="(bankCards, index) in USDT_Withdraw.bankCard"
               :key="index"
               :value="bankCards.Id.toString()"
-            >{{bankCards.ChainName}}--尾号{{strSlice(bankCards.WalletAddr,3)}}</option>
+            >{{bankCards.ChainName}}--开头{{strSlice(bankCards.WalletAddr,3)}}</option>
           </select>
           <span>
             <em>*请选择提币钱包</em>

@@ -1,0 +1,228 @@
+﻿
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.banner-img{
+    max-width:100%;
+}
+
+.banner-content {
+    max-width: 100%;
+    position: relative;
+    top: -160px;
+}
+
+h1{
+    font-size:48px
+}
+
+.rule-content {
+    max-width: 850px;
+    width: 850px;
+    margin: 0px auto;
+    padding-bottom: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    background: #dcdcdc;
+    padding: 0 25px 25px;
+    margin-top: 100px;
+}
+
+.rule-content-details {
+    max-width: 850px;
+    width: 850px;
+    margin: 8rem auto;
+    padding-bottom: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    background: #dcdcdc;
+    padding: 0 25px 25px;
+}
+
+
+
+h1.title{
+    color:white;
+    font-weight:bold;
+    font-size: 26px;
+}
+
+.content {
+    font-size: 23pt;
+    letter-spacing: 1px;
+    font-weight: 550;
+    line-height: 50px;
+    padding: 0 20px 0 50px;
+    position: relative;
+    margin-top: 15px;
+}
+
+.content.small {
+    font-size: 16px;
+}
+
+img.img-trophy {
+    position: absolute;
+    bottom: -50px;
+    display: block;
+    width: 230px;
+    left: -190px;
+}
+img.img-soccer {
+    position: absolute;
+    bottom: -90px;
+    display: block;
+    width: 350px;
+    right: -90px;
+}
+
+button.btn.btn-play {
+    background: #a0a0a0;
+    color: white;
+    border: 1px solid #cbcbcb;
+    border-radius:50px;
+    font-size:17px;
+}
+button.btn.btn-play:active {
+    background: #f78c00;
+}
+
+    button.btn.btn-play:hover {
+        background: #f78c00;
+    }
+.btn-active{
+    background: #f78c00 !important; 
+}
+.table-top {
+    position: absolute;
+    top: 30%;
+    width: 60%;
+    max-width: 1155px;
+}
+
+table {
+    max-width: 1155px !important;    
+    top: 34%;
+    position: absolute;
+    width: 60%
+}
+
+
+td {
+    background: #f8fcd9;
+    font-size: 18px;    
+    padding: 8px;
+}
+
+        td.right-line {
+            border-right: 2px solid #24bec3;
+            text-align: center;
+        }
+
+    th {
+        border-top: 2px solid #24bec3;
+    }
+
+    .play-title {
+        text-align: center;
+        font-weight: bold;
+    }
+
+
+    .btn-group {
+        position: absolute;
+        top:31%;
+        color: black;
+        font-size: 16px;
+        padding: 5px 30px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    @media (max-width: 1200px) {
+        .rule-content {
+            max-width: 600px;
+            width: 600px;
+        }
+
+        .rule-content-details {
+            max-width: 600px;
+            width: 600px;
+        }
+
+        .content.small {
+            font-size: 15px;
+            line-height: 40px;
+        }
+
+        .content {
+            font-size: 20pt;
+            max-width: 920px;
+        }
+
+        h1.title {
+            color: white;
+            font-weight: bold;
+            font-size: 40px;
+        }
+
+        img.img-soccer {
+            position: absolute;
+            bottom: -40px;
+            display: block;
+            width: 250px;
+            right: -150px;
+        }
+
+        table {
+            width: 70% !important;
+            border: 2px solid #24bec3 !important;
+            top: 475px;
+            position: absolute;
+        }
+
+        .table-top {
+            position: absolute;
+            top: 410px;
+            width: 70%;
+        }
+
+        .banner-content {
+            max-width: 100%;
+            position: relative;
+            top: -110px;
+        }
+
+        .btn-group {
+            position: absolute;
+            top: 31.5%;
+            color: black;
+            font-size: 16px;
+            padding: 5px 30px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        td {
+            font-size: 16px;
+            padding: 5px;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .container {
+            width: 60%;
+        }
+    }

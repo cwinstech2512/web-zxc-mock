@@ -215,7 +215,9 @@ export default {
         isShowIpDiffCheckCode: '',
         LastLoginTime: '',
         cellPhone: ''
-      }
+      },
+      userInfo: '',
+      bankCard: ''
     }
   },
   //  监听属性 类似于data概念

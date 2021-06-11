@@ -70,6 +70,12 @@ export default {
     },
     stepRun () {
       this.step = this.step + 1
+      let _this = this
+      switch (this.step) {
+        case 2:
+          _this.stepText = '您当前还未验证手机号'
+          break
+      }
       if (this.step > this.stepMax) {
         this.step = 0
         this.stepMax = 0
@@ -102,7 +108,6 @@ export default {
                 this.$router.push('/accounts/account')
               }
               _this.stepMax = _this.stepMax + 1
-              _this.stepText = '您当前还未绑定银行卡'
             }
             url = '/api/account/getinfo'
             _this.$https
@@ -116,14 +121,16 @@ export default {
                     this.$router.push('/accounts/account')
                   }
                   _this.stepMax = _this.stepMax + 1
-                  _this.stepText = '您当前还未验证手机号'
                 }
                 if (_this.bankCard.length === 0 && _this.userInfo.VerifyPhone.length < 1) {
                   _this.step = 1
+                  _this.stepText = '您当前还未绑定银行卡'
                 } else if (_this.bankCard.length === 0) {
                   _this.step = 1
+                  _this.stepText = '您当前还未绑定银行卡'
                 } else if (_this.userInfo.VerifyPhone.length < 1) {
                   _this.step = 2
+                  _this.stepText = '您当前还未验证手机号'
                 } else {
                   next()
                 }

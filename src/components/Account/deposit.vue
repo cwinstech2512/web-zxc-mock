@@ -75,7 +75,7 @@ export default {
         .then(res => {
           if (res.data.Success === true) {
             res.data.Result.Methods.forEach(element => {
-              console.log(element)
+              // console.log(element)
               _this.depositMenu.push({
                 code: element.TypeCode,
                 name: element.Name,
@@ -83,16 +83,16 @@ export default {
                 TransferPropety: element.TransferPropety
               })
             })
-            _this.depositMenu.push({
-              code: 'bindUSDTwalle',
-              name: 'USDT充值',
-              GroupList: null,
-              TransferPropety: {
-                BankNames: ['农业银行'],
-                MaxAmount: 8000,
-                MinAmount: 20
-              }
-            })
+            // _this.depositMenu.push({
+            //   code: 'bindUSDTwalle',
+            //   name: 'USDT充值',
+            //   GroupList: null,
+            //   TransferPropety: {
+            //     BankNames: ['农业银行'],
+            //     MaxAmount: 8000,
+            //     MinAmount: 20
+            //   }
+            // })
             // _this.$nextTick(function () {
             //  _this.SwiperMenu()
             // })

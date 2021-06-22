@@ -5,9 +5,9 @@
         <li :class="{'on':select=='Withdraw'}" @click="jumpback('Withdraw')">
           <span>提款</span>
         </li>
-         <li :class="{'on':select=='USDT_Withdraw'}" @click="jumpback('USDT_Withdraw')">
+         <!-- <li :class="{'on':select=='USDT_Withdraw'}" @click="jumpback('USDT_Withdraw')">
           <span>USDT提币</span>
-        </li>
+        </li> -->
       </ul>
     </div>
     <div class="withdrawalMain" v-if="withdraw.bankCard && withdraw.bankCard.length>0 && select == 'Withdraw'">

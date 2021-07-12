@@ -47,20 +47,21 @@
             <span>协议1：</span>
             <input type="checkbox" :class="checkbox1? 'on':''" @click="checkbox1 =!checkbox1" />
             <span>
-              我已明白需要转账: 实际转账金额:
-              <em>{{amountDec >0 ? amountDec.toString().substr(-3):'0'}}(包含小数点后两位)</em>元
+              请联系在线客服咨询当前汇率（每日汇率固定）
+              <!-- <em>{{amountDec >0 ? amountDec.toString().substr(-3):'0'}}(包含小数点后两位)</em>元 -->
             </span>
-            <span>
+            <!--<span>
               我已明白需要转账: 实际转账金额:
               <em>{{amountDec}}(包含小数点后两位)</em>元
             </span>
+          -->
           </div>
           <div class="protocol">
             <span>协议2：</span>
             <input type="checkbox" :class="checkbox2? 'on':''" @click="checkbox2 =!checkbox2" />
             <span>
-              本人已同意，如未转账
-              <em>{{amountDec}}(包含小数点后两位)</em>导致系统无法匹配存款，本网站概不负责！
+              计算方式：存款金额÷汇率 = 需转币的个数
+              <!--<em>{{amountDec}}(包含小数点后两位)</em>导致系统无法匹配存款，本网站概不负责！-->
             </span>
           </div>
         </li>
@@ -96,8 +97,8 @@
         <li>
           <br />
           <span>
-            收款账户不定时更新，请认准当前显示账户信息，仔细核对银行及卡号，
-            <br />如因个人原因转账错误或转入已下架异常银行卡，导致金额损失，均由个人承担；
+            请联系在线客服咨询当前汇率（每日汇率固定）,
+            <br />计算方式：存款金额÷汇率=需转币的个数；
           </span>
         </li>
       </ul>
@@ -110,7 +111,7 @@
           :size="200"
           :dotScale="1"
         ></vue-qr>
-        <p>微信扫描二维码，复制收款信息</p>
+        <p>扫描二维码，复制收款地址信息</p>
       </div>
     </div>
     <div class="text">
@@ -121,9 +122,9 @@
       <p
         v-if=" this.$route.name.toLowerCase()==='alipaytransfer'"
       >2. 支付宝转账为第三方转账，有一定的延迟，具体到账时间以支付宝账单－处理进度为准。</p>
-      <p v-else>2. 微信转账为第三方转账，有一定延迟，具体到账时间以微信支付账单-到账成功为准；</p>
+      <p v-else>2. 例：存款1000元，汇率为6.4，则：1000÷6.4=156.25个币；</p>
       <p>
-        3. 若充值后未到账请联系在线客服。
+        3. 转账成功后联系在线客服上分。
         <a href="javascript:void(0)" @click="sliaonow()">主线客服</a>
         <a href="javascript:void(0)" @click="sliaonow2()">次线客服</a>
       </p>
@@ -255,18 +256,18 @@ export default {
             //    res.data.Result.ID +
             //    '&u=' + this.getinfo().account
             // )
-            this.sqrcode =
-              '收款银行：' +
-              res.data.Result.BankName +
-              '\n' +
-              '收款姓名：' +
-              res.data.Result.Name +
-              '\n' +
-              '收款账号：' +
-              res.data.Result.CardNumber +
-              '\n' +
-              '充值金额：' +
-              res.data.Result.Amount
+            this.sqrcode = res.data.Result.CardNumber
+            // '收款银行：' +
+            // res.data.Result.BankName +
+            // '\n' +
+            // '收款姓名：' +
+            // res.data.Result.Name +
+            // '\n' +
+            // '收款账号：' +
+            // res.data.Result.CardNumber +
+            // '\n' +
+            // '充值金额：' +
+            // res.data.Result.Amount
             // console.log(this.sqrcode)
           } else {
             this.$bus.$emit('loadingHide')

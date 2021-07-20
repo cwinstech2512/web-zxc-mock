@@ -70,12 +70,21 @@ export default {
         Token: this.getinfo().token
       }
       let _this = this
+      var MaxAmount = 0
+      var MinAmount = 0
       this.$https
         .fetchPost(url, this.Secret(params))
         .then(res => {
           if (res.data.Success === true) {
             res.data.Result.Methods.forEach(element => {
-              // console.log(element)
+              if (element.TypeCode === 'onlineTransfer') {
+                MaxAmount = element.TransferPropety.MaxAmount ? element.TransferPropety.MaxAmount : 0
+                MinAmount = element.TransferPropety.MinAmount ? element.TransferPropety.MinAmount : 0
+              }
+              if (element.TypeCode === 'usdtTransfer') {
+                element.TransferPropety.MaxAmount = MaxAmount
+                element.TransferPropety.MinAmount = MinAmount
+              }
               _this.depositMenu.push({
                 code: element.TypeCode,
                 name: element.Name,
@@ -84,11 +93,11 @@ export default {
               })
             })
             // _this.depositMenu.push({
-            //   code: 'bindUSDTwalle',
+            //   code: 'onlineUSDTTransfer',
             //   name: 'USDT充值',
             //   GroupList: null,
             //   TransferPropety: {
-            //     BankNames: ['农业银行'],
+            //     BankNames: ['ERC20'],
             //     MaxAmount: 8000,
             //     MinAmount: 20
             //   }

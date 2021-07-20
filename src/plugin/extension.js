@@ -47,5 +47,9 @@ export default {
       str = str / 100
       return str
     }
+
+    Vue.prototype.toDecimal2 = function (x) {
+      return parseFloat(x).toFixed(2)
+    }
   }
 }

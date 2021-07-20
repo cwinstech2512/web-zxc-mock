@@ -109,6 +109,11 @@ const router = new Router({
               name: 'onlineTransfer',
               component: (resolve) => require(['@/components/Account/deposit/onlineTransfer.vue'], resolve)
             },
+            {// 网银转账
+              path: 'usdtTransfer',
+              name: 'usdtTransfer',
+              component: (resolve) => require(['@/components/Account/deposit/usdtTransfer.vue'], resolve)
+            },
             {
               path: 'wechatTransfer',
               name: 'wechatTransfer',

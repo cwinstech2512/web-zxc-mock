@@ -28,7 +28,17 @@
           </ul>
         </li>
         <li>
-          <label>收款银行：</label>
+          <label style="font-size: 14px;">请转入USDT：</label>
+          <input type="text"
+                 name="readonly"
+                 v-model="amountUSDT"
+                 disabled="disabled" />
+          <span>
+            <em>*不含转帐手续费</em>
+          </span>
+        </li>
+        <li>
+          <label style="font-size: 14px;">USDT链名称：</label>
           <ul class="bank">
             <li v-for="(banks, index) in bank"
                 :key="index"
@@ -46,48 +56,27 @@
          v-show="aepMain === 1">
       <ul>
         <li>
-          <label>收款银行：</label>
+          <label style="font-size: 14px;">请转入USDT：</label>
+          <input type="text"
+                 name="readonly"
+                 disabled="disabled"
+                 v-model="amountUSDT" />
+          <b @click="handleCopy(amount,$event)">复制</b>
+        </li>
+        <li>
+          <label style="font-size: 14px;">USDT链名称：</label>
           <input type="text"
                  name="readonly"
                  disabled="disabled"
                  v-model="BeneficiaryBank" />
         </li>
         <li>
-          <label>收款姓名：</label>
-          <input type="text"
-                 name="readonly"
-                 disabled="disabled"
-                 v-model="BeneficiaryName" />
-          <b @click="handleCopy(BeneficiaryName,$event)">复制</b>
-        </li>
-        <li>
-          <label>收款账号：</label>
+          <label>充幣地址：</label>
           <input type="text"
                  name="readonly"
                  disabled="disabled"
                  v-model="BeneficiaryAccount" />
           <b @click="handleCopy(BeneficiaryAccount,$event)">复制</b>
-        </li>
-        <li v-show="BeneficiaryBank !=='邮政银行'">
-          <label>附言编码：</label>
-          <input type="text"
-                 name="readonly"
-                 disabled="disabled"
-                 v-model="postscript" />
-          <b @click="handleCopy(postscript,$event)">复制</b>
-        </li>
-        <li>
-          <label>充值金额：</label>
-          <input type="text"
-                 name="readonly"
-                 disabled="disabled"
-                 v-model="amount" />
-        </li>
-        <li>
-          <span>
-            收款账户不定时更新，请认准当前显示账户信息，仔细核对银行及卡号，
-            <br />如因个人原因转账错误或转入已下架异常银行卡，导致金额损失，均由个人承担；
-          </span>
         </li>
       </ul>
       <div class="qrcode">
@@ -150,15 +139,22 @@
         <span>注意事项</span>
       </p>
       <p>1. 单笔存款最低{{minAmount}}元，上限{{maxAmount}}元；</p>
-      <p>2. 在汇款的“附言”或“用途”等处填写附言编码即可秒速到账；</p>
-
-      <p>3. 该收款账户仅支持银行网银转账，禁止使用支付宝转入，若使用支付宝转入而导致金额出现问题均由个人承担。如需要支付宝转账请使用支付宝转账功能充值；</p>
+      <p>2. 每次充值请重新获取新USDT地址，充至非当前地址导致一切损失概不负责；</p>
+      <p>3. 自行选择USDT链名称为ERC20或TRC20进行充值，请同链充值，否则导致一切损失自行承担；</p>
+      <p>4. 当前汇率为：{{toDecimal2(USDTRate)}} CNY/USDT（汇率有变动，仅供参考）；</p>
       <p>
-        4. 若充值后未到账请联系在线客服。
+        5. 若充值后未到账请联系在线客服。
         <a href="javascript:void(0)"
            @click="sliaonow()">主线客服</a>
         <a href="javascript:void(0)"
            @click="sliaonow2()">次线客服</a>
+      </p>
+      <p></p>
+      <p style="display: flex; padding: 5px 0;">
+        友情推荐交易所：
+        <a href="https://www.huobi.com/zh-cn/" target="_blank"><img class="binance" src="../../../assets/images/account/huobi_icon.png" /></a>
+        <a href="https://www.binance.com/zh-CN" target="_blank"><img class="binance" src="../../../assets/images/account/binance_icon.png" /></a>
+        <a href="https://www.zb.com/cn/" target="_blank"><img class="binance" src="../../../assets/images/account/zb.com_icon.png" /></a>
       </p>
     </div>
     <div class="noticeBox"
@@ -192,6 +188,7 @@ export default {
       aepMain: 0,
       hidBtn: true,
       amount: null,
+      amountUSDT: null,
       minAmount: 10,
       maxAmount: 5000,
       amountBtn: [],
@@ -204,7 +201,8 @@ export default {
       noticeBox: false,
       sqrcode: '',
       checkbox1: false,
-      checkbox2: false
+      checkbox2: false,
+      USDTRate: 0
     }
   },
   //  监听属性 类似于data概念
@@ -214,7 +212,11 @@ export default {
     }
   },
   //  监控data中的数据变化
-  watch: {},
+  watch: {
+    amount: function (n, o) {
+      this.amountUSDT = this.toDecimal2(n / this.USDTRate)
+    }
+  },
   //  方法集合
   methods: {
     ntStep () {
@@ -235,6 +237,8 @@ export default {
       this.noticeBox = false
     },
     init () {
+      this.$bus.$emit('loadingShow')
+      this.getUSDTRate()
       this.bank = this.$route.params.TransferPropety ? this.$route.params.TransferPropety.BankNames : ''
       this.minAmount = this.$route.params.TransferPropety ? this.$route.params.TransferPropety.MinAmount : 0
       this.maxAmount = this.$route.params.TransferPropety ? this.$route.params.TransferPropety.MaxAmount : 0
@@ -292,13 +296,12 @@ export default {
         })
         return false
       }
-      let url = '/api/deposit/createorder'
+      let url = '/api/deposit/CreateUSDTOrder'
       let params = {
-        Type: '',
-        Amount: this.amount,
-        BankName: this.bank[this.bankActive],
+        USDT: this.amountUSDT,
+        CNY: this.amount,
+        ChainName: this.bank[this.bankActive],
         Token: this.getinfo().token
-        // TrueName: this.BankName,
       }
       let _this = this
       _this.$bus.$emit('loadingShow')
@@ -307,43 +310,13 @@ export default {
         .then(res => {
           if (res.data.Success === true) {
             _this.$bus.$emit('loadingHide')
-            _this.BeneficiaryBank = res.data.Result.BankName
+            _this.BeneficiaryBank = res.data.Result.ChainName
             _this.BeneficiaryName = res.data.Result.Name
-            _this.BeneficiaryAccount = res.data.Result.CardNumber
+            _this.BeneficiaryAccount = res.data.Result.WalletAddr
             _this.amount = res.data.Result.Amount
             _this.postscript = res.data.Result.Code // 附言编码
-            if (_this.BeneficiaryBank !== '邮政银行') {
-              _this.aepMain = 1
-              _this.sqrcode =
-                '收款银行：' +
-                res.data.Result.BankName +
-                '\n' +
-                '收款姓名：' +
-                res.data.Result.Name +
-                '\n' +
-                '收款账号：' +
-                res.data.Result.CardNumber +
-                '\n' +
-                '附言编码：' +
-                res.data.Result.Code +
-                '\n' +
-                '充值金额：' +
-                res.data.Result.Amount
-            } else {
-              _this.aepMain = 2
-              _this.sqrcode =
-                '收款银行：' +
-                res.data.Result.BankName +
-                '\n' +
-                '收款姓名：' +
-                res.data.Result.Name +
-                '\n' +
-                '收款账号：' +
-                res.data.Result.CardNumber +
-                '\n' +
-                '充值金额：' +
-                res.data.Result.Amount
-            }
+            _this.aepMain = 1
+            this.sqrcode = res.data.Result.WalletAddr
             // console.log(_this.sqrcode)
           } else {
             _this
@@ -369,6 +342,40 @@ export default {
     // 复制信息
     handleCopy (text, event) {
       clipboard(text, event)
+    },
+    getUSDTRate () {
+      let url = '/api/deposit/GetUSDTRate'
+      let params = {
+        Token: this.getinfo().token
+      }
+      let _this = this
+      this.$https
+        .fetchPost(url, this.Secret(params))
+        .then(res => {
+          _this.$bus.$emit('loadingHide')
+          if (res.data.Success === true) {
+            if (res.data.Result.Rate) {
+              _this.USDTRate = res.data.Result.Rate
+            }
+          } else {
+            _this
+              .$swal({
+                text: res.data.Message,
+                type: 'error',
+                confirmButtonText: '确定'
+              })
+              .then(r => {
+                if (res.data.Status === 'LoginExpire') {
+                  _this.logout()
+                  _this.$router.push('/login')
+                }
+              })
+          }
+          _this.$bus.$emit('loadingHide')
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   },
   //  生命周期 - 创建完成（可以访问当前this实例）
@@ -409,6 +416,27 @@ export default {
 }
 </script>
 <style scoped>
+.binance {
+  width: auto;
+  height: 25px;
+  margin-left: 7px;
+}
+.cardlabel {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.3);
+}
+.huobi {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.3);
+}
 .noticeBox {
   width: 100%;
   height: 100%;
@@ -474,5 +502,8 @@ export default {
 .qrcode p {
   font-size: 14px;
   color: red;
+}
+.aepMain {
+  min-height: 333px;
 }
 </style>

@@ -5,9 +5,9 @@
         <li :class="{'on':select=='Withdraw'}" @click="jumpback('Withdraw')">
           <span>提款</span>
         </li>
-         <!-- <li :class="{'on':select=='USDT_Withdraw'}" @click="jumpback('USDT_Withdraw')">
+         <li :class="{'on':select=='USDT_Withdraw'}" @click="jumpback('USDT_Withdraw')">
           <span>USDT提币</span>
-        </li> -->
+        </li>
       </ul>
     </div>
     <div class="withdrawalMain" v-if="withdraw.bankCard && withdraw.bankCard.length>0 && select == 'Withdraw'">
@@ -69,7 +69,7 @@
       <ul>
         <li>
           <label>选择钱包：</label>
-          <select v-model="USDT_Withdraw.bankId" @input="changeAmount('USDT_Withdraw')">
+          <select v-model="USDT_Withdraw.bankId" @change="changeAmount('USDT_Withdraw')">
             <option value disabled="disabled">请选择提币钱包</option>
             <option
               v-for="(bankCards, index) in USDT_Withdraw.bankCard"
@@ -82,10 +82,17 @@
           </span>
         </li>
         <li>
-          <label>提币金额：</label>
+          <label>提款金额：</label>
           <input type="number" placeholder="0元" v-model.trim="USDT_Withdraw.amount" @keypress="isNumber($event)" @input="changeAmount('USDT_Withdraw')"/>
           <span>
-            <em>*请输入提币金额，最低提币20USDT</em>
+            <em>*请输入提款金额，最低提款{{withdraw.MinLimit}}元</em>
+          </span>
+        </li>
+        <li>
+          <label>到币数量：</label>
+          <input type="number" v-model.trim="USDT_Withdraw.amountUSDT" disabled="disabled"/>
+          <span>
+            <em>*当前汇率：{{ toDecimal2(USDT_Withdraw.USDTRate) }} CNY/USDT</em>
           </span>
         </li>
         <li>
@@ -188,14 +195,11 @@ export default {
         bankId: '',
         hidBtn: true,
         sending: false,
+        USDTRate: 0,
         amountBtn: [
-          {
-            code: 'sum20',
-            text: '20'
-          },
           // {
-          //   code: 'sum500',
-          //   text: '500'
+          //   code: 'sum20',
+          //   text: '20'
           // },
           {
             code: 'sum100',
@@ -206,12 +210,16 @@ export default {
             text: '500'
           },
           {
+            code: 'sum2000',
+            text: '2000'
+          },
+          {
             code: 'sum5000',
             text: '5000'
           },
           {
-            code: 'sum8000',
-            text: '8000'
+            code: 'sum49999',
+            text: '49999'
           },
           {
             code: 'clear',
@@ -219,6 +227,7 @@ export default {
           }
         ],
         amount: '',
+        amountUSDT: '',
         password: '',
         bankCard: []
       }
@@ -227,7 +236,11 @@ export default {
   //  监听属性 类似于data概念
   computed: {},
   //  监控data中的数据变化
-  watch: {},
+  watch: {
+    'USDT_Withdraw.amount': function (n, o) {
+      this.USDT_Withdraw.amountUSDT = this.toDecimal2(n / this.USDT_Withdraw.USDTRate)
+    }
+  },
   //  方法集合
   methods: {
     // 返回列表
@@ -440,6 +453,42 @@ export default {
           console.log(err)
         })
     },
+    // 獲取匯率
+    getUSDTRate () {
+      this.$bus.$emit('loadingShow')
+      let url = '/api/deposit/GetUSDTRate'
+      let params = {
+        Token: this.getinfo().token
+      }
+      let _this = this
+      this.$https
+        .fetchPost(url, this.Secret(params))
+        .then(res => {
+          _this.$bus.$emit('loadingHide')
+          if (res.data.Success === true) {
+            if (res.data.Result.Rate) {
+              _this.USDT_Withdraw.USDTRate = res.data.Result.Rate
+            }
+          } else {
+            _this
+              .$swal({
+                text: res.data.Message,
+                type: 'error',
+                confirmButtonText: '确定'
+              })
+              .then(r => {
+                if (res.data.Status === 'LoginExpire') {
+                  _this.logout()
+                  _this.$router.push('/login')
+                }
+              })
+          }
+          _this.$bus.$emit('loadingHide')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
     // 提交
     sendWithdrawal () {
       if (this.withdraw.hidBtn === true || this.withdraw.sending === true) {
@@ -568,9 +617,17 @@ export default {
         })
         return
       }
-      if (_this.USDT_Withdraw.amount < 20) {
+      if (_this.USDT_Withdraw.amount < _this.withdraw.MinLimit) {
         _this.$swal({
-          text: '最低提币 20USDT',
+          text: '最低提款' + _this.withdraw.MinLimit + '元',
+          type: 'warning',
+          confirmButtonText: '确定'
+        })
+        return
+      }
+      if (_this.USDT_Withdraw.amount > _this.withdraw.MaxLimit) {
+        _this.$swal({
+          text: '最高提款' + _this.withdraw.MaxLimit + '元',
           type: 'warning',
           confirmButtonText: '确定'
         })
@@ -585,10 +642,11 @@ export default {
         return
       }
       _this.USDT_Withdraw.sending = true
-      let url = '/api/withdrawal/usdtwithdraw'
+      let url = '/api/withdrawal/USDTWithdraw'
       var params = {
         Id: _this.USDT_Withdraw.bankId,
-        USDT: _this.USDT_Withdraw.amount,
+        USDT: _this.USDT_Withdraw.amountUSDT,
+        CNY: _this.USDT_Withdraw.amount,
         Pwd: _this.USDT_Withdraw.password,
         Token: _this.getinfo().token
       }
@@ -643,6 +701,7 @@ export default {
     }
     this.getInfo()
     this.getVirtuala()
+    this.getUSDTRate()
   },
   //  生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {}
@@ -790,7 +849,7 @@ export default {
   width: 800px;
   box-sizing: border-box;
   padding: 20px;
-  margin-top: 50px;
+  margin-top: 15px;
   margin-left: -200px;
   float: left;
   background: #fffef4;

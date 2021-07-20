@@ -61,7 +61,7 @@
                  name="readonly"
                  disabled="disabled"
                  v-model="amountUSDT" />
-          <b @click="handleCopy(amount,$event)">复制</b>
+          <b @click="handleCopy(amountUSDT,$event)">复制</b>
         </li>
         <li>
           <label style="font-size: 14px;">USDT链名称：</label>
@@ -313,7 +313,7 @@ export default {
             _this.BeneficiaryBank = res.data.Result.ChainName
             _this.BeneficiaryName = res.data.Result.Name
             _this.BeneficiaryAccount = res.data.Result.WalletAddr
-            _this.amount = res.data.Result.Amount
+            _this.amountUSDT = res.data.Result.Amount
             _this.postscript = res.data.Result.Code // 附言编码
             _this.aepMain = 1
             this.sqrcode = res.data.Result.WalletAddr

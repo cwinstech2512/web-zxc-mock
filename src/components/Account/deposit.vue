@@ -379,6 +379,18 @@ export default {
   box-sizing: border-box;
   background-color: #fff;
 }
+.deposit .depositMain >>> ul li textarea {
+  width: 223px;
+  height: 82px;
+  padding: 5px;
+  font-size: 16px;
+  color: #4b4b4b;
+  line-height: 22px;
+  border-radius: 2px;
+  border: 1px solid #4385f5;
+  box-sizing: border-box;
+  background-color: #fff;
+}
 .deposit .depositMain >>> ul li.error input {
   border: 1px solid #ec1414;
 }
@@ -407,7 +419,8 @@ export default {
   font-size: 14px;
   color: #0088ff;
 }
-.deposit .depositMain >>> ul li input[name="readonly"] {
+.deposit .depositMain >>> ul li input[name="readonly"],
+.deposit .depositMain >>> ul li textarea[name="readonly"] {
   border: 1px solid #b0b0b0;
   color: #0088fe;
 }

@@ -64,6 +64,9 @@
           <b @click="handleCopy(amountUSDT,$event)">复制</b>
         </li>
         <li>
+          <p class="notiUSDT">*请确保收款地址收到{{amountUSDT}} USDT,（不含手续费),否则无法自动到账</p>
+        </li>
+        <li>
           <label style="font-size: 14px;">USDT链名称：</label>
           <input type="text"
                  name="readonly"
@@ -71,12 +74,12 @@
                  v-model="BeneficiaryBank" />
         </li>
         <li>
-          <label>充幣地址：</label>
-          <input type="text"
+          <label>充币地址：</label>
+          <textarea type="text"
                  name="readonly"
                  disabled="disabled"
-                 v-model="BeneficiaryAccount" />
-          <b @click="handleCopy(BeneficiaryAccount,$event)">复制</b>
+                 v-model="BeneficiaryAccount" ></textarea>
+          <b style="position: absolute;" @click="handleCopy(BeneficiaryAccount,$event)">复制</b>
         </li>
       </ul>
       <div class="qrcode">
@@ -416,6 +419,11 @@ export default {
 }
 </script>
 <style scoped>
+.notiUSDT {
+  font-size: 12px !important;
+  width: 220px !important;
+  color: red !important;
+}
 .binance {
   width: auto;
   height: 25px;

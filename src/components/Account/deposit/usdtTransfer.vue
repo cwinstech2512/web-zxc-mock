@@ -79,7 +79,7 @@
                  name="readonly"
                  disabled="disabled"
                  v-model="BeneficiaryAccount" ></textarea>
-          <b style="position: absolute;" @click="handleCopy(BeneficiaryAccount,$event)">复制</b>
+          <b style="position: absolute; width: auto; margin-left: 13px;" @click="handleCopy(BeneficiaryAccount,$event)">复制</b>
         </li>
       </ul>
       <div class="qrcode">

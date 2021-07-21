@@ -86,7 +86,7 @@
                 :margin="10"
                 :size="200"
                 :dotScale="1"></vue-qr>
-        <p>微信扫描二维码，复制收款信息</p>
+        <p>点击复制充币地址或扫瞄二维码</p>
       </div>
     </div>
     <div class="aepMain"

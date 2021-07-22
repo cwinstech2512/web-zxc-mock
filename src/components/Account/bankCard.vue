@@ -5,9 +5,9 @@
         <li :class="{'on':select=='card'}">
           <span @click="jumpback('card')">银行卡</span>
         </li>
-        <!-- <li :class="{'on':select=='wallet'}">
+        <li :class="{'on':select=='wallet'}">
           <span @click="jumpback('wallet')">虚拟钱包</span>
-        </li> -->
+        </li>
       </ul>
     </div>
     <div class="bankCardMain" v-if="select == 'card'">

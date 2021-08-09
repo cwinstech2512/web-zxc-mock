@@ -47,6 +47,14 @@
           </ul>
         </li>
         <li>
+          <label style="font-size: 14px;">转出钱包：</label>
+          <textarea type="text"
+                 v-model="walletAddr" ></textarea>
+          <span>
+            <em>*填入转出钱包才能自动上分</em>
+          </span>
+        </li>
+        <li>
           <button :class="hidBtn? 'hid':''"
                   @click="nextStep">立即充值</button>
         </li>
@@ -192,6 +200,7 @@ export default {
       hidBtn: true,
       amount: null,
       amountUSDT: null,
+      walletAddr: '',
       minAmount: 10,
       maxAmount: 5000,
       amountBtn: [],
@@ -252,6 +261,18 @@ export default {
       })
       this.amountBtn.push(-1)
     },
+    vaifyWalletAddr (str) {
+      console.log(str)
+      var reg = /[^A-Z|a-z|0-9]{1,}/g
+      if (
+        str.length < 1 ||
+        reg.test(str)
+      ) {
+        return false
+      } else {
+        return true
+      }
+    },
     // 改变金额
     changeAmount () {
       if (this.amount !== null && this.amount !== '') {
@@ -299,11 +320,27 @@ export default {
         })
         return false
       }
+      if (
+        this.walletAddr == null ||
+        this.walletAddr === '' ||
+        this.walletAddr.length > 42 ||
+        !this.vaifyWalletAddr(this.walletAddr)
+      ) {
+        this.$swal({
+          text: '转出钱包错误',
+          type: 'warning',
+          confirmButtonText: '确定'
+        }).then(x => {
+          this.$refs.walletAddr.focus()
+        })
+        return false
+      }
       let url = '/api/deposit/CreateUSDTOrder'
       let params = {
         USDT: this.amountUSDT,
         CNY: this.amount,
         ChainName: this.bank[this.bankActive],
+        From_WalletAddr: this.walletAddr,
         Token: this.getinfo().token
       }
       let _this = this

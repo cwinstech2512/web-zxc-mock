@@ -262,20 +262,19 @@ export default {
       this.amountBtn.push(-1)
     },
     vaifyWalletAddr (str) {
-      console.log(str)
       var reg = /[^A-Z|a-z|0-9]{1,}/g
-      if(str.length > 0) {
+      if (str.length > 0) {
         if (
           reg.test(str)
         ) {
           return false
         } else {
           if (this.bank[this.bankActive] === 'TRC20') {
-            if (str.substr(0, 1) === 'T' && str.length == 34) {
+            if (str.substr(0, 1) === 'T' && str.length === 34) {
               return true
             }
           } else if (this.bank[this.bankActive] === 'ERC20') {
-            if (str.substr(0, 2) === '0x' && str.length == 42) {
+            if (str.substr(0, 2) === '0x' && str.length === 42) {
               return true
             }
           }

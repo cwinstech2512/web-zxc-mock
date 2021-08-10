@@ -280,6 +280,8 @@ export default {
           }
           return false
         }
+      } else {
+        return true
       }
     },
     // 改变金额

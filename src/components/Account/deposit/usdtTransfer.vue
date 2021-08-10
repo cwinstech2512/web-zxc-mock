@@ -47,11 +47,11 @@
           </ul>
         </li>
         <li>
-          <label style="font-size: 14px;">转出钱包：</label>
+          <label style="font-size: 14px;">转出钱包地址：</label>
           <textarea type="text"
                  v-model="walletAddr" ></textarea>
           <span>
-            <em>*填入转出钱包才能自动上分</em>
+            <em>＊填入转出钱包地址才能自动上分</em>
           </span>
         </li>
         <li>
@@ -264,13 +264,23 @@ export default {
     vaifyWalletAddr (str) {
       console.log(str)
       var reg = /[^A-Z|a-z|0-9]{1,}/g
-      if (
-        str.length < 1 ||
-        reg.test(str)
-      ) {
-        return false
-      } else {
-        return true
+      if(str.length > 0) {
+        if (
+          reg.test(str)
+        ) {
+          return false
+        } else {
+          if (this.bank[this.bankActive] === 'TRC20') {
+            if (str.substr(0, 1) === 'T' && str.length == 34) {
+              return true
+            }
+          } else if (this.bank[this.bankActive] === 'ERC20') {
+            if (str.substr(0, 2) === '0x' && str.length == 42) {
+              return true
+            }
+          }
+          return false
+        }
       }
     },
     // 改变金额
@@ -322,8 +332,6 @@ export default {
       }
       if (
         this.walletAddr == null ||
-        this.walletAddr === '' ||
-        this.walletAddr.length > 42 ||
         !this.vaifyWalletAddr(this.walletAddr)
       ) {
         this.$swal({

@@ -19,6 +19,7 @@ export default {
         BankCode: this.getQueryString('b'), // 银行代码
         BankCardNo: this.getQueryString('c'),
         AlipayName: this.getQueryString('an'), // 支付宝姓名
+        RealName: this.getQueryString('r'), // 真实银行姓名
         Token: this.getinfo().token
       }
       let _this = this

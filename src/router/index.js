@@ -184,6 +184,16 @@ const router = new Router({
               name: 'BankH5',
               component: (resolve) => require(['@/components/Account/deposit/BankH5.vue'], resolve)
             },
+            {
+              path: 'BankToCardSm',
+              name: 'BankToCardSm',
+              component: (resolve) => require(['@/components/Account/deposit/BankToCardSm.vue'], resolve)
+            },
+            {
+              path: 'BankH5Sm',
+              name: 'BankH5Sm',
+              component: (resolve) => require(['@/components/Account/deposit/BankH5Sm.vue'], resolve)
+            },
             // {
             //   path: 'UnionPayCloud',
             //   name: 'UnionPayCloud',

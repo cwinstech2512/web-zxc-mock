@@ -47,7 +47,8 @@
             <span>协议1：</span>
             <input type="checkbox" :class="checkbox1? 'on':''" @click="checkbox1 =!checkbox1" />
             <span>
-              请联系在线客服咨询当前汇率（每日汇率固定）
+              <!-- 请联系在线客服咨询当前汇率（每日汇率固定） -->
+              请按系统给出的带小数点金额进行存款
               <!-- <em>{{amountDec >0 ? amountDec.toString().substr(-3):'0'}}(包含小数点后两位)</em>元 -->
             </span>
             <!--<span>
@@ -56,7 +57,7 @@
             </span>
           -->
           </div>
-          <div class="protocol">
+          <div class="protocol" v-if="false">
             <span>协议2：</span>
             <input type="checkbox" :class="checkbox2? 'on':''" @click="checkbox2 =!checkbox2" />
             <span>
@@ -122,9 +123,9 @@
       <p
         v-if=" this.$route.name.toLowerCase()==='alipaytransfer'"
       >2. 支付宝转账为第三方转账，有一定的延迟，具体到账时间以支付宝账单－处理进度为准。</p>
-      <p v-else>2. 例：存款1000元，汇率为6.4，则：1000÷6.4=156.25个币；</p>
+      <p v-else>2. 提交充值金额后请按系统给出的带小数点金额存款，以便系统自动上分；</p>
       <p>
-        3. 转账成功后联系在线客服上分。
+        3. 存款成功后5分钟内没有到账的请及时联系在线客服；
         <a href="javascript:void(0)" @click="sliaonow()">主线客服</a>
         <a href="javascript:void(0)" @click="sliaonow2()">次线客服</a>
       </p>
@@ -284,11 +285,11 @@ export default {
         })
     },
     nextStep () {
-      if (this.checkbox1 !== false && this.checkbox2 !== false) {
+      if (this.checkbox1 !== false) {
         this.aepMain = 2
       } else {
         this.$swal({
-          text: '请勾选协议1和协议2！',
+          text: '请勾选协议1！',
           type: 'warning',
           confirmButtonText: '确定'
         })

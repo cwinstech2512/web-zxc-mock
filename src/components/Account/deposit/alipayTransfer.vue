@@ -95,15 +95,15 @@
           <label>充值金额：</label>
           <input type="text" name="readonly" disabled="disabled" v-model="amountDec" />
         </li>
-        <li>
+        <!-- <li>
           <br />
           <span>
             请联系在线客服咨询当前汇率（每日汇率固定）,
             <br />计算方式：存款金额÷汇率=需转币的个数；
           </span>
-        </li>
+        </li> -->
       </ul>
-      <div class="qrcode">
+      <!-- <div class="qrcode">
         <vue-qr
           style="margin:0 auto;width:200px"
           :correctLevel="3"
@@ -113,7 +113,7 @@
           :dotScale="1"
         ></vue-qr>
         <p>扫描二维码，复制收款地址信息</p>
-      </div>
+      </div> -->
     </div>
     <div class="text">
       <p>

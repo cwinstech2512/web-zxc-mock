@@ -125,7 +125,8 @@ export default {
           p1: '体育双平台',
           p2: '随时随地，不错过任何精彩赛事',
           btn: [
-            { cnName: '小金体育', enName: 'xj' },
+            { cnName: 'AI体育', enName: 'xj' },
+            { cnName: '小金体育', enName: 'ai' },
             {
               cnName: 'YSB体育',
               enName: 'ysb'

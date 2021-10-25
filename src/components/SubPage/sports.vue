@@ -105,6 +105,10 @@ export default {
       // nsp.zxyl2013.org
       navBtn: [
         {
+          cnmae: 'AI体育',
+          ename: 'ai'
+        },
+        {
           cnmae: '小金体育',
           ename: 'nsp'
         },
@@ -114,6 +118,12 @@ export default {
         }
       ],
       gameInfo: [
+        {
+          em: 'Online',
+          span: '国际米兰俱乐部官方合作伙伴',
+          point: 'ai',
+          btn: ['立即游戏']
+        },
         {
           em: 'Online',
           span: '小金体育投注，每月拥有上万场赛事',
@@ -164,6 +174,10 @@ export default {
                 this.gameUrl = this.nspUrlArr[rnd] + '/NSP.html?gurl=' + res.data.Result.substring(res.data.Result.indexOf('//') + 2)
               }
               // console.log(res.data.Result.substring(res.data.Result.indexOf('//') + 2))
+            } else if (plat === 'ai') {
+              if (res.data.Result.startsWith('http://') || res.data.Result.startsWith('https://')) {
+                window.open(res.data.Result, '_blank').focus()
+              }
             } else {
               this.gameUrl = res.data.Result
             }
@@ -273,6 +287,10 @@ export default {
 .game .game-bar .game-main .goods-img.ysb{
   background-position: -660px 0;
 }
+.game .game-bar .game-main .goods-img.ai{
+  background-position: -1342px 0;
+  width: 906px !important;
+}
 .game .game-bar .game-main .title-Cname{
   width: 450px;
   height: 88px;
@@ -281,6 +299,9 @@ export default {
   left: 0;
   background: url(../../assets/images/SubPage/game__title.png);
   animation: fadeInDown 1s  ease-in-out  forwards  alternate;
+}
+.game .game-bar .game-main .title-Cname.ai{
+  background-position: -4170px 0;
 }
 .game .game-bar .game-main .title-Cname.nsp{
   background-position: -450px 0;

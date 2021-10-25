@@ -76,6 +76,13 @@ export default {
           scale_Span: '0.8%',
           game: [
             {
+              li_Name: 'ai',
+              li_H1: 'AI体育',
+              li_b: 'SPORTS',
+              li_p: '国际米兰俱乐部官方合作伙伴',
+              li_em: '立即投注'
+            },
+            {
               li_Name: 'nsp',
               li_H1: '小金体育',
               li_b: 'SPORTS',
@@ -272,6 +279,7 @@ export default {
             this.$parent.$parent.reload()
           }
           break
+        case 'ai':
         case 'nsp':
         case 'ysb':
           // if (this.$route.name !== 'Sports') {
@@ -570,10 +578,10 @@ export default {
 .box .game li {
   float: left;
 }
-.sp .box .game li,
 .lt .box .game li {
   width: 50%;
 }
+.sp .box .game li,
 .cs .box .game li {
   width: 33%;
 }
@@ -603,6 +611,13 @@ export default {
   color: #fca42c;
   font-weight: normal;
 }
+.menu .sp .box .game li .info p {
+  max-width: 148px;
+  height: 65px;
+  display: table-cell;
+  vertical-align: middle;
+  line-height: 23px;
+}
 .menu .box .game li .info p {
   font-size: 16px;
   color: #333;
@@ -620,6 +635,9 @@ export default {
 }
 .menu .sp .box .game li .info .img {
   background: url(../../assets/images/header/nav_game_model_sports.png);
+}
+.menu .sp .box .game li.ai .info .img {
+  background-position: -400px 0;
 }
 .menu .sp .box .game li.nsp .info .img {
   background-position: 0 0;

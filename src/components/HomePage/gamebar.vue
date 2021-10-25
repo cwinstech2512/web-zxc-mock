@@ -209,6 +209,7 @@ export default {
     // 按钮跳转
     btnJump (methodsWords, i) {
       switch (methodsWords) {
+        case 'ai':
         case 'xj':
         case 'ysb':
           this.$router.push({ name: 'Sports', params: { plat: methodsWords } })

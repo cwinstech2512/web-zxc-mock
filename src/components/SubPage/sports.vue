@@ -165,7 +165,7 @@ export default {
           isLoginSport = false
           this.$bus.$emit('loadingHide')
           if (res.data.Success === true) {
-            this.sports = false
+            if (plat !== 'ai') this.sports = false
             if (plat === 'nsp') {
               if (process.env.NODE_ENV === 'development') {
                 this.gameUrl = 'NSP.html?gurl=' + res.data.Result.substring(res.data.Result.indexOf('//') + 2)
@@ -211,7 +211,18 @@ export default {
     let queryPlat = this.$route.query.plat
     // debugger
     if (queryPlat) {
-      this.game = queryPlat === 'nsp' ? 0 : 1
+      // this.game = queryPlat === 'nsp' ? 0 : 1
+      switch (queryPlat) {
+        case 'ai':
+          this.game = 0
+          break
+        case 'nsp':
+          this.game = 1
+          break
+        case 'ysb':
+          this.game = 2
+          break
+      }
       this.active = this.game
       this.sports = true
       this.$nextTick(() => (this.openGame(queryPlat)))

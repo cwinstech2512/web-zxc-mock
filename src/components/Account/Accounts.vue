@@ -916,7 +916,7 @@ export default {
 }
 .Acc-main-right .Acc-main-right-header .bd .GameBalance li {
   /* width: 10%; */
-  width: 9.09%;
+  width: 8.29%;
   height: 40px;
   float: left;
   text-align: center;

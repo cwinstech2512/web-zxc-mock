@@ -20,16 +20,18 @@
       <div class="tableMain">
         <table>
           <tbody>
-            <tr
-              v-for="(fee, index) in feeInfo"
-              :key="index"
-            >
-              <td><i></i><span>{{fee.PlatText}}</span></td>
-              <td class="proportion"><em>{{pointToPercent(fee.Rete)}}</em><p>返水比例</p></td>
-              <td class="bet"><em>{{numberFormat(fee.RebateStake,2)}}</em><p>投注金额</p></td>
-              <td class="amount"><em>{{numberFormat(fee.RebateFactAmount,2)}}</em><p>返水金额</p></td>
-              <td><button @click="backwaterGet(fee)" :style="fee.RebateFactAmount===0 ? clsDisabled : ''" :disabled="fee.RebateFactAmount===0 || inClickProcess">点击领取</button></td>
-            </tr>
+            <template v-for="(fee, index) in feeInfo">
+              <tr
+                v-if="fee.Plat !== 'SP'"
+                :key="index"
+              >
+                <td><i></i><span>{{fee.PlatText}}</span></td>
+                <td class="proportion"><em>{{pointToPercent(fee.Rete)}}</em><p>返水比例</p></td>
+                <td class="bet"><em>{{numberFormat(fee.RebateStake,2)}}</em><p>投注金额</p></td>
+                <td class="amount"><em>{{numberFormat(fee.RebateFactAmount,2) >= 1.0 ? numberFormat(fee.RebateFactAmount,2) : '0.00'}}</em><p>返水金额</p></td>
+                <td><button @click="backwaterGet(fee)" :style="fee.RebateFactAmount<1.0 ? clsDisabled : ''" :disabled="fee.RebateFactAmount<1.0 || inClickProcess">点击领取</button></td>
+              </tr>
+            </template>
           </tbody>
         </table>
       </div>
@@ -47,8 +49,8 @@
               <td><i></i><span>{{fee.PlatText}}</span></td>
               <td class="proportion"><em>{{pointToPercent(fee.Rete)}}</em><p>返水比例</p></td>
               <td class="bet"><em>{{numberFormat(fee.RebateStake,2)}}</em><p>投注金额</p></td>
-              <td class="amount"><em>{{numberFormat(fee.RebateFactAmount,2)}}</em><p>返水金额</p></td>
-              <td><button @click="backwaterGetExtra(fee)" :style="fee.RebateFactAmount===0 ? clsDisabled : ''" :disabled="fee.RebateFactAmount===0 || inClickProcess">点击领取</button></td>
+              <td class="amount"><em>{{numberFormat(fee.RebateFactAmount,2) >= 1.0 ? numberFormat(fee.RebateFactAmount,2) : '0.00'}}</em><p>返水金额</p></td>
+              <td><button @click="backwaterGetExtra(fee)" :style="fee.RebateFactAmount<1.0 ? clsDisabled : ''" :disabled="fee.RebateFactAmount<1.0 || inClickProcess">点击领取</button></td>
             </tr>
           </tbody>
         </table>

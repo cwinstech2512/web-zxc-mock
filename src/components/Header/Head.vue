@@ -189,11 +189,11 @@ export default {
       logined: false,
       activitytop: [
         // 头部活动入口
-        {
-          // 签到吧兄弟
-          src: 'baccaratZDJL-top.gif',
-          url: 'baccaratZDJL'
-        },
+        // {
+        //   // 签到吧兄弟
+        //   src: 'baccaratZDJL-top.gif',
+        //   url: 'baccaratZDJL'
+        // },
         // {
         //   // 全平台流水大作战
         //   src: 'fplatformb-top.gif',

@@ -334,16 +334,16 @@ const router = new Router({
       name: 'recordfightall',
       component: (resolve) => require(['@/components/Activity/RecordFightAll/RecordFightAll.vue'], resolve)
     },
-    { // Iphone 12
-      path: '/iphone12',
-      name: 'iphone12',
-      component: (resolve) => require(['@/components/Activity/Iphone12/Iphone12.vue'], resolve)
-    },
-    { // BbaccaratZDJL
-      path: '/baccaratZDJL',
-      name: 'baccaratZDJL',
-      component: (resolve) => require(['@/components/Activity/BaccaratZDJL/BaccaratZDJL.vue'], resolve)
-    },
+    // { // Iphone 12
+    //   path: '/iphone12',
+    //   name: 'iphone12',
+    //   component: (resolve) => require(['@/components/Activity/Iphone12/Iphone12.vue'], resolve)
+    // },
+    // { // BbaccaratZDJL
+    //   path: '/baccaratZDJL',
+    //   name: 'baccaratZDJL',
+    //   component: (resolve) => require(['@/components/Activity/BaccaratZDJL/BaccaratZDJL.vue'], resolve)
+    // },
     { // 奖池瓜分活动
       path: '/kgjuejin',
       name: 'kgjuejin',

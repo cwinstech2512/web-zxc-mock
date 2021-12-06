@@ -199,11 +199,11 @@ export default {
         //   src: 'fplatformb-top.gif',
         //   url: 'recordfightall'
         // }
-        {
-          // iphone12
-          src: 'iphone12-top.gif',
-          url: 'iphone12'
-        }
+        // {
+        //   // iphone12
+        //   src: 'iphone12-top.gif',
+        //   url: 'iphone12'
+        // }
       ],
       MsgResult: [],
       showRecPopup: false,

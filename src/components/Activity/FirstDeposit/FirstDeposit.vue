@@ -75,7 +75,7 @@
                   </td>
                   <td>
                     <p>
-                      iPhone 12 Pro Max(256G)或中国黄金金条(20g)+2000元现金
+                      iPhone 13 Pro Max(512G)或中国黄金金条(20g)+2000元现金
                     </p>
                   </td>
                 </tr>

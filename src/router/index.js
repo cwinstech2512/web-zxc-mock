@@ -370,8 +370,8 @@ const router = new Router({
       component: (resolve) => require(['@/components/Activity/SignInBrother/SignInBrother.vue'], resolve)
     },
     { // 体育保单
-      path: '/euroCup2020',
-      name: 'euroCup2020',
+      path: '/AISportFreeMatch2',
+      name: 'AISportFreeMatch2',
       component: (resolve) => require(['@/components/Activity/EuroCup2020/EuroCup2020.vue'], resolve)
     }
   ]

@@ -233,7 +233,7 @@ export default {
 }
 .section1 > .r_content {
   position: relative;
-  padding-top: 1%;
+  padding-top: 3%;
 }
 .section1 > .r_content > p {
   padding: 2%;
@@ -276,7 +276,7 @@ export default {
     flex-wrap: wrap;
     align-items: center;
     padding: 1% 1% 1% 4.5%;
-    line-height: 200%;
+    line-height: 400%;
 }
 .section1 > .r_content .c_area_7 > ul > li{
     width: 100%;
@@ -287,6 +287,6 @@ export default {
     position: relative;
     /* top: 26.4%;
     height: 24.3%; */
-    padding: 1.4%;
+    padding: 1.4% 0;
 }
 </style>

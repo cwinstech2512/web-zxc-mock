@@ -206,7 +206,7 @@ export default {
 .active_date {
   position: absolute;
   left: 56.5%;
-  top: 16.8%;
+  top: 17.7%;
   width: 34.2%;
 }
 .active_date > h3 {
@@ -216,7 +216,7 @@ export default {
 }
 .active_content_title {
   position: absolute;
-  top: 24%;
+  top: 25%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -225,7 +225,7 @@ export default {
 }
 .section1 {
   position: absolute;
-  top: 42%;
+  top: 38.2%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, 0);

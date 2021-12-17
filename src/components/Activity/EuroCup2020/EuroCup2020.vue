@@ -7,7 +7,7 @@
         class="banner-img"
       />
       <!--表格-->
-      <div class="container" style="margin-top: -32%;">
+      <div class="container" >
         <div class="active_date"><h3>活动时间：2021年12月18日起</h3></div>
         <div class="active_content_title"><h3>【仅限AI体育平台】 每周六指定赛事负盈利100%包赔</h3></div>
         <img
@@ -206,7 +206,7 @@ export default {
 .active_date {
   position: absolute;
   left: 56.5%;
-  top: 20.6%;
+  top: 16.8%;
   width: 34.2%;
 }
 .active_date > h3 {
@@ -216,7 +216,7 @@ export default {
 }
 .active_content_title {
   position: absolute;
-  top: 28%;
+  top: 24%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -225,7 +225,7 @@ export default {
 }
 .section1 {
   position: absolute;
-  bottom: -10%;
+  top: 42%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, 0);
@@ -281,7 +281,7 @@ export default {
 .section1 > .r_content .c_area_7 > ul > li{
     width: 100%;
     text-align: left;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
 }
 .section1 > .r_content > div.c_area_7{
     position: relative;

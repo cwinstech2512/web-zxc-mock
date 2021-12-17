@@ -103,14 +103,14 @@ button.btn.btn-play:active {
 }
 .table-top {
     position: absolute;
-    top: 30%;
+    top: 26%;
     width: 60%;
     max-width: 1155px;
 }
 
 table {
     max-width: 1155px !important;    
-    top: 34%;
+    top: 29.5%;
     position: absolute;
     width: 60%
 }
@@ -141,7 +141,7 @@ td {
 
     .btn-group {
         position: absolute;
-        top:31%;
+        top:27%;
         color: black;
         font-size: 16px;
         padding: 5px 30px;

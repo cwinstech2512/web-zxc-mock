@@ -108,10 +108,10 @@ export default {
           cnmae: 'AI体育',
           ename: 'ai'
         },
-        {
-          cnmae: '小金体育',
-          ename: 'nsp'
-        },
+        // {
+        //   cnmae: '小金体育',
+        //   ename: 'nsp'
+        // },
         {
           cnmae: 'YSB体育',
           ename: 'ysb'
@@ -124,12 +124,12 @@ export default {
           point: 'ai',
           btn: ['立即游戏']
         },
-        {
-          em: 'Online',
-          span: '小金体育投注，每月拥有上万场赛事',
-          point: 'nsp',
-          btn: ['立即游戏']
-        },
+        // {
+        //   em: 'Online',
+        //   span: '小金体育投注，每月拥有上万场赛事',
+        //   point: 'nsp',
+        //   btn: ['立即游戏']
+        // },
         {
           em: 'Online',
           span: '五大联赛/世界杯/NBA等多款丰富赛事投注',
@@ -299,8 +299,9 @@ export default {
   background-position: -660px 0;
 }
 .game .game-bar .game-main .goods-img.ai{
-  background-position: -1342px 0;
-  width: 906px !important;
+  /* background-position: -1342px 0; */
+  background-position: 0 0;
+  /* width: 906px !important; */
 }
 .game .game-bar .game-main .title-Cname{
   width: 450px;

@@ -82,13 +82,13 @@ export default {
               li_p: '国际米兰俱乐部官方合作伙伴',
               li_em: '立即投注'
             },
-            {
-              li_Name: 'nsp',
-              li_H1: '小金体育',
-              li_b: 'SPORTS',
-              li_p: '小金体育投注，每月拥有上万场赛事',
-              li_em: '立即投注'
-            },
+            // {
+            //   li_Name: 'nsp',
+            //   li_H1: '小金体育',
+            //   li_b: 'SPORTS',
+            //   li_p: '小金体育投注，每月拥有上万场赛事',
+            //   li_em: '立即投注'
+            // },
             {
               li_Name: 'ysb',
               li_H1: 'YSB体育',
@@ -581,7 +581,9 @@ export default {
 .lt .box .game li {
   width: 50%;
 }
-.sp .box .game li,
+.sp .box .game li {
+  width: 50%;
+}
 .cs .box .game li {
   width: 33%;
 }
@@ -612,7 +614,7 @@ export default {
   font-weight: normal;
 }
 .menu .sp .box .game li .info p {
-  max-width: 148px;
+  /* max-width: 148px; */
   height: 65px;
   display: table-cell;
   vertical-align: middle;
@@ -637,7 +639,8 @@ export default {
   background: url(../../assets/images/header/nav_game_model_sports.png);
 }
 .menu .sp .box .game li.ai .info .img {
-  background-position: -400px 0;
+  /* background-position: -400px 0; */
+  background-position: 0 0;
 }
 .menu .sp .box .game li.nsp .info .img {
   background-position: 0 0;

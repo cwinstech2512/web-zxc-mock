@@ -113,6 +113,13 @@ export default {
               li_em: '立即投注'
             },
             {
+              li_Name: 'ag2',
+              li_H1: 'AG2娱乐场',
+              li_b: 'CASINO',
+              li_p: '引领业界的娱乐场',
+              li_em: '立即投注'
+            },
+            {
               li_Name: 'ea',
               li_H1: 'EA娱乐场',
               li_b: 'CASINO',
@@ -255,6 +262,11 @@ export default {
       // debugger
       switch (plat) {
         case 'ag':
+          if (!gameCode) {
+            gameCode = 0
+          }
+          return this.loginPlat(plat, gameCode)
+        case 'ag2':
           if (!gameCode) {
             gameCode = 0
           }
@@ -585,7 +597,7 @@ export default {
   width: 50%;
 }
 .cs .box .game li {
-  width: 33%;
+  width: 25%;
 }
 .sl .box .game li {
   width: 20%;
@@ -649,16 +661,22 @@ export default {
   background-position: -200px 0;
 }
 .menu .cs .box .game li .info .img {
+  width: 124px;
+}
+.menu .cs .box .game li .info .img {
   background: url(../../assets/images/header/nav_game_model_casino.png);
 }
 .menu .cs .box .game li.ag .info .img {
   background-position: 0 0;
 }
+.menu .cs .box .game li.ag2 .info .img {
+  background-position: -150px 0;
+}
 .menu .cs .box .game li.ea .info .img {
-  background-position: -200px 0;
+  background-position: -295px 0;
 }
 .menu .cs .box .game li.og .info .img {
-  background-position: -400px 0;
+  background-position: -440px 0;
 }
 .menu .lt .box .game li .info .img {
   background: url(../../assets/images/header/nav_game_model_lottery.png);

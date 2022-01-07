@@ -18,7 +18,7 @@
               <p>{{text.p1}}</p>
               <p>{{text.p2}}</p>
             </div>
-            <div class="tbottom" :class="index == 3 ? 'extra':''">
+            <div class="tbottom" :class="index == 3 || index == 1 ? 'extra':''">
               <div
                 v-for="(btn,index) in text.btn"
                 :key="index"
@@ -139,6 +139,7 @@ export default {
           p2: '真人荷官，最真实的博彩体验。',
           btn: [
             { cnName: 'AG娱乐场', enName: 'ag' },
+            { cnName: 'AG2娱乐场', enName: 'ag2' },
             {
               cnName: 'EA娱乐场',
               enName: 'ea'
@@ -219,6 +220,7 @@ export default {
           this.$router.push({ name: 'Lottery', params: { plat: methodsWords } })
           break
         case 'ag':
+        case 'ag2':
         case 'ea':
         case 'og':
           this.$router.push({ name: 'Casino', params: { plat: methodsWords } })
@@ -459,6 +461,9 @@ export default {
 }
 .gamebar .gameMain .gameMbar .textbar .text .tbottom .btn.ag i {
   background-position: -208px 0;
+}
+.gamebar .gameMain .gameMbar .textbar .text .tbottom .btn.ag2 i {
+  background-position: -678px 0;
 }
 .gamebar .gameMain .gameMbar .textbar .text .tbottom .btn.ea i {
   background-position: -260px 0;

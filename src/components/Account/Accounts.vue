@@ -362,13 +362,20 @@ export default {
     },
     // 获取游戏平台
     getGamePlat () {
+      var platRevse = ['AI', 'YSB', 'AG', 'AG2', 'EA', 'OG', 'PT', 'MG', 'DT', 'PG', 'LB', 'KG']
       let _this = this
       let url = '/api/gameplat/get'
       _this.$https
         .fetchPost(url, {})
         .then(res => {
           if (res.data.Success === true) {
-            _this.GamePlat = res.data.Result
+            // _this.GamePlat = res.data.Result
+            for (var j = 0; j < res.data.Result.length; j++) {
+              var indexIs = platRevse.findIndex(element => element === res.data.Result[j].Plat)
+              if (indexIs >= 0) {
+                _this.GamePlat[indexIs] = res.data.Result[j]
+              }
+            }
             for (var i = 0; i < _this.GamePlat.length; i++) {
               _this.GamePlat[i].Bal = '...'
               _this.getGameBalance(_this.GamePlat[i].Plat)

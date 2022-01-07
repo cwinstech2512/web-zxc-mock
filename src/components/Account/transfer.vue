@@ -211,6 +211,7 @@ export default {
     },
     // 获取游戏平台
     getGamePlat () {
+      var platRevse = ['AI', 'YSB', 'AG', 'AG2', 'EA', 'OG', 'PT', 'MG', 'DT', 'PG', 'LB', 'KG']
       let _this = this
       let url = '/api/gameplat/get'
       _this.$https
@@ -218,7 +219,13 @@ export default {
         .then(res => {
           _this.$bus.$emit('loadingHide')
           if (res.data.Success === true) {
-            _this.gamePlat = res.data.Result
+            for (var j = 0; j < res.data.Result.length; j++) {
+              var indexIs = platRevse.findIndex(element => element === res.data.Result[j].Plat)
+              if (indexIs >= 0) {
+                _this.gamePlat[indexIs] = res.data.Result[j]
+              }
+            }
+            // _this.gamePlat = res.data.Result
             _this.gamePlat.unshift({ GameName: '众鑫账户', Plat: 'ZXC' })
           } else {
             _this.$swal({

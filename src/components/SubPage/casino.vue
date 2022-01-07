@@ -19,7 +19,7 @@
                :key="index"
                @click="index==0 ? openGame(info.point):down(info.point)">{{btns}}</div>
           <div class="btn"
-               v-if="info.point==='ag'"
+               v-if="info.point==='ag' || info.point==='ag2'"
                @click="openGame(info.point + 'demo')">免费试玩</div>
         </div>
       </div>
@@ -54,6 +54,10 @@ export default {
           ename: 'ag'
         },
         {
+          cnmae: 'AG2娱乐场',
+          ename: 'ag2'
+        },
+        {
           cnmae: 'EA娱乐场',
           ename: 'ea'
         },
@@ -68,6 +72,12 @@ export default {
           span: '龙虎/经典百家乐/轮盘/骰宝/21点',
           point: 'ag',
           btn: ['立即游戏', '客户端下载']
+        },
+        {
+          em: 'Online',
+          span: '龙虎/经典百家乐/轮盘/骰宝/21点',
+          point: 'ag2',
+          btn: ['立即游戏']
         },
         {
           em: 'Online',
@@ -99,6 +109,9 @@ export default {
         case 'ag':
           document.location.href = 'https://app.zxapp.net/zxcbet_ag.rar'
           break
+        // case 'ag2':
+        //   document.location.href = 'https://app.zxapp.net/zxcbet_ag.rar'
+        //   break
         case 'ea':
           document.location.href = 'http://download.ea-mission.com/zxccasino.exe'
           break
@@ -107,9 +120,11 @@ export default {
     openGame (plat) {
       switch (plat) {
         case 'ag':
+        case 'ag2':
           this.loginPlat(plat, 0)
           break
         case 'agdemo':
+        case 'ag2demo':
           // this.loginPlat(plat, 0)
           let url = 'Game.html?act=' + plat
           window.open(url)
@@ -178,13 +193,16 @@ export default {
   background: url(../../assets/images/SubPage/game_casino_model-min.png);
 }
 .game .game-bar .game-main .goods-img.ea {
-  background-position: -660px 0;
+  background-position: -1320px 0;
 }
 .game .game-bar .game-main .goods-img.ag {
   background-position: 0 0;
 }
+.game .game-bar .game-main .goods-img.ag2 {
+  background-position: -660px 0;
+}
 .game .game-bar .game-main .goods-img.og {
-  background-position: -1320px 0;
+  background-position: -1960px 0;
 }
 .game .game-bar .game-main .title-Cname {
   width: 450px;
@@ -200,6 +218,9 @@ export default {
 }
 .game .game-bar .game-main .title-Cname.ag {
   background-position: -900px 0;
+}
+.game .game-bar .game-main .title-Cname.ag2 {
+  background-position: -4581px 0;
 }
 .game .game-bar .game-main .title-Cname.og {
   background-position: -3600px 0;
@@ -272,8 +293,9 @@ export default {
 .game .game-bar .nav-box {
   overflow: hidden;
   position: absolute;
-  bottom: 150px;
+  bottom: 73px;
   left: 10px;
+  max-width: 53%;
 }
 .game .game-bar .nav-box .btn {
   width: 198px;

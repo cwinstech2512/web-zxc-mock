@@ -78,8 +78,8 @@ export default {
           ename: 'ysb'
         },
         {
-          cnmae: '小金体育',
-          ename: 'xj'
+          cnmae: 'AI体育',
+          ename: 'ai'
         },
         {
           cnmae: 'AG娱乐场',
@@ -116,6 +116,10 @@ export default {
         {
           cnmae: 'DT老虎机',
           ename: 'dt'
+        },
+        {
+          cnmae: 'AG2娱乐场',
+          ename: 'ag2'
         }
       ],
       mobileInfo: [
@@ -330,6 +334,22 @@ export default {
               em: window.location.host
             }
           ]
+        },
+        {
+          em: '视讯盛宴',
+          span: '全新视界咪牌百家乐，让您全新感官体验',
+          point: 'ag2',
+          imgLi: [
+            {
+              // img: 'ag_app.png',
+              img: 'ea_h5.png',
+              icon: ['h5'],
+              p: 'HTM5版',
+              span: '手机浏览器打开：',
+              // em: 'ag.zxapp.net'
+              em: window.location.host
+            }
+          ]
         }
       ],
       zxlogo: '/static/images/phone/zxlogo.png',
@@ -427,6 +447,9 @@ export default {
 .mobile .mobile-bar .mobile-main .title-Ename.og {
   background-position: -13200px 0;
 }
+.mobile .mobile-bar .mobile-main .title-Ename.ag2 {
+  background-position: -14390px 0;
+}
 .mobile .mobile-bar .mobile-main .goods-img {
   width: 680px;
   height: 728px;
@@ -444,6 +467,9 @@ export default {
   background: url(../../assets/images/SubPage/phone/phone_game_mobile_xj.png);
 }
 .mobile .mobile-bar .mobile-main .goods-img.ag {
+  background: url(../../assets/images/SubPage/phone/phone_game_mobile_ag.png);
+}
+.mobile .mobile-bar .mobile-main .goods-img.ag2 {
   background: url(../../assets/images/SubPage/phone/phone_game_mobile_ag.png);
 }
 .mobile .mobile-bar .mobile-main .goods-img.ea {
@@ -489,6 +515,9 @@ export default {
 }
 .mobile .mobile-bar .mobile-main .goods-img.ag i {
   background: url(../../assets/images/SubPage/phone/phone_game_model_ag.png);
+}
+.mobile .mobile-bar .mobile-main .goods-img.ag2 i {
+  background: url(../../assets/images/SubPage/phone/phone_game_model_ag2.png);
 }
 .mobile .mobile-bar .mobile-main .goods-img.ea i {
   background: url(../../assets/images/SubPage/phone/phone_game_model_ea.png);
@@ -558,6 +587,9 @@ export default {
 }
 .mobile .mobile-bar .mobile-main .title-Cname.og {
   background-position: -4180px 0;
+}
+.mobile .mobile-bar .mobile-main .title-Cname.ag2 {
+  background-position: -4554px 0;
 }
 .mobile .mobile-bar .mobile-main .info-box {
   width: 600px;

@@ -220,10 +220,10 @@ export default {
   background-position: -900px 0;
 }
 .game .game-bar .game-main .title-Cname.ag2 {
-  background-position: -4581px 0;
+  background-position: -4644px 0;
 }
 .game .game-bar .game-main .title-Cname.og {
-  background-position: -3600px 0;
+  background-position: -3620px 0;
 }
 .game .game-bar .game-main .info-box {
   width: 600px;

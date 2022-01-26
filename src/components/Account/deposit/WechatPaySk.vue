@@ -25,8 +25,10 @@
           <label>充值金额：</label>
           <input type="number"
                  v-model="amount"
-                 @input="changeAmount()"
-                 @keyup="inputChange" />
+                 name="readonly"
+                 class="readonly"
+                 disabled="disabled"
+                 @input="changeAmount()" />
           <span v-if="decValue>0">.{{decValue}}</span>
           <p v-if="decValue>0">
             请按上述金额汇款，包括小数点后两位
@@ -82,7 +84,7 @@
         <span>注意事项</span>
       </p>
       <p>1. 单笔存款最低{{minAmount}}元，上限{{maxAmount}}元；</p>
-      <p>2. 当前CNY/T兑币比为 1:{{wechatRate}}（汇率有不同，当前引用）；</p>
+      <p>2. 当前CNY/T兑币比约为 1:{{wechatRate}}（汇率有不同，仅供参考）；</p>
 
       <p>
         3. 若充值后未到账请联系在线客服。
@@ -447,4 +449,8 @@ export default {
 }
 </script>
 <style scoped>
+input.readonly {
+  color: #9b9b9b !important;
+  background-color: #f5f5f5 !important;
+}
 </style>

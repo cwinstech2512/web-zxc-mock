@@ -125,6 +125,11 @@ const router = new Router({
               component: (resolve) => require(['@/components/Account/deposit/alipay.vue'], resolve)
             },
             {
+              path: 'WechatPaySk',
+              name: 'WechatPaySk',
+              component: (resolve) => require(['@/components/Account/deposit/wechatPaySk.vue'], resolve)
+            },
+            {
               path: 'AlipaySmallAmount',
               name: 'AlipaySmallAmount',
               component: (resolve) => require(['@/components/Account/deposit/alipay.vue'], resolve)

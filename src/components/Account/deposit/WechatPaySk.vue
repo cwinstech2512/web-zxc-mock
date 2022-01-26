@@ -332,7 +332,6 @@ export default {
       _this.$https
         .fetchGet(url, {})
         .then(res => {
-          console.log(res)
           if (res.data.Success === true) {
             var reCurrency = JSON.parse(res.data.Result)
             reCurrency.forEach(element => {

@@ -238,7 +238,7 @@ export default {
       this.bank = this.$route.params.TransferPropety ? this.$route.params.TransferPropety.BankNames : ''
       this.minAmount = this.$route.params.TransferPropety ? this.$route.params.TransferPropety.MinAmount : 0
       this.maxAmount = this.$route.params.TransferPropety ? this.$route.params.TransferPropety.MaxAmount : 0
-      let amountBtnArr = [100, 500, 1000, 5000, 10000]
+      let amountBtnArr = [100, 500, 1000, 3000, 5000, 10000, 50000]
       let _vue = this
       this.amountBtn = amountBtnArr.filter(function (ele) {
         return ele >= _vue.minAmount && ele <= _vue.maxAmount

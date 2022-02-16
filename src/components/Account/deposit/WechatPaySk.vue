@@ -85,6 +85,22 @@
       </p>
       <p>1. 单笔存款最低{{minAmount}}元，上限{{maxAmount}}元；</p>
       <p>2. 当前CNY/T兑币比约为 1:{{wechatRate}}（汇率有不同，仅供参考）；</p>
+      <p>
+        <table class="table_amount">
+          <tr>
+            <td width="15%">T币</td>
+            <template v-for="(amountItem, key) in amountBtn()">
+              <td width="10%" v-if="amountItem > 0" :key="key">{{amountItem}}</td>
+            </template>
+          </tr>
+          <tr>
+            <td width="15%">微信支付 ≈</td>
+            <template v-for="(amountItem, key) in amountBtn()">
+              <td width="10%" v-if="amountItem > 0" :key="key">{{calcWechatRate(amountItem, wechatRate)}}</td>
+            </template>
+          </tr>
+        </table>
+      </p>
 
       <p>
         3. 若充值后未到账请联系在线客服。
@@ -128,7 +144,8 @@ export default {
       group: '',
       alipayName: '',
       isBankToCard: false,
-      wechatRate: 0.00
+      wechatRate: 0.00,
+      wechatRateCon: 0.14
     }
   },
   //  监听属性 类似于data概念
@@ -327,6 +344,13 @@ export default {
       }
       that.timer = setInterval(countDown, 1000)
     },
+    calcWechatRate (tAmount, rate) {
+      if (rate > 0.0) {
+        return this.toDecimal2(tAmount / rate)
+      } else {
+        return '计算中'
+      }
+    },
     // 当前WechatRate
     getWechatRate () {
       let _this = this
@@ -338,7 +362,7 @@ export default {
             var reCurrency = JSON.parse(res.data.Result)
             reCurrency.forEach(element => {
               if (element.result > 0.0) {
-                _this.wechatRate = this.toDecimal2(element.result)
+                _this.wechatRate = this.toDecimal2(this.toDecimal2(element.result) - this.wechatRateCon)
               }
             })
           } else {
@@ -452,5 +476,13 @@ export default {
 input.readonly {
   color: #9b9b9b !important;
   background-color: #f5f5f5 !important;
+}
+.table_amount {
+  border: 1px solid;
+}
+.table_amount td {
+  border: 1px solid;
+  padding: 4px;
+  text-align: center;
 }
 </style>

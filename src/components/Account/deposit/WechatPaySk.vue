@@ -50,6 +50,15 @@
           <p>请输入您支付宝的真实姓名，否则不能自动到账。</p>
         </li>-->
         <li>
+          <label>实际扫码(约)</label>
+          <input type="number"
+                 :value="calcWechatRate(amount, wechatRate)"
+                 name="readonly"
+                 class="readonly"
+                 disabled="disabled" />
+          <span style="color: #4b4b4b;">*到账金额依实际扫码为主</span>
+        </li>
+        <li>
           <button :class="hidBtn? 'hid':''"
                   @click="submitPay()">立即充值</button>
         </li>
@@ -84,7 +93,7 @@
         <span>注意事项</span>
       </p>
       <p>1. 单笔存款最低{{minAmount}}元，上限{{maxAmount}}元；</p>
-      <p>2. 当前CNY/T兑币比约为 1:{{wechatRate}}（汇率有不同，仅供参考）；</p>
+      <p>2. 当前CNY/T兑币比约为 1:{{wechatRate}}(汇率有不同，仅供参考，依实际扫码金额为主)；</p>
       <p>
         <table class="table_amount">
           <tr>
@@ -125,6 +134,7 @@ export default {
     return {
       hidBtn: true,
       amount: null,
+      isPaying: false,
       minAmount: 10,
       maxAmount: 5000,
       banks: [],
@@ -144,6 +154,7 @@ export default {
       group: '',
       alipayName: '',
       isBankToCard: false,
+      isLimitAvailable: false,
       wechatRate: 0.00,
       wechatRateCon: 0.14
     }
@@ -213,7 +224,7 @@ export default {
       }
     },
     amountBtn () {
-      let amountBtnArr = [4500, 15000, 25000, 35000, 40000]
+      let amountBtnArr = [1500, 3000, 4500, 10000, 15000]
       let _vue = this
       amountBtnArr = amountBtnArr.filter(function (ele) {
         return ele >= _vue.minAmount && ele <= _vue.maxAmount
@@ -261,7 +272,10 @@ export default {
       // 输入框值改变
       this.amount = this.amount.replace(/[^\d]/g, '')
     },
-    submitPay () {
+    async submitPay () {
+      if (this.isPaying) return
+      await this.limitAvailable()
+      if (!this.isLimitAvailable) return
       if (
         this.fixAmount.length === 0 &&
         (parseFloat(this.amount) > this.maxAmount ||
@@ -296,6 +310,7 @@ export default {
       //   })
       //   return
       // }
+      this.isPaying = true
       this.$swal({
         text: '是否充值成功？',
         type: 'warning',
@@ -323,6 +338,9 @@ export default {
         // + '&an=' +
         // encodeURI(this.alipayName)
       )
+      setTimeout(() => {
+        this.isPaying = false
+      }, 1500)
     },
     cloak (time) {
       var that = this
@@ -394,6 +412,33 @@ export default {
               confirmButtonText: '确定'
             })
           }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    // 当前WechatRate
+    async limitAvailable () {
+      let _this = this
+      let params = {
+        Token: this.getinfo().token,
+        userName: this.userName
+      }
+      let url = '/api/Deposit/WechatPaySk'
+      _this.$https
+        .fetchPost(url, this.Secret(params))
+        .then(res => {
+          if (res.data.Success === true) {
+            _this.isLimitAvailable = true
+          } else {
+            _this.isLimitAvailable = false
+            _this.$swal({
+              text: res.data.Message,
+              type: 'error',
+              confirmButtonText: '确定'
+            })
+          }
+          return
         })
         .catch(err => {
           console.log(err)

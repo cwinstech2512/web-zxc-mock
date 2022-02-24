@@ -274,8 +274,6 @@ export default {
     },
     async submitPay () {
       if (this.isPaying) return
-      await this.limitAvailable()
-      if (!this.isLimitAvailable) return
       if (
         this.fixAmount.length === 0 &&
         (parseFloat(this.amount) > this.maxAmount ||
@@ -301,6 +299,10 @@ export default {
           })
           return false
         }
+      }
+      await this.limitAvailable(this.amount)
+      if (!this.isLimitAvailable) {
+        return false
       }
       // if (this.group === 11 && this.alipayName.length < 1) {
       //   this.$swal({
@@ -418,14 +420,15 @@ export default {
         })
     },
     // 当前WechatRate
-    async limitAvailable () {
+    async limitAvailable (amount) {
       let _this = this
       let params = {
         Token: this.getinfo().token,
-        userName: this.userName
+        userName: this.userName,
+        amount: amount
       }
       let url = '/api/Deposit/WechatPaySk'
-      _this.$https
+      await _this.$https
         .fetchPost(url, this.Secret(params))
         .then(res => {
           if (res.data.Success === true) {
@@ -438,7 +441,6 @@ export default {
               confirmButtonText: '确定'
             })
           }
-          return
         })
         .catch(err => {
           console.log(err)

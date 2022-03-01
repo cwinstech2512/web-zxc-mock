@@ -177,7 +177,7 @@ const router = new Router({
             {
               path: 'BankToCard', // 第3方网银转账
               name: 'BankToCard',
-              component: (resolve) => require(['@/components/Account/deposit/alipay.vue'], resolve)
+              component: (resolve) => require(['@/components/Account/deposit/BankToCard.vue'], resolve)
             },
             {
               path: 'UnionPay', // 云闪付
@@ -378,6 +378,11 @@ const router = new Router({
       path: '/AISportFreeMatch2',
       name: 'AISportFreeMatch2',
       component: (resolve) => require(['@/components/Activity/EuroCup2020/EuroCup2020.vue'], resolve)
+    },
+    { // 虛擬幣免費體驗金
+      path: '/USDTexperience',
+      name: 'USDTexperience',
+      component: (resolve) => require(['@/components/Activity/USDTexperience/USDTexperience.vue'], resolve)
     }
   ]
 })

@@ -204,6 +204,11 @@ export default {
         //   src: 'iphone12-top.gif',
         //   url: 'iphone12'
         // }
+        {
+          // 虛擬幣免費體驗金
+          src: 'USDTexperience.gif',
+          url: 'USDTexperience'
+        }
       ],
       MsgResult: [],
       showRecPopup: false,

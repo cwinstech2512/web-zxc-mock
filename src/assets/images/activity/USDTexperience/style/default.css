@@ -111,25 +111,32 @@ button.btn.btn-play:active {
 table {
     max-width: 1155px !important;    
     top: 29.5%;
-    position: absolute;
-    width: 60%
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
 }
 
 
 td {
-    background: #d5f2ff;
+    background: #dee6ff;
     font-size: 18px;    
     padding: 8px;
-    color: #262626;
+    border: 1px solid;
+    border-color: #FFFFFF;
+    color: #000000;
 }
 
     td.right-line {
-        border-right: 2px solid #24bec3;
+        border-right: 1px solid #9ad1fd;
         text-align: center;
     }
 
 th {
-    border-top: 2px solid #24bec3;
+    border-top: 1px solid #9ad1fd;
+    background-color: #038bfb;
+    text-align: center;
+    color: #FFFFFF;
+    font-size: 18px;    
 }
 
 .play-title {

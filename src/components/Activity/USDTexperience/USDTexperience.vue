@@ -20,7 +20,7 @@
             <thead>
               <tr>
                 <th>会员等级</th>
-                <th>包赔上限</th>
+                <th>体验金</th>
                 <th class="rightColumn">流水倍数</th>
               </tr>
             </thead>

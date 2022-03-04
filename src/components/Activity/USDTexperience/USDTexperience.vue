@@ -27,28 +27,28 @@
             <tbody>
               <tr>
                 <td>普通会员</td>
-                <td>体验金</td>
-                <td rowspan="6" class="rightColumn">一倍流水</td>
+                <td>88元</td>
+                <td rowspan="6" class="rightColumn">一倍</td>
               </tr>
               <tr>
                 <td>黄金会员</td>
-                <td>88元</td>
-              </tr>
-              <tr>
-                <td>铂金会员</td>
                 <td>188元</td>
               </tr>
               <tr>
-                <td>钻石会员</td>
+                <td>铂金会员</td>
                 <td>288元</td>
               </tr>
               <tr>
+                <td>钻石会员</td>
+                <td>588元</td>
+              </tr>
+              <tr>
                 <td>黑钻会员</td>
-                <td>388元</td>
+                <td>888元</td>
               </tr>
               <tr>
                 <td>特邀会员</td>
-                <td>588元</td>
+                <td>1888元</td>
               </tr>
             </tbody>
           </table>

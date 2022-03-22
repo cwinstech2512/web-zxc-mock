@@ -68,14 +68,15 @@
                  v-model="BeneficiaryAccount" />
           <b @click="handleCopy(BeneficiaryAccount,$event)">复制</b>
         </li>
-        <li v-show="BeneficiaryBank !=='邮政银行'">
+        <!-- 20220322 mark掉附言编码
+        <li v-show="false && BeneficiaryBank !=='邮政银行'">
           <label>附言编码：</label>
           <input type="text"
                  name="readonly"
                  disabled="disabled"
                  v-model="postscript" />
           <b @click="handleCopy(postscript,$event)">复制</b>
-        </li>
+        </li> -->
         <li>
           <label>充值金额：</label>
           <input type="text"

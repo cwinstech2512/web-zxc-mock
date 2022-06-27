@@ -163,8 +163,9 @@
       <p></p>
       <p style="display: flex; padding: 5px 0;">
         友情推荐交易所：
-        <a href="http://www.hoo.je" target="_blank"><img class="binance" src="../../../assets/images/account/hoo_icon.png" /></a>
-        <a href="https://www.binance.com/zh-CN" target="_blank"><img class="binance" src="../../../assets/images/account/binance_icon.png" /></a>
+        <!-- <a href="http://www.hoo.je" target="_blank"><img class="binance" src="../../../assets/images/account/hoo_icon.png" /></a>
+        <a href="https://www.binance.com/zh-CN" target="_blank"><img class="binance" src="../../../assets/images/account/binance_icon.png" /></a> -->
+        <a href="https://www.okx.com/" target="_blank"><img class="binance" src="../../../assets/images/account/okx_icon.png" /></a>
         <a href="https://www.zb.com/cn/" target="_blank"><img class="binance" src="../../../assets/images/account/zb.com_icon.png" /></a>
       </p>
     </div>

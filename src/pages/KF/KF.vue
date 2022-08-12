@@ -43,13 +43,14 @@ export default {
       })
     },
     init () {
-      var checkurl = 'https://api.staging.livechatinc.com/v3.3/customer/action/get_dynamic_configuration?license_id=10281777'
+      // var checkurl = 'https://api.staging.livechatinc.com/v3.3/customer/action/get_dynamic_configuration?license_id=10281777'
+      var checkurl = 'https://api.staging.livechatinc.com/v3.3/customer/action/get_dynamic_configuration?license_id=10281777&url=https://secure.livechatinc.com/licence/10281777/v2/&channel_type=code&jsonp=__852vlrnbyyd'
       let _vue = this
       this.$https
         .fetchGet(checkurl, [])
         .then(res => {
           console.log(res.data)
-          if (res.data.domain_allowed === true) {
+          if (res.data.search('"domain_allowed":true') > 0) {
             var url = 'https://secure.livechatinc.com/licence/10281777/v2/open_chat.cgi?groups=0'
             top.document.location.href = url
           } else {

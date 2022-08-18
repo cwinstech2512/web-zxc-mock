@@ -383,6 +383,11 @@ const router = new Router({
       path: '/USDTexperience',
       name: 'USDTexperience',
       component: (resolve) => require(['@/components/Activity/USDTexperience/USDTexperience.vue'], resolve)
+    },
+    { // 全员十连送
+      path: '/10offers',
+      name: '10offers',
+      component: (resolve) => require(['@/components/Activity/Offer10/Offer10.vue'], resolve)
     }
   ]
 })

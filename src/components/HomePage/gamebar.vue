@@ -112,7 +112,7 @@ export default {
         p: '唯有创新才能引领潮流',
         span: '支持安卓版和苹果版',
         em: '使用手机浏览器打开',
-        a1: ' app.zxapp.net',
+        a1: ' app.zxzy.net',
         a2: window.location.host
       },
       zxlogo: '/static/images/phone/zxlogo.png',

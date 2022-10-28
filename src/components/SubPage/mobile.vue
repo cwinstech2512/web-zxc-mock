@@ -133,7 +133,7 @@ export default {
               icon: ['and', 'ios'],
               p: '安卓版和苹果版',
               span: '手机浏览器打开：',
-              em: 'app.zxbet.app'
+              em: 'app.zxzy.app'
             },
             {
               img: 'home_phone_qrcode.jpg',

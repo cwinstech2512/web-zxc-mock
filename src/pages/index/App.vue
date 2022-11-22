@@ -93,59 +93,59 @@ export default {
     this.myInit()
   },
   mounted () {
-    this.$router.beforeEach((to, from, next) => {
-      if (to.name === 'Deposit') {
-        let _this = this
-        let url = '/api/withdrawal/getinfo'
-        _this.$https
-          .fetchPost(url, this.Secret({ Token: this.getinfo().token }))
-          .then(res => {
-            if (res.data.Success === true) {
-              _this.bankCard = res.data.Result.BankCards
-            }
-            if (_this.bankCard.length === 0) {
-              if (from.name !== 'Account') {
-                this.$router.push('/accounts/account')
-              }
-              _this.stepMax = _this.stepMax + 1
-            }
-            url = '/api/account/getinfo'
-            _this.$https
-              .fetchPost(url, this.Secret({ Token: this.getinfo().token }))
-              .then(res => {
-                if (res.data.Success === true) {
-                  _this.userInfo = res.data.Result
-                }
-                if (_this.userInfo.VerifyPhone.length < 1) {
-                  if (from.name !== 'Account') {
-                    this.$router.push('/accounts/account')
-                  }
-                  _this.stepMax = _this.stepMax + 1
-                }
-                if (_this.bankCard.length === 0 && _this.userInfo.VerifyPhone.length < 1) {
-                  _this.step = 1
-                  _this.stepText = '您当前还未绑定银行卡'
-                } else if (_this.bankCard.length === 0) {
-                  _this.step = 1
-                  _this.stepText = '您当前还未绑定银行卡'
-                } else if (_this.userInfo.VerifyPhone.length < 1) {
-                  _this.step = 2
-                  _this.stepText = '您当前还未验证手机号'
-                } else {
-                  next()
-                }
-              })
-              .catch(err => {
-                console.log(err)
-              })
-          })
-          .catch(err => {
-            console.log(err)
-          })
-      } else {
-        next()
-      }
-    })
+    // this.$router.beforeEach((to, from, next) => {
+    //   if (to.name === 'Deposit') {
+    //     let _this = this
+    //     let url = '/api/withdrawal/getinfo'
+    //     _this.$https
+    //       .fetchPost(url, this.Secret({ Token: this.getinfo().token }))
+    //       .then(res => {
+    //         if (res.data.Success === true) {
+    //           _this.bankCard = res.data.Result.BankCards
+    //         }
+    //         if (_this.bankCard.length === 0) {
+    //           if (from.name !== 'Account') {
+    //             this.$router.push('/accounts/account')
+    //           }
+    //           _this.stepMax = _this.stepMax + 1
+    //         }
+    //         url = '/api/account/getinfo'
+    //         _this.$https
+    //           .fetchPost(url, this.Secret({ Token: this.getinfo().token }))
+    //           .then(res => {
+    //             if (res.data.Success === true) {
+    //               _this.userInfo = res.data.Result
+    //             }
+    //             if (_this.userInfo.VerifyPhone.length < 1) {
+    //               if (from.name !== 'Account') {
+    //                 this.$router.push('/accounts/account')
+    //               }
+    //               _this.stepMax = _this.stepMax + 1
+    //             }
+    //             if (_this.bankCard.length === 0 && _this.userInfo.VerifyPhone.length < 1) {
+    //               _this.step = 1
+    //               _this.stepText = '您当前还未绑定银行卡'
+    //             } else if (_this.bankCard.length === 0) {
+    //               _this.step = 1
+    //               _this.stepText = '您当前还未绑定银行卡'
+    //             } else if (_this.userInfo.VerifyPhone.length < 1) {
+    //               _this.step = 2
+    //               _this.stepText = '您当前还未验证手机号'
+    //             } else {
+    //               next()
+    //             }
+    //           })
+    //           .catch(err => {
+    //             console.log(err)
+    //           })
+    //       })
+    //       .catch(err => {
+    //         console.log(err)
+    //       })
+    //   } else {
+    //     next()
+    //   }
+    // })
   }
 }
 </script>

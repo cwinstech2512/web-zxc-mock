@@ -488,7 +488,7 @@ export default {
   mounted () {
     const s = document.createElement('script')
     s.type = 'text/javascript'
-    s.src = 'https://public.pgr-cnf3f3.com/sdk/main.min.js'
+    s.src = 'https://public.pgr-cnot3rwyc3772.com/sdk/main.min.js'
     s.defer = 'defer'
     document.body.appendChild(s)
   }

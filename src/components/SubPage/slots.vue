@@ -488,7 +488,7 @@ export default {
   mounted () {
     const s = document.createElement('script')
     s.type = 'text/javascript'
-    s.src = ' https://public.ecloudplayer.xyz/sdk/main.min.js'
+    s.src = ' https://public.anche.biz/sdk/main.min.js'
     s.defer = 'defer'
     document.body.appendChild(s)
   }

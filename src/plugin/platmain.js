@@ -266,7 +266,7 @@ export default {
       //   t = '&clientid=' + t + '&metadata={"name":"' + t + '"}'
       // }
       // window.open('https://chatlink.mstatik.com/widget/standalone.html?eid=157761' + t, 'kf2window', 'height=560,width=756,top=100,left=100,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no')
-      window.open('https://jeuske.zwrdowrpq.com/chatwindow.aspx?siteId=60000647&planId=2ec968de-c0bc-4000-bd6c-891e8cf7f2a8', 'kf2window', 'height=560,width=756,top=100,left=100,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no')
+      window.open('https://oiusklwe.abpeuqnc.com/36fd369f3d89938d71jkfle-keli62fedc9936d81dde3ce04bac4490e0709bbd46ecb819513ea89caf870fe2fa58', 'kf2window', 'height=560,width=756,top=100,left=100,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no')
     }
   }
 }

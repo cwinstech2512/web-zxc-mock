@@ -76,7 +76,7 @@
                   <a v-if="currentPlat !=='MG'"
                      target="_blank"
                      :href="game.DemoUrl"
-                     @click="DemoGame(game.DemoUrl)">
+                     @click="DemoGame($event,game)">
                     <span>试玩游戏</span>
                   </a>
                 </div>
@@ -380,12 +380,10 @@ export default {
           event.currentTarget.target = '_blank'
           return true
         case 'PG':
-          switch (this.status) {
-            case 'Logged': // 登录成功
-              // eslint-disable-next-line no-undef
-              PGSDK.launchGame(game.GameUrl)
-              return false
-          }
+          var newPage = window.open('', '_blank')
+          newPage.document.open()
+          newPage.document.write(game.GameUrl)
+          newPage.document.close()
           break
         case 'DT':
           switch (this.status) {
@@ -401,22 +399,25 @@ export default {
       }
     },
     // 试玩
-    DemoGame (url) {
+    DemoGame (event, game) {
       switch (this.currentPlat) {
         case 'PT':
           window.open(
-            url,
+            game.DemoUrl,
             'ptDemo',
             'height=600,width=800,top=0,left=0,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no'
           )
           return false
-        case 'PG':
-          // eslint-disable-next-line no-undef
-          PGSDK.launchGame(url)
-          // window.open(url, 'pgDemo', 'height=600,width=800,top=0,left=0,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no')
-          return false
+        // case 'PG':
+        //   // eslint-disable-next-line no-undef
+        //   PGSDK.launchGame(url)
+        //   // window.open(url, 'pgDemo', 'height=600,width=800,top=0,left=0,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no')
+        //   return false
         case 'DT':
           return true
+        default:
+          window.open(game.DemoUrl)
+          return false
       }
     },
     // 保存平台密码

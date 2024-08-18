@@ -211,68 +211,98 @@ export default {
         })
         return
       }
-      // if (!_this.dragSuccess) {
-      //   _this.$swal({
-      //     text: '请先完成滑块验证',
-      //     type: 'warning',
-      //     confirmButtonText: '确定'
-      //   })
-      //   return
-      // }
-      let initGeetestUrl = '/api/Geetest/initGeetest'
-      this.$https
-        .fetchGet(initGeetestUrl, {})
+      if (!_this.dragSuccess) {
+        _this.$swal({
+          text: '请先完成滑块验证',
+          type: 'warning',
+          confirmButtonText: '确定'
+        })
+        return
+      }
+      if (!_this.dragSuccess) {
+        _this.$swal({
+          text: '请先完成滑块验证',
+          type: 'warning',
+          confirmButtonText: '确定'
+        })
+        return
+      }
+      let url = '/api/forgotpwd/step1'
+      _this.$https
+        .fetchPost(url, { UserName: _this.userName })
         .then(res => {
-          var resMessage = JSON.parse(res.data)
-          // eslint-disable-next-line
-          initGeetest({
-            gt: resMessage.gt,
-            challenge: resMessage.challenge,
-            offline: !resMessage.success, // 表示用户后台检测极验服务器是否宕机
-            new_captcha: resMessage.new_captcha,
-            product: 'bind'
-          }, function (captchaObj) {
-            captchaObj.onReady(function () {
-              captchaObj.verify()
-            }).onSuccess(function () {
-              var result = captchaObj.getValidate()
-              let url = 'api/forgotpwd/step1ByGeetest'
-              let params = {
-                UserName: _this.userName,
-                seccodeGeetest: result.geetest_seccode,
-                validateGeetest: result.geetest_validate,
-                challengeGeetest: result.geetest_challenge
-              }
-              _this.$https
-                .fetchPost(url, params)
-                .then(res => {
-                  if (res.data.Success === true) {
-                    _this.token = res.data.Result.Token
-                    if (res.data.Result.QAData.length === 2) {
-                      _this.sq1 = res.data.Result.QAData[0].Question
-                      _this.sq2 = res.data.Result.QAData[1].Question
-                    }
-                    _this.nextStep(1)
-                  } else {
-                    _this.$swal({
-                      text: res.data.Message,
-                      type: 'error',
-                      confirmButtonText: '确定'
-                    })
-                  }
-                })
-                .catch(err => {
-                  console.log(err)
-                })
-            }).onError(function () {
-              _this.$bus.$emit('loadingHide')
-              // console.log(err)
+          if (res.data.Success === true) {
+            _this.token = res.data.Result.Token
+            if (res.data.Result.QAData.length === 2) {
+              _this.sq1 = res.data.Result.QAData[0].Question
+              _this.sq2 = res.data.Result.QAData[1].Question
+            }
+            _this.nextStep(1)
+          } else {
+            _this.$swal({
+              text: res.data.Message,
+              type: 'error',
+              confirmButtonText: '确定'
             })
-          })
+          }
         })
         .catch(err => {
           console.log(err)
         })
+      // let initGeetestUrl = '/api/Geetest/initGeetest'
+      // this.$https
+      //   .fetchGet(initGeetestUrl, {})
+      //   .then(res => {
+      //     var resMessage = JSON.parse(res.data)
+      //     // eslint-disable-next-line
+      //     initGeetest({
+      //       gt: resMessage.gt,
+      //       challenge: resMessage.challenge,
+      //       offline: !resMessage.success, // 表示用户后台检测极验服务器是否宕机
+      //       new_captcha: resMessage.new_captcha,
+      //       product: 'bind'
+      //     }, function (captchaObj) {
+      //       captchaObj.onReady(function () {
+      //         captchaObj.verify()
+      //       }).onSuccess(function () {
+      //         var result = captchaObj.getValidate()
+      //         let url = 'api/forgotpwd/step1ByGeetest'
+      //         let params = {
+      //           UserName: _this.userName,
+      //           seccodeGeetest: result.geetest_seccode,
+      //           validateGeetest: result.geetest_validate,
+      //           challengeGeetest: result.geetest_challenge
+      //         }
+      //         _this.$https
+      //           .fetchPost(url, params)
+      //           .then(res => {
+      //             if (res.data.Success === true) {
+      //               _this.token = res.data.Result.Token
+      //               if (res.data.Result.QAData.length === 2) {
+      //                 _this.sq1 = res.data.Result.QAData[0].Question
+      //                 _this.sq2 = res.data.Result.QAData[1].Question
+      //               }
+      //               _this.nextStep(1)
+      //             } else {
+      //               _this.$swal({
+      //                 text: res.data.Message,
+      //                 type: 'error',
+      //                 confirmButtonText: '确定'
+      //               })
+      //             }
+      //           })
+      //           .catch(err => {
+      //             console.log(err)
+      //           })
+      //       }).onError(function () {
+      //         _this.$bus.$emit('loadingHide')
+      //         // console.log(err)
+      //       })
+      //     })
+      //   })
+      //   .catch(err => {
+      //     console.log(err)
+      //   })
     },
     // 第二步验证安保
     step2sqa () {

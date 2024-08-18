@@ -213,6 +213,21 @@ const router = new Router({
               path: 'bankQuick',
               name: 'BankQuick',
               component: (resolve) => require(['@/components/Account/deposit/alipay.vue'], resolve)
+            },
+            {
+              path: 'AlipayRealName', // 支付宝实名
+              name: 'AlipayRealName',
+              component: (resolve) => require(['@/components/Account/deposit/AlipayRealName.vue'], resolve)
+            },
+            {
+              path: 'QRcodeRealName', // 扫码实名
+              name: 'QRcodeRealName',
+              component: (resolve) => require(['@/components/Account/deposit/QRcodeRealName.vue'], resolve)
+            },
+            {
+              path: 'CardRealName', // 转卡实名
+              name: 'CardRealName',
+              component: (resolve) => require(['@/components/Account/deposit/CardRealName.vue'], resolve)
             }
           ]
         },

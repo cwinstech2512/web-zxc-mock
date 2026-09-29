@@ -29,12 +29,12 @@
                        placeholder="请输入您的用户名"
                        v-model.trim="userName" />
               </li>
-              <!-- <li>
+              <li>
                 <label>滑块验证：</label>
                 <div class="unlock">
                   <drag @confirmSuccess="dragConfirm"></drag>
                 </div>
-              </li> -->
+              </li>
               <li>
                 <button class="RtdFirstBtn"
                         type="button"

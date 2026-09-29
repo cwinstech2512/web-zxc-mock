@@ -7,6 +7,10 @@ import axios from 'axios'
 export default {
   name: 'mobile',
   created () {
+    if (process.env.WEB_USE_MOCK) {
+      top.location.href = 'index.html?vs=pc'
+      return
+    }
     let sc = this.getQueryString('sc')
     let vs = this.getQueryString('vs')
     if (this.isMobileDevice() && vs !== 'pc') {

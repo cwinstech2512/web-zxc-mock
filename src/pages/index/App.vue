@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <div class="mock-mode-badge" v-if="mockMode">MOCK MODE · LOCAL DATA</div>
     <!-- 加载组件 -->
     <loading v-show="showLoad"/>
     <!-- 页头 -->
@@ -55,7 +56,8 @@ export default {
       isRouterAlive: true,
       step: 0,
       stepMax: 0,
-      stepText: ''
+      stepText: '',
+      mockMode: process.env.WEB_USE_MOCK
     }
   },
   components: {
@@ -202,6 +204,19 @@ body{
   min-width: 1400px;
   background: #fff;
   padding-right: 0px !important
+}
+.mock-mode-badge {
+  position: fixed;
+  right: 12px;
+  bottom: 12px;
+  z-index: 99999;
+  padding: 8px 12px;
+  border-radius: 4px;
+  color: #fff;
+  background: #d97706;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .25);
+  font-size: 12px;
+  letter-spacing: .5px;
 }
 body::-webkit-scrollbar {
   width: 6px;

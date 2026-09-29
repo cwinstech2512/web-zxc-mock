@@ -1,11 +1,18 @@
 import axios from 'axios'
 import store from '../store/store'
+import { installMockApi } from '../mock/adapter'
 // import qs from 'qs'
 
 axios.defaults.timeout = 1000 * 60 // 响应时间
 axios.defaults.headers.post['Content-Type'] = 'application/json' // 配置请求头
 // 配置默认发送请求， 线下的测试url : 上线后服务器的url
 axios.defaults.baseURL = (process.env.NODE_ENV === 'development') ? '/api' : '/data'
+
+// Adapter 层会涵盖共用请求方法以及直接使用 axios 的旧页面。
+// Mock 模式下没有 fallback，因此未覆盖端点不会误送到真实后端。
+if (process.env.WEB_USE_MOCK) {
+  installMockApi(axios)
+}
 
 // POST传参序列化(添加请求拦截器)
 // axios.interceptors.request.use((config) => {

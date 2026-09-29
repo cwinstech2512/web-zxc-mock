@@ -487,6 +487,9 @@ export default {
   },
   //  生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {
+    if (process.env.WEB_USE_MOCK) {
+      return
+    }
     const s = document.createElement('script')
     s.type = 'text/javascript'
     s.src = ' https://public.anche.biz/sdk/main.min.js'

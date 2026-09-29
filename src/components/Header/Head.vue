@@ -20,17 +20,17 @@
                  v-show="!logined">
               <transition name="slide-fade">
                 <div class="inputBox">
+                  <div class="uesename">
+                    <input type="text"
+                           placeholder="用户名"
+                           v-model.trim="loginForm.username" />
+                  </div>
                   <div class="password">
                     <input type="password"
                            placeholder="密码"
                            v-model="loginForm.password" />
                     <a class="forget"
                        @click="forget()">忘记？</a>
-                  </div>
-                  <div class="uesename">
-                    <input type="text"
-                           placeholder="用户名"
-                           v-model.trim="loginForm.username" />
                   </div>
                   <div class="vcode">
                     <input type="text"

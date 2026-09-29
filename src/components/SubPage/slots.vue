@@ -995,7 +995,7 @@ export default {
   width: 100%;
   height: 100%;
   position: relative;
-  background: url(../../assets/images/pormotion/Promotion.jpg);
+  background: url(../../assets/images/pormotion/promotion.jpg);
   background-size: 100% 100%;
 }
 .slots >>> .game-box .slots-main ul li .hd .img img {

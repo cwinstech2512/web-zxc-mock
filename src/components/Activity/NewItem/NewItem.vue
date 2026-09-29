@@ -188,13 +188,13 @@ export default {
 #Newitem .New-banner{
   width: 100%;
   height: 678px;
-  background: url(../../../assets/images/activity/Newitem/bg_01.jpg) center no-repeat;
+  background: url(../../../assets/images/activity/NewItem/bg_01.jpg) center no-repeat;
   position: relative;
 }
 #Newitem .New-banner .btn.on{
   width: 372px;
   height: 96px;
-  background: url(../../../assets/images/activity/Newitem/button.png);
+  background: url(../../../assets/images/activity/NewItem/button.png);
   background-position: 0 0;
   cursor: pointer;
   position: absolute;
@@ -208,7 +208,7 @@ export default {
 #Newitem .New-main{
   width: 100%;
   height: 1800px;
-  background: url(../../../assets/images/activity/Newitem/bg_02.jpg) center top no-repeat;
+  background: url(../../../assets/images/activity/NewItem/bg_02.jpg) center top no-repeat;
 }
 #Newitem .New-main .item-bar{
   width: 1200px;
@@ -222,7 +222,7 @@ export default {
   width: 276px;
   height: 30px;
   margin: 20px auto;
-  background: url(../../../assets/images/activity/Newitem/tit.png)
+  background: url(../../../assets/images/activity/NewItem/tit.png)
 }
 #Newitem .New-main .item-bar:last-child .tit{
   background-position: -276px 0;

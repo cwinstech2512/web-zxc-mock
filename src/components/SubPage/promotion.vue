@@ -256,7 +256,7 @@ export default {
   width: 100%;
   height: 180px;
   overflow: hidden;
-  background: url(../../assets/images/pormotion/Promotion.jpg);
+  background: url(../../assets/images/pormotion/promotion.jpg);
   background-size: 100% 100%;
 }
 .promotion .promotion-box .pro-main .pro-box .img img {

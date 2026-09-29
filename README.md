@@ -66,6 +66,23 @@ npm run build:mock
 
 正式環境如果只設定 `WEB_USE_MOCK=true`，建置會被阻擋。只有 `build:mock` 同時明確設定 `ALLOW_PRODUCTION_MOCK=true`，才允許產生 Mock 展示版，避免正式部署誤用假資料。
 
+## GitHub Pages 部署
+
+Repository 已包含 `.github/workflows/deploy-pages.yml`。推送到 `main` 後，GitHub Actions 會自動：
+
+1. 以 Node.js 20 安裝依賴。
+2. 檢查 Mock API 覆蓋。
+3. 執行 `npm run build:mock`。
+4. 將 `dist` 發布到 GitHub Pages。
+
+GitHub Pages 上的版本固定使用 Mock 模式，因此不會連線到真實後端。此專案的 production asset 路徑為相對路徑，可直接部署在 repository 子路徑；目前預定網址為：
+
+```text
+https://cwinstech2512.github.io/web-zxc-mock/
+```
+
+首次建立 repository 後，需在 GitHub 的 `Settings → Pages → Build and deployment` 選擇 `GitHub Actions`。之後每次推送 `main` 都會自動重新部署，也可在 Actions 頁面手動執行此 workflow。
+
 ## Mock 資料與重設
 
 Mock 狀態使用固定種子，並儲存在瀏覽器 localStorage。登入 session 仍依專案原有行為存放於 sessionStorage。

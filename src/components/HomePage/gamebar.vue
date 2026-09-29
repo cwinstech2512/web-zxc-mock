@@ -115,7 +115,7 @@ export default {
         a1: ' app.zxzy.net',
         a2: window.location.host
       },
-      zxlogo: '/static/images/phone/zxlogo.png',
+      zxlogo: 'static/images/phone/zxlogo.png',
       sqrcode: this.appDownUrl + '&url=' + window.location.host, // 'http://www.235688.top?sc=',
       nameNav: ['体育', '娱乐场', '彩票', '老虎机'],
       classNav: ['gn1', 'gn3', 'gn2', 'gn4'],

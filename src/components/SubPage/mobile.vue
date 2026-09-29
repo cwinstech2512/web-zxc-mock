@@ -20,7 +20,7 @@
             <li v-for="(li, index) in info.imgLi"
                 :key="index"
                 :class="info.imgLi.length==1? 'alone':''">
-              <img :src="'/static/images/phone/'+ li.img"
+              <img :src="'static/images/phone/'+ li.img"
                    v-if="li.img!='qr'" />
               <vue-qr style="display:block;margin:0 auto;width:170px"
                       :correctLevel="3"
@@ -352,7 +352,7 @@ export default {
           ]
         }
       ],
-      zxlogo: '/static/images/phone/zxlogo.png',
+      zxlogo: 'static/images/phone/zxlogo.png',
       sqrcode: this.appDownUrl
     }
   },

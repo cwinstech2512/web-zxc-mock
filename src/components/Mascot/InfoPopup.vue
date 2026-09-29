@@ -255,7 +255,7 @@ export default {
   mounted () {
     const s = document.createElement('script')
     s.type = 'text/javascript'
-    s.src = '../../../static/js/My97DatePicker/WdatePicker.js'
+    s.src = 'static/js/My97DatePicker/WdatePicker.js'
     document.body.appendChild(s)
   }
 }

@@ -174,8 +174,8 @@ export default {
 
     Vue.prototype.getScode = function (scode) {
       // debugger
-      if (this.isMobileDevice() && (process.env.NODE_ENV !== 'development') && sessionStorage.getItem('vs') !== 'pc') {
-        top.location.href = '/Mobile/?sc=' + scode
+      if (!process.env.WEB_USE_MOCK && this.isMobileDevice() && (process.env.NODE_ENV !== 'development') && sessionStorage.getItem('vs') !== 'pc') {
+        top.location.href = 'mobile.html?sc=' + scode
         return false
       }
       let url = '/api/Other/Check'

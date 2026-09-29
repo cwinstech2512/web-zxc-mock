@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import clipboard from '@/Plugin/clipboard.js'
+import clipboard from '@/plugin/clipboard.js'
 // 初始化自适应单位
 document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px'
 export default {

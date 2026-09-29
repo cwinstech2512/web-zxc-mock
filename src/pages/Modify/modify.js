@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import 'babel-polyfill'
-import modify from './modify.vue'
+import modify from './Modify.vue'
 import router from '../../router'
 import axios from 'axios'
 import https from '../../api/https'

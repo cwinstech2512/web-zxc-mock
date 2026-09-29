@@ -132,7 +132,7 @@ const router = new Router({
             {
               path: 'WechatPaySk',
               name: 'WechatPaySk',
-              component: (resolve) => require(['@/components/Account/deposit/wechatPaySk.vue'], resolve)
+              component: (resolve) => require(['@/components/Account/deposit/WechatPaySk.vue'], resolve)
             },
             {
               path: 'AlipaySmallAmount',
@@ -332,7 +332,7 @@ const router = new Router({
     { // OG狂欢双重奏
       path: '/loverelay',
       name: 'loverelay',
-      component: (resolve) => require(['@/components/Activity/Loverelay/loverelay.vue'], resolve)
+      component: (resolve) => require(['@/components/Activity/Loverelay/Loverelay.vue'], resolve)
     },
     { // 众鑫流水王
       path: '/betrecordking',

@@ -39,7 +39,7 @@
 <script>
 import Head from '@/components/Header/Head'
 import Footer from '@/components/Footer/Footer'
-import mascot from '@/components/mascot/mascot'
+import mascot from '@/components/Mascot/mascot'
 import AOS from 'aos'
 AOS.init({
   offset: 120,

@@ -189,7 +189,7 @@
 
 <script>
 import vueQr from 'vue-qr'
-import clipboard from '@/Plugin/clipboard.js'
+import clipboard from '@/plugin/clipboard.js'
 // var ps = Math.floor(Math.random() * 9999 + 1)
 export default {
   name: 'onlineTransfer',

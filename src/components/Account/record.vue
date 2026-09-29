@@ -263,7 +263,7 @@
 </template>
 
 <script>
-import clipboard from '@/Plugin/clipboard.js'
+import clipboard from '@/plugin/clipboard.js'
 import Swiper from 'swiper/dist/js/swiper.min.js'
 export default {
   name: 'record',

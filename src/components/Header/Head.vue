@@ -134,7 +134,7 @@
 
 <script>
 import Verify from '@/components/User/Verify/verify.vue'
-import menubar from '@/components/header/menubar'
+import menubar from '@/components/Header/menubar'
 // import '../../../static/js/gt/gt.js'
 var isLoginSubmit = false
 export default {

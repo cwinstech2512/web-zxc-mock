@@ -127,7 +127,7 @@
 
 <script>
 import Rule from '../../../../static/json/carnivalsRule.json'
-import clipboard from '@/Plugin/clipboard.js'
+import clipboard from '@/plugin/clipboard.js'
 import _ from 'lodash'
 export default {
   name: 'carnivals',
